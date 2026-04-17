@@ -1,33 +1,75 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@500;700&display=swap');
+/* Fundo Dinâmico */
+body {
+    background: radial-gradient(circle at top left, #0d1117, #161b22);
+    color: #e6edf3;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    min-height: 100vh;
+}
 
-body { font-family: 'Rajdhani', sans-serif; background: #030508; color: white; margin: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
-.orbitron { font-family: 'Orbitron', sans-serif; }
-.glass-card { background: rgba(10, 15, 25, 0.9); border-radius: 1.5rem; border: 1px solid rgba(59, 130, 246, 0.2); }
+/* Efeito Glassmorphism (O segredo do visual Wow) */
+.glass-card {
+    background: rgba(22, 27, 34, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(48, 54, 61, 0.8);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
 
-/* MENU BOTAO PRINCIPAL */
-.market-btn { width: 100%; padding: 18px; background: rgba(255,255,255,0.05); border-radius: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 4px; }
-.market-btn i { color: #3b82f6; font-size: 22px; }
+.glass-card:hover {
+    border-color: #58a6ff;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+    transform: translateY(-4px);
+}
 
-/* BOTAO ATIVO (Letra 16px conforme pedido) */
-.asset-btn { width: 100%; padding: 16px; margin-bottom: 8px; background: rgba(255,255,255,0.03); border-radius: 12px; font-weight: 700; font-size: 16px; border: 1px solid rgba(255,255,255,0.1); text-align: center; }
+/* Textos com Brilho Neon */
+.glow-text-green {
+    text-shadow: 0 0 10px rgba(63, 185, 80, 0.6);
+    color: #3fb950;
+}
 
-.scroll-area { max-height: 280px; overflow-y: auto; padding-right: 5px; }
+.glow-text-red {
+    text-shadow: 0 0 10px rgba(248, 81, 70, 0.6);
+    color: #f85146;
+}
 
-/* RODA IA MAIOR */
-.core-container { position: relative; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; }
-.scanner-ring { position: absolute; inset: 0; border: 4px solid #3b82f6; border-radius: 50%; border-top-color: transparent; border-bottom-color: transparent; animation: spin 2s linear infinite; }
-.ai-brain-core { width: 90px; height: 90px; background: radial-gradient(circle, #3b82f6 0%, #030508 80%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); border: 2px solid #3b82f6; }
+/* Estilização do Gráfico e Indicador Live */
+.trading-chart-placeholder {
+    background: linear-gradient(180deg, rgba(31, 38, 46, 0) 0%, rgba(31, 38, 46, 0.5) 100%);
+    height: 300px;
+}
 
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1); }
+}
 
-/* SINAL */
-.signal-text { font-size: 85px; line-height: 1; letter-spacing: -3px; }
-.neon-buy { color: #10b981; text-shadow: 0 0 25px #10b981; }
-.neon-sell { color: #ef4444; text-shadow: 0 0 25px #ef4444; }
+.live-indicator {
+    width: 10px;
+    height: 10px;
+    background-color: #3fb950;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 8px #3fb950;
+    animation: pulse 2s infinite;
+}
 
-.tf-btn { background: #2563eb; padding: 14px; border-radius: 12px; font-weight: 900; }
-.tf-btn-sec { background: rgba(255,255,255,0.05); padding: 14px; border-radius: 12px; font-weight: 900; }
+/* Scrollbar do Console de Logs */
+.custom-scroll::-webkit-scrollbar {
+    width: 6px;
+}
 
-.stat-box { background: rgba(255,255,255,0.02); padding: 12px; border-radius: 15px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
-.stat-box p { font-size: 10px; color: #64748b; font-weight: bold; margin-bottom: 4px; }
-.stat-box span { font-size: 18px; font-weight: 900; }
+.custom-scroll::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    background: #30363d;
+    border-radius: 10px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+    background: #484f58;
+}
