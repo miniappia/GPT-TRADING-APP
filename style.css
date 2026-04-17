@@ -1,81 +1,59 @@
-/* Fundo Dinâmico */
 body {
     background: radial-gradient(circle at top left, #0d1117, #161b22);
     color: #e6edf3;
     font-family: 'Inter', sans-serif;
-    margin: 0;
-    min-height: 100vh;
+    margin: 0; min-height: 100vh;
 }
 
-/* Efeito Glassmorphism (O segredo do visual Wow) */
+.orbitron { font-family: 'Orbitron', sans-serif; }
+
 .glass-card {
     background: rgba(22, 27, 34, 0.7);
     backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(48, 54, 61, 0.8);
     border-radius: 16px;
-    transition: all 0.3s ease;
 }
 
-.glass-card:hover {
-    border-color: #58a6ff;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
-    transform: translateY(-4px);
+.market-btn {
+    width: 100%; padding: 18px; background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px; display: flex; justify-content: space-between;
+    align-items: center; font-weight: 700; font-size: 14px;
 }
 
-/* Textos com Brilho Neon */
-.glow-text-green {
-    text-shadow: 0 0 10px rgba(63, 185, 80, 0.6);
-    color: #3fb950;
+.asset-btn {
+    padding: 12px; background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px; font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; gap: 6px; justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.glow-text-red {
-    text-shadow: 0 0 10px rgba(248, 81, 70, 0.6);
-    color: #f85146;
-}
+.tf-btn { background: #2563eb; color: white; padding: 14px; border-radius: 10px; font-weight: 900; }
+.tf-btn-sec { background: rgba(255, 255, 255, 0.05); padding: 14px; border-radius: 10px; font-weight: 700; }
 
-/* Estilização do Gráfico e Indicador Live */
-.trading-chart-placeholder {
-    background: linear-gradient(180deg, rgba(31, 38, 46, 0) 0%, rgba(31, 38, 46, 0.5) 100%);
-    height: 300px;
-}
+.core-container { position: relative; width: 180px; height: 180px; display: flex; align-items: center; justify-content: center; }
+.ring { position: absolute; border-radius: 50%; border: 2px solid transparent; }
+.ring-1 { inset: 0; border-top-color: #3b82f6; border-bottom-color: #3b82f6; animation: spin 2s linear infinite; }
+.ring-2 { inset: 15px; border-left-color: #60a5fa; border-right-color: #60a5fa; animation: spin-reverse 3s linear infinite; opacity: 0.5; }
+.ring-3 { inset: 30px; border: 1px dashed rgba(59, 130, 246, 0.5); animation: spin 10s linear infinite; }
+.core-brain { position: absolute; inset: 50px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, rgba(59, 130, 246, 0.3), transparent); border-radius: 50%; }
 
-@keyframes pulse {
-    0% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(1.1); }
-    100% { opacity: 1; transform: scale(1); }
-}
+.layer-box { font-size: 10px; font-weight: 700; padding: 10px; background: rgba(255,255,255,0.02); border-left: 3px solid #1e293b; transition: all 0.4s; }
+.layer-active { border-left-color: #3b82f6; background: rgba(59, 130, 246, 0.1); color: #60a5fa; }
+.layer-done { border-left-color: #10b981; color: #10b981; }
 
-.live-indicator {
-    width: 10px;
-    height: 10px;
-    background-color: #3fb950;
-    border-radius: 50%;
-    display: inline-block;
-    box-shadow: 0 0 8px #3fb950;
-    animation: pulse 2s infinite;
-}
+.signal-text { font-size: 80px; line-height: 1; }
+.neon-buy { color: #10b981; text-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
+.neon-sell { color: #ef4444; text-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
+.arrow-glow { font-size: 40px; }
 
-/* PEDIDO 2: Scrollbar do Console de Logs (Garantir rolagem correta da lista de ativos) */
-.custom-scroll {
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #30363d rgba(0, 0, 0, 0.1);
-}
+.stat-box { background: rgba(255, 255, 255, 0.03); padding: 12px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); }
+.stat-box p { font-size: 9px; color: #64748b; text-transform: uppercase; margin-bottom: 4px; }
+.stat-box span { font-size: 20px; font-weight: 900; font-family: 'Orbitron'; }
 
-.custom-scroll::-webkit-scrollbar {
-    width: 6px;
-}
+.sub-btn { background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 10px; font-size: 10px; font-weight: 700; width: 100%; border: 1px solid rgba(255, 255, 255, 0.1); }
 
-.custom-scroll::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.1);
-}
-
-.custom-scroll::-webkit-scrollbar-thumb {
-    background: #30363d;
-    border-radius: 10px;
-}
-
-.custom-scroll::-webkit-scrollbar-thumb:hover {
-    background: #484f58;
-}
+.custom-scroll { overflow-y: auto; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes spin-reverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+.scale-up { animation: scaleUp 0.3s ease-out; }
+@keyframes scaleUp { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
