@@ -56,7 +56,13 @@ body {
     animation: pulse 2s infinite;
 }
 
-/* Scrollbar do Console de Logs */
+/* PEDIDO 2: Scrollbar do Console de Logs (Garantir rolagem correta da lista de ativos) */
+.custom-scroll {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #30363d rgba(0, 0, 0, 0.1);
+}
+
 .custom-scroll::-webkit-scrollbar {
     width: 6px;
 }
