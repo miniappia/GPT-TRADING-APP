@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="stylesheet" href="style.css">
+    <title>GodBot Sentinel</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="p-4 flex flex-col gap-4">
     <header class="px-2">
@@ -26,38 +27,42 @@
                     <span>CRYPTO OTC</span> <i class="fas fa-coins"></i>
                 </button>
             </div>
+
             <div id="lista-ativos" class="hidden scroll-area"></div>
+
             <div id="menu-timeframes" class="hidden grid grid-cols-3 gap-3">
-                <button onclick="prepararAnalise('M1')" class="tf-btn">M1</button>
-                <button onclick="prepararAnalise('M5')" class="tf-btn-sec">M5</button>
-                <button onclick="prepararAnalise('H1')" class="tf-btn-sec">H1</button>
+                <button onclick="analisar('M1')" class="tf-btn">M1</button>
+                <button onclick="analisar('M5')" class="tf-btn-sec">M5</button>
+                <button onclick="analisar('H1')" class="tf-btn-sec">H1</button>
             </div>
         </div>
     </div>
 
-    <div class="glass-card flex-grow flex flex-col items-center justify-center p-6 relative">
-        <div id="loader-ia" class="hidden w-full flex flex-col items-center">
+    <div class="glass-card flex-grow flex flex-col items-center justify-center p-6 relative overflow-hidden">
+        <div id="loader-ia" class="hidden flex flex-col items-center">
             <div class="core-container">
-                <div class="scanner-ring r-1"></div>
-                <div class="ai-brain-core"><i class="fas fa-brain text-4xl text-blue-300 animate-pulse"></i></div>
+                <div class="scanner-ring"></div>
+                <div class="ai-brain-core"><i class="fas fa-brain text-4xl text-blue-300"></i></div>
             </div>
-            <div id="status-layers" class="w-full"></div>
+            <p class="orbitron text-[10px] mt-6 animate-pulse tracking-widest text-blue-400">ANALYZING MARKET...</p>
         </div>
 
         <div id="resultado-sinal" class="hidden w-full text-center">
-            <p id="asset-label" class="orbitron text-2xl font-black text-blue-400 mb-4"></p>
+            <p id="asset-label" class="orbitron text-xl font-bold text-blue-400 mb-2"></p>
             <h2 id="direcao-texto" class="signal-text orbitron font-black"></h2>
             <div class="grid grid-cols-2 gap-4 mt-8">
                 <div class="stat-box"><p>PRECISÃO</p><span id="conf-val"></span></div>
                 <div class="stat-box"><p>TEMPO</p><span id="tf-val"></span></div>
             </div>
+            <button onclick="location.reload()" class="mt-8 text-[10px] text-gray-500 font-bold uppercase">Nova Análise</button>
         </div>
     </div>
 
     <script>
+        const FLAGS = {"EUR/USD":"🇪🇺🇺🇸","GBP/USD":"🇬🇧🇺🇸","USD/JPY":"🇺🇸🇯🇵","AUD/USD":"🇦🇺🇺🇸","USD/CAD":"🇺🇸🇨🇦","Bitcoin":"🪙"};
         const MERCADOS = {
-            'GLOBAL FOREX': ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "EUR/JPY"],
-            'FOREX OTC': ["EUR/USD OTC", "GBP/USD OTC", "USD/JPY OTC", "AUD/USD OTC"],
+            'GLOBAL FOREX': ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CAD", "EUR/JPY"],
+            'FOREX OTC': ["EUR/USD OTC", "GBP/USD OTC", "USD/JPY OTC", "AUD/USD OTC", "USD/CAD OTC"],
             'CRYPTO OTC': ["Bitcoin OTC", "Ethereum OTC", "Solana OTC"]
         };
 
@@ -65,26 +70,32 @@
             document.getElementById('menu-mercados').classList.add('hidden');
             const list = document.getElementById('lista-ativos');
             list.classList.remove('hidden');
-            list.innerHTML = MERCADOS[tipo].map(a => `<button class="asset-btn" onclick="window.ativo='${a}'; selecionarTF()">${a}</button>`).join('');
+            list.innerHTML = MERCADOS[tipo].map(a => {
+                const f = FLAGS[a.split(' ')[0]] || "🌐";
+                return `<button class="asset-btn" onclick="window.ativo='${a}'; window.bandeiras='${f}'; irParaTF()">${f} ${a}</button>`;
+            }).join('');
         }
 
-        function selecionarTF() {
+        function irParaTF() {
             document.getElementById('lista-ativos').classList.add('hidden');
             document.getElementById('menu-timeframes').classList.remove('hidden');
         }
 
-        function prepararAnalise(tf) {
+        function analisar(tf) {
             document.getElementById('menu-timeframes').classList.add('hidden');
             document.getElementById('loader-ia').classList.remove('hidden');
+            
             setTimeout(() => {
                 document.getElementById('loader-ia').classList.add('hidden');
                 document.getElementById('resultado-sinal').classList.remove('hidden');
+                
                 const d = Math.random() > 0.5 ? 'BUY' : 'SELL';
                 const el = document.getElementById('direcao-texto');
                 el.innerText = d;
                 el.className = d === 'BUY' ? 'signal-text neon-buy' : 'signal-text neon-sell';
-                document.getElementById('asset-label').innerText = window.ativo;
-                document.getElementById('conf-val').innerText = '98.2%';
+                
+                document.getElementById('asset-label').innerText = window.bandeiras + " " + window.ativo;
+                document.getElementById('conf-val').innerText = (Math.random() * 5 + 92).toFixed(1) + '%';
                 document.getElementById('tf-val').innerText = tf;
             }, 3000);
         }
