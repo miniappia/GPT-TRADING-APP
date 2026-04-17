@@ -1,66 +1,106 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Sentinel V26.1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GodBot | GPT Trading App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
-<body>
-    <div id="app">
-        <header>
-            <div class="status-bar">
-                <span class="dot"></span> PROTOCOLO OPERACIONAL
-            </div>
-            <h1>SENTINEL<span>.IA</span></h1>
-        </header>
+<body class="p-4 md:p-8">
 
-        <main id="content">
-            <div id="signals-page" class="page active">
-                <div class="radar-container">
-                    <div class="radar"></div>
-                    <div class="scanner-line"></div>
-                </div>
-                
-                <div class="selection-box">
-                    <p>Selecione o Timeframe:</p>
-                    <div class="timeframes">
-                        <button class="active">M1</button>
-                        <button>M5</button>
-                        <button>M15</button>
+    <header class="flex justify-between items-center mb-10 max-w-7xl mx-auto">
+        <div>
+            <h1 class="text-3xl font-bold tracking-tighter text-white">GOD<span class="text-blue-500">BOT</span></h1>
+            <p class="text-xs text-gray-400 uppercase tracking-widest"><span class="live-indicator mr-1"></span> Sistema de Trading Ativo</p>
+        </div>
+        <div class="flex gap-4 items-center">
+            <div class="text-right hidden md:block mr-4">
+                <p class="text-sm text-gray-400">Saldo Atual</p>
+                <p class="text-xl font-mono font-bold text-white">$14,250.42</p>
+            </div>
+            <button class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-full font-semibold transition flex items-center gap-2">
+                <i class="fas fa-wallet"></i> Conectar API
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <div class="space-y-6">
+            <div class="glass-card p-6">
+                <h3 class="text-gray-400 text-sm font-semibold mb-4 uppercase tracking-wider">Mercados</h3>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center border-b border-gray-800 pb-2">
+                        <span class="font-medium text-gray-200">BTC/USDT</span>
+                        <span class="glow-text-green font-mono font-bold">+2.45%</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-gray-800 pb-2">
+                        <span class="font-medium text-gray-200">ETH/USDT</span>
+                        <span class="glow-text-red font-mono font-bold">-1.12%</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium text-gray-200">SOL/USDT</span>
+                        <span class="glow-text-green font-mono font-bold">+5.89%</span>
                     </div>
                 </div>
-
-                <button id="analyze-btn" onclick="startAnalysis()">ANALISAR MERCADO</button>
             </div>
-        </main>
 
-        <nav class="tab-bar">
-            <div class="tab-item" onclick="showPage('home')">🏠<span>Home</span></div>
-            <div class="tab-item active" onclick="showPage('signals')">📡<span>Signals</span></div>
-            <div class="tab-item" onclick="showPage('learn')">📚<span>Learn</span></div>
-            <div class="tab-item" onclick="showPage('support')">💬<span>Suporte</span></div>
-        </nav>
-    </div>
+            <div class="glass-card p-6 border-l-4 border-l-blue-500 bg-gradient-to-r from-blue-900/10 to-transparent">
+                <h3 class="text-gray-400 text-sm font-semibold mb-2 uppercase tracking-wider">Monitoramento</h3>
+                <p class="text-2xl font-bold mb-1 text-white">Posição Aberta</p>
+                <p class="text-sm text-gray-300 mb-4">Lucro Atual: <span class="text-green-400">+$12.40</span></p>
+                <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                    <div class="bg-blue-500 h-full w-[65%] shadow-[0_0_10px_#3b82f6]"></div>
+                </div>
+            </div>
+        </div>
 
-    <script>
-        // Inicializa o Telegram Mini App
-        const tg = window.Telegram.WebApp;
-        tg.expand(); // Abre a app em ecrã total
+        <div class="lg:col-span-2 space-y-6">
+            <div class="glass-card overflow-hidden border border-gray-700/50">
+                <div class="p-4 border-b border-gray-800 flex justify-between items-center bg-gray-900/30">
+                    <span class="font-bold text-lg text-white"><i class="fas fa-chart-line text-blue-500 mr-2"></i>Análise Técnica</span>
+                    <div class="flex gap-2">
+                        <button class="bg-gray-800 hover:bg-gray-700 text-[10px] px-3 py-1 rounded-md transition">1H</button>
+                        <button class="bg-blue-600 text-[10px] px-3 py-1 rounded-md shadow-lg shadow-blue-900/20">4H</button>
+                        <button class="bg-gray-800 hover:bg-gray-700 text-[10px] px-3 py-1 rounded-md transition">1D</button>
+                    </div>
+                </div>
+                
+                <div class="trading-chart-placeholder flex flex-col items-center justify-center text-gray-500">
+                    <i class="fas fa-microchip text-4xl mb-2 opacity-20"></i>
+                    <p class="italic opacity-50 text-sm">Aguardando dados da API para renderizar gráfico...</p>
+                </div>
 
-        function startAnalysis() {
-            const btn = document.getElementById('analyze-btn');
-            btn.innerText = "ESCANEANDO...";
-            btn.classList.add('loading');
-            
-            // Aqui é onde a Mini App "fala" com o teu God Bot
-            // Por agora, apenas simula o visual
-            setTimeout(() => {
-                btn.innerText = "SINAL GERADO!";
-                btn.classList.remove('loading');
-            }, 3000);
-        }
-    </script>
+                <div class="p-6 grid grid-cols-3 gap-4 text-center bg-gray-900/20">
+                    <div class="border-r border-gray-800">
+                        <p class="text-xs text-gray-500 uppercase font-bold">RSI (14)</p>
+                        <p class="text-xl font-mono text-white">58.4</p>
+                    </div>
+                    <div class="border-r border-gray-800">
+                        <p class="text-xs text-gray-500 uppercase font-bold">MACD</p>
+                        <p class="text-xl font-mono text-green-400">Bullish</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 uppercase font-bold">Volatilidade</p>
+                        <p class="text-xl font-mono text-yellow-500">Média</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="max-w-7xl mx-auto mt-6">
+        <div class="glass-card p-4 h-40 overflow-y-auto font-mono text-xs text-gray-400 custom-scroll">
+            <p class="mb-1"><span class="text-blue-500">[19:05:22]</span> > Estabelecendo conexão segura com Binance...</p>
+            <p class="mb-1"><span class="text-blue-500">[19:05:24]</span> > GodBot v2.0 carregado com sucesso.</p>
+            <p class="mb-1"><span class="text-yellow-500">[19:05:25]</span> > Analisando sentimento do mercado (X/Twitter)...</p>
+            <p class="mb-1"><span class="text-green-500">[19:05:28]</span> > Sinal de COMPRA detectado em SOL/USDT.</p>
+            <p class="mb-1"><span class="text-gray-500">[19:05:30]</span> > Monitorando parâmetros de risco...</p>
+        </div>
+    </footer>
+
 </body>
 </html>
