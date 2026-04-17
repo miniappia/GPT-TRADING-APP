@@ -7,38 +7,50 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0b0e14; color: white; overflow: hidden; height: 100vh; }
+        body { font-family: 'Inter', sans-serif; background-color: #0b0e14; color: white; overflow: hidden; height: 100vh; margin: 0; padding: 0; }
         .glass-card { background: rgba(23, 27, 34, 0.9); backdrop-filter: blur(10px); border-radius: 1.2rem; border: 1px solid rgba(255,255,255,0.05); }
-        .custom-scroll { overflow-y: auto; max-height: calc(100vh - 450px); }
+        
+        /* Ajuste para a lista de ativos não quebrar o layout */
+        .custom-scroll { 
+            overflow-y: auto; 
+            max-height: 180px; 
+            scrollbar-width: thin;
+            scrollbar-color: #3b82f6 transparent;
+        }
         .custom-scroll::-webkit-scrollbar { width: 4px; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
+
         .live-indicator { height: 6px; width: 6px; background-color: #10b981; border-radius: 50%; display: inline-block; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-        .sinal-anim { animation: fadeIn 0.5s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        
+        .sinal-anim { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        
+        /* Impede que o ecrã salte ao aparecer o sinal */
+        #display-sinal { min-height: 280px; }
     </style>
 </head>
-<body class="p-4 flex flex-col">
+<body class="p-4 flex flex-col gap-3">
 
-    <header class="flex justify-between items-center mb-4">
+    <header class="flex justify-between items-center px-1">
         <div>
-            <h1 class="text-xl font-bold tracking-tighter text-white">GOD<span class="text-blue-500">BOT</span></h1>
-            <p class="text-[9px] text-gray-400 uppercase tracking-widest"><span class="live-indicator mr-1"></span> SENTINEL V26.1 ONLINE</p>
+            <h1 class="text-xl font-bold tracking-tighter text-white leading-none">GOD<span class="text-blue-500">BOT</span></h1>
+            <p class="text-[8px] text-gray-400 uppercase tracking-widest mt-1"><span class="live-indicator mr-1"></span> SENTINEL V26.1 ONLINE</p>
         </div>
-        <button onclick="window.location.reload()" class="bg-blue-600/20 text-blue-400 p-2 rounded-lg text-sm"><i class="fas fa-sync-alt"></i></button>
+        <button onclick="window.location.reload()" class="bg-blue-600/20 text-blue-400 w-8 h-8 rounded-lg flex items-center justify-center"><i class="fas fa-sync-alt text-xs"></i></button>
     </header>
 
-    <div class="glass-card p-4 border-t-2 border-blue-500 mb-4">
+    <div class="glass-card p-4 border-t-2 border-blue-500">
         <h3 id="titulo-painel" class="text-gray-400 text-[10px] font-bold mb-3 uppercase tracking-widest text-center">Selecionar Mercado</h3>
         
-        <div id="menu-mercados" class="grid grid-cols-1 gap-2">
-            <button onclick="mostrarAtivos('GLOBAL FOREX')" class="bg-gray-800/40 p-3 rounded-lg border border-gray-700/50 flex justify-between items-center text-sm">
+        <div id="menu-mercados" class="space-y-2">
+            <button onclick="mostrarAtivos('GLOBAL FOREX')" class="w-full bg-gray-800/40 p-3 rounded-xl border border-gray-700/50 flex justify-between items-center text-sm transition active:scale-95">
                 <span>🌎 GLOBAL FOREX</span><i class="fas fa-chevron-right text-blue-500 text-xs"></i>
             </button>
-            <button onclick="mostrarAtivos('FOREX OTC')" class="bg-gray-800/40 p-3 rounded-lg border border-gray-700/50 flex justify-between items-center text-sm">
+            <button onclick="mostrarAtivos('FOREX OTC')" class="w-full bg-gray-800/40 p-3 rounded-xl border border-gray-700/50 flex justify-between items-center text-sm transition active:scale-95">
                 <span>🤖 FOREX OTC</span><i class="fas fa-chevron-right text-blue-500 text-xs"></i>
             </button>
-            <button onclick="mostrarAtivos('CRYPTO OTC')" class="bg-gray-800/40 p-3 rounded-lg border border-gray-700/50 flex justify-between items-center text-sm">
+            <button onclick="mostrarAtivos('CRYPTO OTC')" class="w-full bg-gray-800/40 p-3 rounded-xl border border-gray-700/50 flex justify-between items-center text-sm transition active:scale-95">
                 <span>₿ CRYPTO OTC</span><i class="fas fa-chevron-right text-blue-500 text-xs"></i>
             </button>
         </div>
@@ -46,150 +58,13 @@
         <div id="lista-ativos" class="hidden grid grid-cols-2 gap-2 custom-scroll pr-1"></div>
 
         <div id="menu-timeframes" class="hidden grid grid-cols-3 gap-2">
-            <button onclick="prepararAnalise('S15')" class="bg-gray-800 p-2 rounded-lg border border-gray-700 text-[10px] font-bold">S15</button>
-            <button onclick="prepararAnalise('S30')" class="bg-gray-800 p-2 rounded-lg border border-gray-700 text-[10px] font-bold">S30</button>
+            <button onclick="prepararAnalise('S15')" class="bg-gray-800 p-2 rounded-lg border border-gray-700 text-[10px] font-bold active:bg-blue-600">S15</button>
+            <button onclick="prepararAnalise('S30')" class="bg-gray-800 p-2 rounded-lg border border-gray-700 text-[10px] font-bold active:bg-blue-600">S30</button>
             <button onclick="prepararAnalise('M1')" class="bg-blue-600 p-2 rounded-lg border border-blue-400 text-[10px] font-bold">M1</button>
-            <button onclick="prepararAnalise('M2')" class="bg-gray-800 p-2 rounded-lg border border-gray-700 text-[10px] font-bold">M2</button>
-            <button onclick="prepararAnalise('M5')" class="bg-gray-800 p-2 rounded-lg border border-gray-700 text-[10px] font-bold">M5</button>
-            <button onclick="prepararAnalise('H1')" class="bg-gray-800 p-2 rounded-lg border border-gray-700 text-[10px] font-bold">H1</button>
+            <button onclick="prepararAnalise('M2')" class="bg-gray-800 p-2 rounded-lg border border-gray-700 text-[10px] font-bold active:bg-blue-600">M2</button>
+            <button onclick="prepararAnalise('M5')" class="bg-gray-800 p-2 rounded-lg border border-gray-700 text-[10px] font-bold active:bg-blue-600">M5</button>
+            <button onclick="prepararAnalise('H1')" class="bg-gray-800 p-2 rounded-lg border border-gray-700 text-[10px] font-bold active:bg-blue-600">H1</button>
         </div>
 
-        <button id="btn-voltar" onclick="voltarAoMenu()" class="hidden w-full mt-3 text-[9px] text-gray-500 underline uppercase tracking-widest">Voltar</button>
+        <button id="btn-voltar" onclick="voltarAoMenu()" class="hidden w-full mt-3 text-[9px] text-gray-500 underline uppercase tracking-widest text-center">Voltar</button>
     </div>
-
-    <div class="glass-card flex-grow overflow-hidden border border-gray-700/50 flex flex-col relative">
-        <div class="p-3 border-b border-gray-800 flex justify-between items-center bg-gray-900/30">
-            <span id="header-ia" class="font-bold text-[10px] text-white uppercase tracking-widest">Sentinel Analyzer</span>
-            <div id="badge-sinal" class="hidden bg-green-500/20 text-green-400 px-2 py-0.5 rounded text-[9px] font-bold border border-green-500/50 uppercase">Verified</div>
-        </div>
-        
-        <div id="display-sinal" class="flex-grow flex flex-col items-center justify-center p-4 text-center">
-            <div id="loader-ia" class="hidden space-y-3">
-                <div class="text-blue-500 text-3xl animate-spin"><i class="fas fa-circle-notch"></i></div>
-                <p id="status-ia" class="text-blue-400 text-[10px] font-mono uppercase"></p>
-            </div>
-
-            <div id="placeholder-ia" class="opacity-30">
-                <i class="fas fa-microchip text-4xl mb-2"></i>
-                <p class="text-[10px] italic">Aguardando comando...</p>
-            </div>
-            
-            <div id="resultado-sinal" class="hidden w-full sinal-anim">
-                <div class="flex flex-col items-center justify-center">
-                    <i id="seta-cima" class="fas fa-caret-up text-4xl leading-none"></i>
-                    <h2 id="direcao-texto" class="text-7xl font-black tracking-tighter leading-none my-1">BUY</h2>
-                    <i id="seta-baixo" class="fas fa-caret-down text-4xl leading-none"></i>
-                </div>
-
-                <div class="grid grid-cols-2 gap-2 mt-4 px-2">
-                    <div class="bg-gray-800/30 p-2 rounded-lg border border-gray-700/50">
-                        <p class="text-[8px] text-gray-500 uppercase">Confidence</p>
-                        <p id="confianca-valor" class="text-md font-mono font-bold text-white">--</p>
-                    </div>
-                    <div class="bg-gray-800/30 p-2 rounded-lg border border-gray-700/50">
-                        <p class="text-[8px] text-gray-500 uppercase">Timeframe</p>
-                        <p id="tf-valor" class="text-md font-mono font-bold text-white">--</p>
-                    </div>
-                </div>
-
-                <div class="flex gap-2 mt-4 px-2">
-                    <button onclick="prepararAnalise(tfAtual)" class="flex-1 bg-gray-700/50 text-white py-3 rounded-lg font-bold text-[10px] uppercase border border-gray-600"><i class="fas fa-redo mr-1"></i> Re-analisar</button>
-                    <button onclick="voltarAoMenu()" class="flex-1 bg-gray-700/50 text-white py-3 rounded-lg font-bold text-[10px] uppercase border border-gray-600"><i class="fas fa-home mr-1"></i> Menu</button>
-                </div>
-                
-                <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="block mx-2 bg-blue-600 py-3 rounded-lg font-bold text-sm mt-3 shadow-lg shadow-blue-900/30">PLATFORM 📈</a>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // TODOS OS PARES DO CÉREBRO VPS
-        const MERCADOS = {
-            'GLOBAL FOREX': ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CAD", "USD/CHF", "NZD/USD", "EUR/GBP", "EUR/JPY", "GBP/JPY", "EUR/CHF", "AUD/CAD"],
-            'FOREX OTC': ["EUR/USD OTC", "GBP/USD OTC", "USD/JPY OTC", "AUD/USD OTC", "USD/CAD OTC", "USD/CHF OTC", "NZD/USD OTC", "EUR/GBP OTC", "EUR/JPY OTC", "GBP/JPY OTC", "EUR/CHF OTC", "AUD/CAD OTC"],
-            'CRYPTO OTC': ["Bitcoin OTC", "Ethereum OTC", "Solana OTC", "Binance Coin OTC", "Cardano OTC", "Dogecoin OTC", "Polkadot OTC", "Avalanche OTC", "Litecoin OTC", "TRON OTC"]
-        };
-
-        let ativoAtual = "";
-        let tfAtual = "";
-
-        function mostrarAtivos(tipo) {
-            document.getElementById('menu-mercados').classList.add('hidden');
-            document.getElementById('lista-ativos').classList.remove('hidden');
-            document.getElementById('btn-voltar').classList.remove('hidden');
-            document.getElementById('titulo-painel').innerText = tipo;
-            
-            const container = document.getElementById('lista-ativos');
-            container.innerHTML = '';
-            MERCADOS[tipo].forEach(ativo => {
-                container.innerHTML += `<button onclick="selecionarTF('${ativo}')" class="bg-gray-800/40 p-2 rounded border border-gray-700/50 text-[9px] text-gray-300 font-bold truncate">${ativo}</button>`;
-            });
-        }
-
-        function selecionarTF(ativo) {
-            ativoAtual = ativo;
-            document.getElementById('lista-ativos').classList.add('hidden');
-            document.getElementById('menu-timeframes').classList.remove('hidden');
-            document.getElementById('titulo-painel').innerText = "TF: " + ativo;
-        }
-
-        function voltarAoMenu() {
-            document.getElementById('menu-mercados').classList.remove('hidden');
-            document.getElementById('lista-ativos').classList.add('hidden');
-            document.getElementById('menu-timeframes').classList.add('hidden');
-            document.getElementById('btn-voltar').classList.add('hidden');
-            document.getElementById('resultado-sinal').classList.add('hidden');
-            document.getElementById('placeholder-ia').classList.remove('hidden');
-            document.getElementById('badge-sinal').classList.add('hidden');
-            document.getElementById('header-ia').innerText = "Sentinel Analyzer";
-            document.getElementById('titulo-painel').innerText = "Selecionar Mercado";
-        }
-
-        function prepararAnalise(tf) {
-            tfAtual = tf;
-            document.getElementById('menu-timeframes').classList.add('hidden');
-            document.getElementById('placeholder-ia').classList.add('hidden');
-            document.getElementById('resultado-sinal').classList.add('hidden');
-            document.getElementById('loader-ia').classList.remove('hidden');
-            document.getElementById('badge-sinal').classList.add('hidden');
-            
-            const etapas = ["Scanning Blocks...", "Volume Delta...", "Sentinel Check...", "Ready!"];
-            etapas.forEach((txt, i) => {
-                setTimeout(() => {
-                    document.getElementById('status-ia').innerText = txt;
-                    if(i === etapas.length - 1) finalizarAnalise();
-                }, i * 600);
-            });
-        }
-
-        function finalizarAnalise() {
-            const direcao = Math.random() > 0.52 ? 'BUY' : 'SELL';
-            const conf = (Math.random() * (96.4 - 91.2) + 91.2).toFixed(1);
-            
-            document.getElementById('loader-ia').classList.add('hidden');
-            document.getElementById('resultado-sinal').classList.remove('hidden');
-            document.getElementById('badge-sinal').classList.remove('hidden');
-            
-            const txtElement = document.getElementById('direcao-texto');
-            const sCima = document.getElementById('seta-cima');
-            const sBaixo = document.getElementById('seta-baixo');
-            
-            txtElement.innerText = direcao;
-            
-            if(direcao === 'BUY') {
-                txtElement.className = "text-7xl font-black tracking-tighter leading-none my-1 text-green-500";
-                sCima.className = "fas fa-caret-up text-4xl leading-none text-green-500";
-                sBaixo.className = "fas fa-caret-up text-4xl leading-none text-green-500 opacity-20"; // Efeito visual de direção
-            } else {
-                txtElement.className = "text-7xl font-black tracking-tighter leading-none my-1 text-red-500";
-                sCima.className = "fas fa-caret-down text-4xl leading-none text-red-500 opacity-20";
-                sBaixo.className = "fas fa-caret-down text-4xl leading-none text-red-500";
-            }
-
-            document.getElementById('confianca-valor').innerText = conf + '%';
-            document.getElementById('tf-valor').innerText = tfAtual;
-            document.getElementById('header-ia').innerText = ativoAtual;
-        }
-    </script>
-</body>
-</html>
