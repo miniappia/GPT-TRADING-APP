@@ -6,59 +6,7 @@
     <title>GodBot | Sentinel V26.1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@300;500;700&display=swap');
-
-        body { font-family: 'Rajdhani', sans-serif; background-color: #030508; color: white; overflow: hidden; height: 100vh; margin: 0; }
-        .orbitron { font-family: 'Orbitron', sans-serif; }
-
-        /* Card Futurista com Neon */
-        .glass-card { 
-            background: linear-gradient(145deg, rgba(10, 15, 25, 0.9), rgba(5, 8, 15, 0.95)); 
-            backdrop-filter: blur(20px); 
-            border-radius: 2rem; 
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
-        }
-
-        /* SUPER SCANNER CENTRAL */
-        .core-container { position: relative; width: 220px; height: 220px; display: flex; items-center: center; justify-content: center; }
-        
-        .ring { position: absolute; border-radius: 50%; border: 2px solid transparent; }
-        .ring-1 { inset: 0; border-top-color: #3b82f6; border-bottom-color: #3b82f6; animation: spin 2s linear infinite; }
-        .ring-2 { inset: 15px; border-left-color: #60a5fa; border-right-color: #60a5fa; animation: spin-reverse 3s linear infinite; opacity: 0.5; }
-        .ring-3 { inset: 30px; border: 1px dashed rgba(59, 130, 246, 0.5); animation: spin 10s linear infinite; }
-        
-        .core-brain { 
-            position: absolute; inset: 50px; background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%); 
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            box-shadow: inset 0 0 20px rgba(59, 130, 246, 0.5);
-        }
-
-        /* Camadas de Análise Gigantes */
-        .layer-box { 
-            font-size: 11px; font-weight: 700; letter-spacing: 2px;
-            padding: 8px 15px; border-radius: 4px; background: rgba(255,255,255,0.02);
-            border-left: 3px solid #1e293b; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-bottom: 6px; width: 100%; text-align: left;
-        }
-        .layer-active { border-left-color: #3b82f6; background: rgba(59, 130, 246, 0.1); transform: translateX(5px); color: #60a5fa; box-shadow: -10px 0 15px rgba(59, 130, 246, 0.1); }
-        .layer-done { border-left-color: #10b981; color: #10b981; opacity: 0.6; }
-
-        /* SINAL WOW */
-        .signal-text { font-size: 90px; line-height: 0.8; letter-spacing: -5px; filter: drop-shadow(0 0 15px currentColor); }
-        .neon-buy { color: #10b981; text-shadow: 0 0 30px rgba(16, 185, 129, 0.6); }
-        .neon-sell { color: #ef4444; text-shadow: 0 0 30px rgba(239, 68, 68, 0.6); }
-        
-        /* Setas High-Definition */
-        .arrow-glow { font-size: 50px; filter: drop-shadow(0 0 10px currentColor); }
-
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes spin-reverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
-        
-        .custom-scroll { overflow-y: auto; max-height: 200px; scrollbar-width: none; }
-        .custom-scroll::-webkit-scrollbar { display: none; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="p-4 flex flex-col gap-4">
 
@@ -83,19 +31,19 @@
             <div id="menu-mercados" class="grid gap-3">
                 <button onclick="mostrarAtivos('GLOBAL FOREX')" class="group relative overflow-hidden bg-white/5 p-4 rounded-2xl border border-white/5 flex justify-between items-center transition-all hover:border-blue-500/50">
                     <span class="font-bold text-sm tracking-widest">GLOBAL FOREX</span>
-                    <i class="fas fa-globe-americas text-blue-500 group-hover:rotate-12 transition-transform"></i>
+                    <i class="fas fa-globe-americas text-blue-500 group-hover:rotate-12 transition-transform text-xl"></i>
                 </button>
                 <button onclick="mostrarAtivos('FOREX OTC')" class="group relative overflow-hidden bg-white/5 p-4 rounded-2xl border border-white/5 flex justify-between items-center transition-all hover:border-blue-500/50">
                     <span class="font-bold text-sm tracking-widest">FOREX OTC</span>
-                    <i class="fas fa-microchip text-blue-500 group-hover:rotate-12 transition-transform"></i>
+                    <i class="fas fa-microchip text-blue-500 group-hover:rotate-12 transition-transform text-xl"></i>
                 </button>
                 <button onclick="mostrarAtivos('CRYPTO OTC')" class="group relative overflow-hidden bg-white/5 p-4 rounded-2xl border border-white/5 flex justify-between items-center transition-all hover:border-blue-500/50">
                     <span class="font-bold text-sm tracking-widest">CRYPTO OTC</span>
-                    <i class="fas fa-coins text-blue-500 group-hover:rotate-12 transition-transform"></i>
+                    <i class="fas fa-coins text-blue-500 group-hover:rotate-12 transition-transform text-xl"></i>
                 </button>
             </div>
 
-            <div id="lista-ativos" class="hidden grid grid-cols-2 gap-2 custom-scroll"></div>
+            <div id="lista-ativos" class="hidden custom-scroll space-y-2 max-h-[250px] pr-2"></div>
 
             <div id="menu-timeframes" class="hidden grid grid-cols-3 gap-3">
                 <button onclick="prepararAnalise('S15')" class="bg-white/5 py-4 rounded-xl font-black text-xs border border-white/5">S15</button>
@@ -139,13 +87,13 @@
         </div>
 
         <div id="resultado-sinal" class="hidden w-full text-center scale-up">
-            <div class="inline-block px-4 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 mb-4">
-                <p id="asset-label" class="orbitron text-[12px] font-bold text-blue-400 tracking-widest">---</p>
+            <div class="inline-block px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 mb-6">
+                <p id="asset-label" class="orbitron text-sm font-bold text-blue-400 tracking-widest"></p>
             </div>
 
             <div class="flex flex-col items-center justify-center">
                 <i id="seta-cima" class="fas fa-chevron-double-up arrow-glow mb-2"></i>
-                <h2 id="direcao-texto" class="signal-text orbitron font-black uppercase">BUY</h2>
+                <h2 id="direcao-texto" class="signal-text orbitron font-black uppercase BUY">BUY</h2>
                 <i id="seta-baixo" class="fas fa-chevron-double-down arrow-glow mt-2"></i>
             </div>
 
@@ -173,6 +121,14 @@
     </div>
 
     <script>
+        const FLAGS = {
+            "EUR":"🇪🇺", "USD":"🇺🇸", "GBP":"🇬🇧", "JPY":"🇯🇵", 
+            "AUD":"🇦🇺", "CAD":"🇨🇦", "CHF":"🇨🇭", "NZD":"🇳🇿",
+            "BTC":"🪙", "ETH":"🪙", "SOL":"🪙", "BNB":"🪙",
+            "XRP":"🪙", "ADA":"🪙", "DOGE":"🪙", "DOT":"🪙",
+            "AVAX":"🪙", "LTC":"🪙", "TRX":"🪙"
+        };
+
         const MERCADOS = {
             'GLOBAL FOREX': ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CAD", "USD/CHF", "NZD/USD", "EUR/GBP", "EUR/JPY", "GBP/JPY", "EUR/CHF", "AUD/CAD"],
             'FOREX OTC': ["EUR/USD OTC", "GBP/USD OTC", "USD/JPY OTC", "AUD/USD OTC", "USD/CAD OTC", "USD/CHF OTC", "NZD/USD OTC", "EUR/GBP OTC", "EUR/JPY OTC", "GBP/JPY OTC", "EUR/CHF OTC", "AUD/CAD OTC"],
@@ -181,16 +137,37 @@
 
         let ativoAtual = ""; let tfAtual = "";
 
+        // PEDIDO 2: Função auxiliar para pegar as bandeiras certas
+        function getFlags(par) {
+            if (par.includes('Bitcoin')) return "🪙";
+            if (par.includes('Ethereum')) return "🪙";
+            // Adicionar mais regras de cripto se necessário aqui...
+            
+            const moedas = par.split(' ')[0].split('/');
+            if (moedas.length !== 2) return "🌐";
+            
+            return (FLAGS[moedas[0]] || "🌐") + (FLAGS[moedas[1]] || "🌐");
+        }
+
         function mostrarAtivos(tipo) {
             document.getElementById('menu-mercados').classList.add('hidden');
             document.getElementById('lista-ativos').classList.remove('hidden');
             document.getElementById('btn-voltar').classList.remove('hidden');
             const container = document.getElementById('lista-ativos');
             container.innerHTML = '';
+            
             MERCADOS[tipo].forEach(ativo => {
                 const btn = document.createElement('button');
-                btn.className = "bg-white/5 p-4 rounded-2xl border border-white/5 text-[11px] font-bold tracking-tighter active:bg-blue-600/40 transition-all";
-                btn.innerText = ativo;
+                btn.className = "w-full group relative overflow-hidden bg-white/5 p-4 rounded-xl border border-white/5 flex items-center gap-3 transition-all hover:border-blue-500/30 active:scale-[0.98]";
+                
+                // PEDIDO 2: Colocar as bandeiras nos pares
+                const bandeiras = getFlags(ativo);
+                btn.innerHTML = `
+                    <span class="text-lg">${bandeiras}</span>
+                    <span class="font-bold text-[11px] tracking-widest text-white/90">${ativo}</span>
+                    <i class="fas fa-chevron-right text-gray-700 ml-auto group-hover:text-blue-500 transition-colors"></i>
+                `;
+                
                 btn.onclick = () => selecionarTF(ativo);
                 container.appendChild(btn);
             });
@@ -251,7 +228,11 @@
             const sb = document.getElementById('seta-baixo');
             
             txt.innerText = direcao;
-            document.getElementById('asset-label').innerText = ativoAtual;
+            
+            // PEDIDO 4: Par na análise final com bandeiras certas
+            const bandeirasAnalyse = getFlags(ativoAtual);
+            document.getElementById('asset-label').innerText = bandeirasAnalyse + " " + ativoAtual;
+            
             document.getElementById('confianca-valor').innerText = conf + '%';
             document.getElementById('tf-valor').innerText = tfAtual;
 
