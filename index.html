@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sentinel V26.1</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="status-bar">
+                <span class="dot"></span> PROTOCOLO OPERACIONAL
+            </div>
+            <h1>SENTINEL<span>.IA</span></h1>
+        </header>
+
+        <main id="content">
+            <div id="signals-page" class="page active">
+                <div class="radar-container">
+                    <div class="radar"></div>
+                    <div class="scanner-line"></div>
+                </div>
+                
+                <div class="selection-box">
+                    <p>Selecione o Timeframe:</p>
+                    <div class="timeframes">
+                        <button class="active">M1</button>
+                        <button>M5</button>
+                        <button>M15</button>
+                    </div>
+                </div>
+
+                <button id="analyze-btn" onclick="startAnalysis()">ANALISAR MERCADO</button>
+            </div>
+        </main>
+
+        <nav class="tab-bar">
+            <div class="tab-item" onclick="showPage('home')">🏠<span>Home</span></div>
+            <div class="tab-item active" onclick="showPage('signals')">📡<span>Signals</span></div>
+            <div class="tab-item" onclick="showPage('learn')">📚<span>Learn</span></div>
+            <div class="tab-item" onclick="showPage('support')">💬<span>Suporte</span></div>
+        </nav>
+    </div>
+
+    <script>
+        // Inicializa o Telegram Mini App
+        const tg = window.Telegram.WebApp;
+        tg.expand(); // Abre a app em ecrã total
+
+        function startAnalysis() {
+            const btn = document.getElementById('analyze-btn');
+            btn.innerText = "ESCANEANDO...";
+            btn.classList.add('loading');
+            
+            // Aqui é onde a Mini App "fala" com o teu God Bot
+            // Por agora, apenas simula o visual
+            setTimeout(() => {
+                btn.innerText = "SINAL GERADO!";
+                btn.classList.remove('loading');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
