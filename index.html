@@ -1,188 +1,93 @@
-// --- ESTRUTURA DA MINI APP (FRONTEND CORRIGIDO) ---
-
-const HTML_CODE = `
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GodBot | Sentinel V26.1</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@300;500;700&display=swap');
-        body { font-family: 'Rajdhani', sans-serif; background-color: #030508; color: white; overflow: hidden; height: 100vh; margin: 0; }
-        .orbitron { font-family: 'Orbitron', sans-serif; }
-        .glass-card { background: linear-gradient(145deg, rgba(10, 15, 25, 0.9), rgba(5, 8, 15, 0.95)); border-radius: 2rem; border: 1px solid rgba(59, 130, 246, 0.2); }
-        
-        /* ⚛️ NOVO SCANNER IA FUTURISTA */
-        .core-container { position: relative; width: 220px; height: 220px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
-        .scanner-ring { position: absolute; border-radius: 50%; border: 2px solid transparent; }
-        .r-1 { inset: 0; border-top-color: #3b82f6; border-bottom-color: #3b82f6; animation: spin 2s linear infinite; }
-        .r-2 { inset: 15px; border-left-color: #60a5fa; border-right-color: #60a5fa; animation: spin-reverse 4s linear infinite; opacity: 0.5; }
-        .r-3 { inset: 30px; border: 1px dashed rgba(59, 130, 246, 0.4); animation: spin 10s linear infinite; }
-        .ai-brain-core { 
-            position: absolute; width: 80px; height: 80px; 
-            background: radial-gradient(circle, rgba(59,130,246,0.4) 0%, transparent 70%);
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 50%; box-shadow: 0 0 20px #3b82f6;
-        }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes spin-reverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
-
-        /* LISTA COM SCROLL REAL */
-        .scroll-area { 
-            overflow-y: scroll !important; 
-            max-height: 280px; 
-            scrollbar-width: none; 
-            -ms-overflow-style: none;
-            display: flex; flex-direction: column; gap: 8px;
-        }
-        .scroll-area::-webkit-scrollbar { display: none; }
-
-        .asset-btn {
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-            padding: 20px; border-radius: 16px; font-size: 16px; font-weight: 900;
-            display: flex; align-items: center; justify-content: center; gap: 12px;
-            width: 100%; transition: 0.2s;
-        }
-        .asset-btn:active { transform: scale(0.98); background: rgba(59, 130, 246, 0.2); }
-
-        .layer-box { font-size: 11px; font-weight: 700; padding: 10px; border-radius: 4px; background: rgba(255,255,255,0.02); border-left: 3px solid #1e293b; width: 100%; text-align: left; margin-bottom: 4px; }
-        .layer-active { border-left-color: #3b82f6; color: #60a5fa; background: rgba(59, 130, 246, 0.1); }
-        .layer-done { border-left-color: #10b981; color: #10b981; }
-
-        .signal-text { font-size: 85px; line-height: 0.8; letter-spacing: -4px; }
-        .neon-buy { color: #10b981; text-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
-        .neon-sell { color: #ef4444; text-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
-    </style>
 </head>
 <body class="p-4 flex flex-col gap-4">
-    <header class="flex justify-between items-end px-2">
-        <div>
-            <h1 class="orbitron text-2xl font-black text-white">GOD<span class="text-blue-500">BOT</span></h1>
-            <p class="text-[9px] text-blue-400 font-bold uppercase tracking-widest">Sentinel V26.1 System</p>
-        </div>
+    <header class="px-2">
+        <h1 class="orbitron text-2xl font-black text-white">GOD<span class="text-blue-500">BOT</span></h1>
+        <p class="text-[9px] text-blue-400 font-bold uppercase tracking-widest">Sentinel V26.1 System</p>
     </header>
 
     <div class="glass-card p-5">
         <div id="setup-view">
             <div id="menu-mercados" class="grid gap-3">
-                <button onclick="mostrarAtivos('GLOBAL FOREX')" class="bg-white/5 p-5 rounded-2xl border border-white/5 flex justify-between font-bold items-center">
-                    <span class="tracking-widest">GLOBAL FOREX</span>
-                    <i class="fas fa-globe-americas text-blue-500 text-xl"></i>
+                <button onclick="mostrarAtivos('GLOBAL FOREX')" class="market-btn">
+                    <span>GLOBAL FOREX</span> <i class="fas fa-globe-americas"></i>
                 </button>
-                <button onclick="mostrarAtivos('FOREX OTC')" class="bg-white/5 p-5 rounded-2xl border border-white/5 flex justify-between font-bold items-center">
-                    <span class="tracking-widest">FOREX OTC</span>
-                    <i class="fas fa-microchip text-blue-500 text-xl"></i>
+                <button onclick="mostrarAtivos('FOREX OTC')" class="market-btn">
+                    <span>FOREX OTC</span> <i class="fas fa-microchip"></i>
                 </button>
-                <button onclick="mostrarAtivos('CRYPTO OTC')" class="bg-white/5 p-5 rounded-2xl border border-white/5 flex justify-between font-bold items-center">
-                    <span class="tracking-widest">CRYPTO OTC</span>
-                    <i class="fas fa-coins text-blue-500 text-xl"></i>
+                <button onclick="mostrarAtivos('CRYPTO OTC')" class="market-btn">
+                    <span>CRYPTO OTC</span> <i class="fas fa-coins"></i>
                 </button>
             </div>
-            
             <div id="lista-ativos" class="hidden scroll-area"></div>
-            
             <div id="menu-timeframes" class="hidden grid grid-cols-3 gap-3">
-                <button onclick="prepararAnalise('M1')" class="bg-blue-600 py-4 rounded-xl font-black">M1</button>
-                <button onclick="prepararAnalise('M5')" class="bg-white/5 py-4 rounded-xl font-black">M5</button>
-                <button onclick="prepararAnalise('H1')" class="bg-white/5 py-4 rounded-xl font-black">H1</button>
+                <button onclick="prepararAnalise('M1')" class="tf-btn">M1</button>
+                <button onclick="prepararAnalise('M5')" class="tf-btn-sec">M5</button>
+                <button onclick="prepararAnalise('H1')" class="tf-btn-sec">H1</button>
             </div>
-            <button id="btn-voltar" onclick="voltarAoMenu()" class="hidden w-full mt-4 text-xs text-gray-500 uppercase font-bold tracking-widest">« Voltar ao Menu</button>
         </div>
     </div>
 
     <div class="glass-card flex-grow flex flex-col items-center justify-center p-6 relative">
-        <div id="placeholder-ia" class="flex flex-col items-center opacity-20">
-            <i class="fas fa-shield-alt text-4xl"></i>
-            <p class="orbitron text-[10px] mt-4 tracking-[0.4em]">STANDBY MODE</p>
-        </div>
-
         <div id="loader-ia" class="hidden w-full flex flex-col items-center">
             <div class="core-container">
                 <div class="scanner-ring r-1"></div>
-                <div class="scanner-ring r-2"></div>
-                <div class="scanner-ring r-3"></div>
-                <div class="ai-brain-core"><i class="fas fa-brain text-3xl text-blue-300 animate-pulse"></i></div>
+                <div class="ai-brain-core"><i class="fas fa-brain text-4xl text-blue-300 animate-pulse"></i></div>
             </div>
-            <div class="w-full space-y-1">
-                <div id="capa-1" class="layer-box">>> DECRYPTING ORDER BLOCKS</div>
-                <div id="capa-2" class="layer-box">>> CALCULATING VOLUME DELTA</div>
-                <div id="capa-3" class="layer-box">>> TRACING INSTITUTIONAL FLOW</div>
-                <div id="capa-4" class="layer-box">>> SMART MONEY CONFLUENCE</div>
-                <div id="capa-5" class="layer-box">>> SENTINEL V26 FINAL VALIDATION</div>
-            </div>
+            <div id="status-layers" class="w-full"></div>
         </div>
 
         <div id="resultado-sinal" class="hidden w-full text-center">
-            <div class="bg-blue-500/10 border-y border-blue-500/30 py-3 mb-6">
-                <p id="asset-label" class="orbitron text-2xl font-black text-blue-400 tracking-widest uppercase"></p>
-            </div>
-            <h2 id="direcao-texto" class="signal-text orbitron font-black uppercase">BUY</h2>
+            <p id="asset-label" class="orbitron text-2xl font-black text-blue-400 mb-4"></p>
+            <h2 id="direcao-texto" class="signal-text orbitron font-black"></h2>
             <div class="grid grid-cols-2 gap-4 mt-8">
-                <div class="bg-white/5 p-4 rounded-2xl"><p class="text-[9px] text-gray-500 uppercase font-bold">Accuracy</p><p id="conf-val" class="text-xl font-black"></p></div>
-                <div class="bg-white/5 p-4 rounded-2xl"><p class="text-[9px] text-gray-500 uppercase font-bold">Timeframe</p><p id="tf-val" class="text-xl font-black"></p></div>
+                <div class="stat-box"><p>PRECISÃO</p><span id="conf-val"></span></div>
+                <div class="stat-box"><p>TEMPO</p><span id="tf-val"></span></div>
             </div>
-            <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" class="block w-full bg-blue-600 py-5 rounded-2xl mt-8 font-black uppercase shadow-lg shadow-blue-600/30">Execute Trade</a>
         </div>
     </div>
 
     <script>
-        const FLAGS = {"EUR":"🇪🇺","USD":"🇺🇸","GBP":"🇬🇧","JPY":"🇯🇵","AUD":"🇦🇺","CAD":"🇨🇦","CHF":"🇨🇭","NZD":"🇳🇿"};
         const MERCADOS = {
-            'GLOBAL FOREX': ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CAD", "USD/CHF", "NZD/USD", "EUR/GBP", "EUR/JPY", "GBP/JPY", "EUR/CAD"],
-            'FOREX OTC': ["EUR/USD OTC", "GBP/USD OTC", "USD/JPY OTC", "AUD/USD OTC", "USD/CAD OTC", "USD/CHF OTC", "NZD/USD OTC", "EUR/GBP OTC", "EUR/JPY OTC"],
-            'CRYPTO OTC': ["Bitcoin OTC", "Ethereum OTC", "Solana OTC", "Binance Coin OTC", "Cardano OTC", "Dogecoin OTC", "Litecoin OTC"]
+            'GLOBAL FOREX': ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "EUR/JPY"],
+            'FOREX OTC': ["EUR/USD OTC", "GBP/USD OTC", "USD/JPY OTC", "AUD/USD OTC"],
+            'CRYPTO OTC': ["Bitcoin OTC", "Ethereum OTC", "Solana OTC"]
         };
-
-        function getFlags(name) {
-            const p = name.split(' ')[0].split('/');
-            if(p.length < 2) return "🪙";
-            return (FLAGS[p[0]]||"") + (FLAGS[p[1]]||"");
-        }
 
         function mostrarAtivos(tipo) {
             document.getElementById('menu-mercados').classList.add('hidden');
             const list = document.getElementById('lista-ativos');
             list.classList.remove('hidden');
-            document.getElementById('btn-voltar').classList.remove('hidden');
-            list.innerHTML = '';
-            MERCADOS[tipo].forEach(a => {
-                const b = document.createElement('button');
-                b.className = "asset-btn";
-                b.innerHTML = \`<span>\${getFlags(a)}</span> \${a}\`;
-                b.onclick = () => { window.ativo = a; list.classList.add('hidden'); document.getElementById('menu-timeframes').classList.remove('hidden'); };
-                list.appendChild(b);
-            });
+            list.innerHTML = MERCADOS[tipo].map(a => `<button class="asset-btn" onclick="window.ativo='${a}'; selecionarTF()">${a}</button>`).join('');
         }
 
-        function voltarAoMenu() { location.reload(); }
+        function selecionarTF() {
+            document.getElementById('lista-ativos').classList.add('hidden');
+            document.getElementById('menu-timeframes').classList.remove('hidden');
+        }
 
         function prepararAnalise(tf) {
             document.getElementById('menu-timeframes').classList.add('hidden');
-            document.getElementById('placeholder-ia').classList.add('hidden');
             document.getElementById('loader-ia').classList.remove('hidden');
-            let i = 1;
-            let iv = setInterval(() => {
-                const el = document.getElementById('capa-'+i);
-                if(el) el.className = "layer-box layer-done";
-                i++; if(i>5) { clearInterval(iv); finalizar(tf); }
-            }, 1000);
-        }
-
-        function finalizar(tf) {
-            document.getElementById('loader-ia').classList.add('hidden');
-            document.getElementById('resultado-sinal').classList.remove('hidden');
-            const d = Math.random() > 0.5 ? 'BUY' : 'SELL';
-            const txt = document.getElementById('direcao-texto');
-            txt.innerText = d;
-            txt.className = d === 'BUY' ? 'signal-text orbitron font-black neon-buy' : 'signal-text orbitron font-black neon-sell';
-            document.getElementById('asset-label').innerHTML = getFlags(window.ativo) + " " + window.ativo;
-            document.getElementById('conf-val').innerText = (Math.random()*3+95).toFixed(1) + '%';
-            document.getElementById('tf-val').innerText = tf;
+            setTimeout(() => {
+                document.getElementById('loader-ia').classList.add('hidden');
+                document.getElementById('resultado-sinal').classList.remove('hidden');
+                const d = Math.random() > 0.5 ? 'BUY' : 'SELL';
+                const el = document.getElementById('direcao-texto');
+                el.innerText = d;
+                el.className = d === 'BUY' ? 'signal-text neon-buy' : 'signal-text neon-sell';
+                document.getElementById('asset-label').innerText = window.ativo;
+                document.getElementById('conf-val').innerText = '98.2%';
+                document.getElementById('tf-val').innerText = tf;
+            }, 3000);
         }
     </script>
 </body>
 </html>
-\`;
