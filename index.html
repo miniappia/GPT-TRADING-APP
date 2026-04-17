@@ -1,3 +1,6 @@
+// --- ESTRUTURA DA MINI APP (FRONTEND) ---
+
+const HTML_CODE = `
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,108 +11,113 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@300;500;700&display=swap');
-
         body { font-family: 'Rajdhani', sans-serif; background-color: #030508; color: white; overflow: hidden; height: 100vh; margin: 0; }
         .orbitron { font-family: 'Orbitron', sans-serif; }
-
-        .glass-card { 
-            background: linear-gradient(145deg, rgba(10, 15, 25, 0.9), rgba(5, 8, 15, 0.95)); 
-            backdrop-filter: blur(20px); 
-            border-radius: 2rem; 
-            border: 1px solid rgba(59, 130, 246, 0.2);
+        .glass-card { background: linear-gradient(145deg, rgba(10, 15, 25, 0.9), rgba(5, 8, 15, 0.95)); border-radius: 2rem; border: 1px solid rgba(59, 130, 246, 0.2); }
+        
+        /* * ==========================================
+         * ⚛️ NOVO SCANNER HOLO-SINTÉTICO (IA CORE)
+         * ==========================================
+         */
+        .core-container { position: relative; width: 220px; height: 220px; display: flex; align-items: center; justify-content: center; }
+        
+        /* Anéis concêntricos */
+        .ring { position: absolute; border-radius: 50%; border: 1.5px solid transparent; }
+        .ring-1 { inset: 0; border-top-color: rgba(59, 130, 246, 0.6); border-bottom-color: rgba(59, 130, 246, 0.6); animation: spin 4s linear infinite; }
+        .ring-2 { inset: 15px; border-left-color: rgba(96, 165, 250, 0.4); border-right-color: rgba(96, 165, 250, 0.4); animation: spin-reverse 6s linear infinite; }
+        .ring-3 { inset: 30px; border-top-color: rgba(59, 130, 246, 0.2); border-bottom-color: rgba(59, 130, 246, 0.2); animation: spin 8s linear infinite; opacity: 0.3; }
+        
+        /* Matriz de dados concêntrica */
+        .data-matrix { 
+            position: absolute; inset: 45px; 
+            border-radius: 50%;
+            background: 
+                radial-gradient(circle at center, transparent 30%, rgba(59, 130, 246, 0.1) 60%, transparent 70%),
+                repeating-radial-gradient(circle at center, rgba(59, 130, 246, 0.05) 0, rgba(59, 130, 246, 0.05) 2px, transparent 2px, transparent 4px);
+            animation: pulse-matrix 2s ease-in-out infinite;
         }
 
-        /* CORE DE ANÁLISE ORIGINAL GIGANTE */
-        .core-container { position: relative; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; }
-        .ring { position: absolute; border-radius: 50%; border: 2px solid transparent; }
-        .ring-1 { inset: 0; border-top-color: #3b82f6; border-bottom-color: #3b82f6; animation: spin 2s linear infinite; }
-        .ring-2 { inset: 15px; border-left-color: #60a5fa; border-right-color: #60a5fa; animation: spin-reverse 3s linear infinite; opacity: 0.5; }
-        .ring-3 { inset: 30px; border: 1px dashed rgba(59, 130, 246, 0.3); animation: spin 10s linear infinite; }
-        
+        /* Núcleo Central de IA */
+        .ai-core { 
+            position: absolute; inset: 65px; 
+            background: 
+                radial-gradient(circle at center, rgba(59, 130, 246, 0.5) 0%, transparent 70%),
+                rgba(13, 17, 23, 0.9);
+            border-radius: 50%;
+            border: 2px solid #3b82f6;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.6), inset 0 0 15px rgba(59, 130, 246, 0.4);
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* Pulsação do núcleo */
+        @keyframes pulse-matrix { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.05); } }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes spin-reverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
 
-        /* BOTAO ATIVO MAIOR */
+        /* LISTA COM SCROLL ATIVO */
+        .custom-scroll { 
+            overflow-y: auto !important; 
+            max-height: 280px; 
+            padding-right: 5px;
+            scrollbar-width: none; 
+        }
+        .custom-scroll::-webkit-scrollbar { display: none; }
+
         .asset-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 16px 8px;
-            border-radius: 16px;
-            font-size: 14px; /* Aumentado */
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            padding: 18px 10px; border-radius: 16px; font-size: 16px; font-weight: 900;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            margin-bottom: 8px; width: 100%;
         }
 
-        .layer-box { 
-            font-size: 11px; font-weight: 700; letter-spacing: 2px;
-            padding: 8px 15px; border-radius: 4px; background: rgba(255,255,255,0.02);
-            border-left: 3px solid #1e293b; margin-bottom: 6px; width: 100%;
-        }
+        .layer-box { font-size: 11px; font-weight: 700; padding: 8px 15px; border-radius: 4px; background: rgba(255,255,255,0.02); border-left: 3px solid #1e293b; margin-bottom: 6px; width: 100%; text-align: left; }
         .layer-active { border-left-color: #3b82f6; background: rgba(59, 130, 246, 0.1); color: #60a5fa; }
         .layer-done { border-left-color: #10b981; color: #10b981; }
 
-        .signal-text { font-size: 90px; line-height: 0.8; letter-spacing: -5px; filter: drop-shadow(0 0 15px currentColor); }
-        .neon-buy { color: #10b981; }
-        .neon-sell { color: #ef4444; }
-        
-        .custom-scroll { overflow-y: auto; max-height: 220px; scrollbar-width: none; }
-        .custom-scroll::-webkit-scrollbar { display: none; }
+        .signal-text { font-size: 90px; line-height: 0.8; letter-spacing: -5px; }
+        .neon-buy { color: #10b981; text-shadow: 0 0 30px rgba(16, 185, 129, 0.6); }
+        .neon-sell { color: #ef4444; text-shadow: 0 0 30px rgba(239, 68, 68, 0.6); }
     </style>
 </head>
 <body class="p-4 flex flex-col gap-4">
-
     <header class="flex justify-between items-end px-2">
         <div>
             <h1 class="orbitron text-2xl font-black text-white">GOD<span class="text-blue-500">BOT</span></h1>
-            <p class="text-[9px] text-blue-400 font-bold tracking-[0.3em] uppercase">Alchemist V26.1 System</p>
-        </div>
-        <div class="text-right">
-            <p class="text-[10px] text-gray-500 font-bold uppercase">Security Level</p>
-            <p class="text-[10px] text-green-500 font-bold uppercase">Maximum</p>
+            <p class="text-[9px] text-blue-400 font-bold uppercase tracking-widest">Sentinel V26.1 System</p>
         </div>
     </header>
 
     <div class="glass-card p-5">
         <div id="setup-view">
-            <p id="titulo-painel" class="text-gray-500 text-[10px] font-bold tracking-[0.2em] mb-4 text-center uppercase">Initial Calibration</p>
-            
             <div id="menu-mercados" class="grid gap-3">
-                <button onclick="mostrarAtivos('GLOBAL FOREX')" class="bg-white/5 p-4 rounded-2xl border border-white/5 flex justify-between items-center">
-                    <span class="font-bold text-sm tracking-widest">GLOBAL FOREX</span>
-                    <i class="fas fa-globe-americas text-blue-500"></i>
+                <button onclick="mostrarAtivos('GLOBAL FOREX')" class="bg-white/5 p-4 rounded-2xl border border-white/5 flex justify-between font-bold items-center">
+                    <span class="tracking-widest">GLOBAL FOREX</span>
+                    <i class="fas fa-globe-americas text-blue-500 text-lg"></i>
                 </button>
-                <button onclick="mostrarAtivos('FOREX OTC')" class="bg-white/5 p-4 rounded-2xl border border-white/5 flex justify-between items-center">
-                    <span class="font-bold text-sm tracking-widest">FOREX OTC</span>
-                    <i class="fas fa-microchip text-blue-500"></i>
+                <button onclick="mostrarAtivos('FOREX OTC')" class="bg-white/5 p-4 rounded-2xl border border-white/5 flex justify-between font-bold items-center">
+                    <span class="tracking-widest">FOREX OTC</span>
+                    <i class="fas fa-microchip text-blue-500 text-lg"></i>
                 </button>
-                <button onclick="mostrarAtivos('CRYPTO OTC')" class="bg-white/5 p-4 rounded-2xl border border-white/5 flex justify-between items-center">
-                    <span class="font-bold text-sm tracking-widest">CRYPTO OTC</span>
-                    <i class="fas fa-coins text-blue-500"></i>
+                <button onclick="mostrarAtivos('CRYPTO OTC')" class="bg-white/5 p-4 rounded-2xl border border-white/5 flex justify-between font-bold items-center">
+                    <span class="tracking-widest">CRYPTO OTC</span>
+                    <i class="fas fa-coins text-blue-500 text-lg"></i>
                 </button>
             </div>
-
-            <div id="lista-ativos" class="hidden grid grid-cols-2 gap-3 custom-scroll"></div>
-
-            <div id="menu-timeframes" class="hidden grid grid-cols-3 gap-3 text-center">
-                <button onclick="prepararAnalise('S15')" class="bg-white/5 py-4 rounded-xl font-black text-xs">S15</button>
-                <button onclick="prepararAnalise('S30')" class="bg-white/5 py-4 rounded-xl font-black text-xs">S30</button>
-                <button onclick="prepararAnalise('M1')" class="bg-blue-600 py-4 rounded-xl font-black text-xs">M1</button>
-                <button onclick="prepararAnalise('M2')" class="bg-white/5 py-4 rounded-xl font-black text-xs">M2</button>
-                <button onclick="prepararAnalise('M5')" class="bg-white/5 py-4 rounded-xl font-black text-xs">M5</button>
-                <button onclick="prepararAnalise('H1')" class="bg-white/5 py-4 rounded-xl font-black text-xs">H1</button>
+            
+            <div id="lista-ativos" class="hidden custom-scroll"></div>
+            
+            <div id="menu-timeframes" class="hidden grid grid-cols-3 gap-3">
+                <button onclick="prepararAnalise('M1')" class="bg-blue-600 py-4 rounded-xl font-black">M1</button>
+                <button onclick="prepararAnalise('M5')" class="bg-white/5 py-4 rounded-xl font-black">M5</button>
+                <button onclick="prepararAnalise('H1')" class="bg-white/5 py-4 rounded-xl font-black">H1</button>
             </div>
-            <button id="btn-voltar" onclick="voltarAoMenu()" class="hidden w-full mt-4 text-[9px] text-gray-500 font-bold uppercase tracking-widest">Reset System</button>
+            <button id="btn-voltar" onclick="voltarAoMenu()" class="hidden w-full mt-4 text-xs text-gray-500 uppercase font-bold tracking-widest">Reset System</button>
         </div>
     </div>
 
     <div class="glass-card flex-grow flex flex-col items-center justify-center p-6 relative">
         <div id="placeholder-ia" class="flex flex-col items-center opacity-20">
-            <div class="w-24 h-24 border-2 border-dashed border-blue-500 rounded-full animate-[spin_20s_linear_infinite] flex items-center justify-center">
-                <i class="fas fa-shield-alt text-2xl"></i>
-            </div>
+            <i class="fas fa-shield-alt text-4xl"></i>
             <p class="orbitron text-[10px] mt-4 tracking-[0.4em]">STANDBY MODE</p>
         </div>
 
@@ -118,9 +126,12 @@
                 <div class="ring ring-1"></div>
                 <div class="ring ring-2"></div>
                 <div class="ring ring-3"></div>
-                <i class="fas fa-atom text-4xl text-blue-400 animate-pulse"></i>
+                <div class="data-matrix"></div>
+                <div class="ai-core">
+                    <i class="fas fa-brain text-4xl text-blue-300 animate-pulse"></i>
+                </div>
             </div>
-            <div class="w-full space-y-1">
+            <div id="camadas-ia" class="w-full space-y-1">
                 <div id="capa-1" class="layer-box">>> DECRYPTING ORDER BLOCKS</div>
                 <div id="capa-2" class="layer-box">>> CALCULATING VOLUME DELTA</div>
                 <div id="capa-3" class="layer-box">>> TRACING INSTITUTIONAL FLOW</div>
@@ -130,129 +141,82 @@
         </div>
 
         <div id="resultado-sinal" class="hidden w-full text-center">
-            <div class="bg-blue-500/10 border-y border-blue-500/30 w-full py-3 mb-6">
-                <p id="asset-label" class="orbitron text-xl font-black text-blue-400 tracking-widest uppercase">---</p>
+            <div class="bg-blue-500/10 border-y border-blue-500/30 py-3 mb-6">
+                <p id="asset-label" class="orbitron text-2xl font-black text-blue-400 tracking-widest uppercase"></p>
             </div>
-            <div class="flex flex-col items-center">
-                <i id="seta-cima" class="fas fa-chevron-double-up text-5xl mb-2"></i>
-                <h2 id="direcao-texto" class="signal-text orbitron font-black">BUY</h2>
-                <i id="seta-baixo" class="fas fa-chevron-double-down text-5xl mt-2"></i>
-            </div>
+            <h2 id="direcao-texto" class="signal-text orbitron font-black uppercase">BUY</h2>
             <div class="grid grid-cols-2 gap-4 mt-8">
-                <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
-                    <p class="text-[10px] text-gray-500 font-bold uppercase">Accuracy</p>
-                    <p id="confianca-valor" class="orbitron text-2xl font-black text-white">--</p>
-                </div>
-                <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
-                    <p class="text-[10px] text-gray-500 font-bold uppercase">Timeframe</p>
-                    <p id="tf-valor" class="orbitron text-2xl font-black text-white">--</p>
-                </div>
+                <div class="bg-white/5 p-4 rounded-2xl"><p class="text-[9px] text-gray-500 uppercase tracking-widest">Accuracy</p><p id="conf-val" class="text-xl font-black"></p></div>
+                <div class="bg-white/5 p-4 rounded-2xl"><p class="text-[9px] text-gray-500 uppercase tracking-widest">Timeframe</p><p id="tf-val" class="text-xl font-black"></p></div>
             </div>
-            <div class="mt-8 space-y-4">
-                <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="block w-full bg-blue-600 text-white py-5 rounded-2xl orbitron font-black text-sm uppercase">Execute Trade Now</a>
-                <div class="flex gap-2">
-                    <button onclick="prepararAnalise(tfAtual)" class="flex-1 py-4 rounded-xl bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest">Rescan</button>
-                    <button onclick="voltarAoMenu()" class="flex-1 py-4 rounded-xl bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest">Menu</button>
-                </div>
-            </div>
+            <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" class="block w-full bg-blue-600 py-5 rounded-2xl mt-8 font-black uppercase shadow-lg shadow-blue-600/30">Execute Trade</a>
         </div>
     </div>
 
     <script>
-        const FLAGS = {
-            "EUR": "🇪🇺", "USD": "🇺🇸", "GBP": "🇬🇧", "JPY": "🇯🇵", "AUD": "🇦🇺", "CAD": "🇨🇦", "CHF": "🇨🇭", "NZD": "🇳🇿", "BTC": "₿", "ETH": "♦️"
-        };
-
+        const FLAGS = {"EUR":"🇪🇺","USD":"🇺🇸","GBP":"🇬🇧","JPY":"🇯🇵","AUD":"🇦🇺","CAD":"🇨🇦","CHF":"🇨🇭","NZD":"🇳🇿"};
+        
         const MERCADOS = {
-            'GLOBAL FOREX': ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CAD", "USD/CHF", "NZD/USD", "EUR/GBP"],
-            'FOREX OTC': ["EUR/USD OTC", "GBP/USD OTC", "USD/JPY OTC", "AUD/USD OTC", "USD/CAD OTC", "USD/CHF OTC"],
-            'CRYPTO OTC': ["Bitcoin OTC", "Ethereum OTC", "Solana OTC"]
+            'GLOBAL FOREX': ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CAD", "USD/CHF", "NZD/USD", "EUR/GBP", "EUR/JPY", "GBP/JPY", "EUR/CAD", "AUD/JPY"],
+            'FOREX OTC': ["EUR/USD OTC", "GBP/USD OTC", "USD/JPY OTC", "AUD/USD OTC", "USD/CAD OTC", "USD/CHF OTC", "NZD/USD OTC", "EUR/GBP OTC", "EUR/JPY OTC", "GBP/JPY OTC"],
+            'CRYPTO OTC': ["Bitcoin OTC", "Ethereum OTC", "Solana OTC", "Binance Coin OTC", "Cardano OTC", "Dogecoin OTC", "Polkadot OTC", "Litecoin OTC"]
         };
 
         let ativoAtual = ""; let tfAtual = "";
 
         function getFlags(name) {
-            const parts = name.split(' ')[0].split('/');
-            if(parts.length < 2) return "🪙";
-            return (FLAGS[parts[0]] || "") + (FLAGS[parts[1]] || "");
+            const p = name.split(' ')[0].split('/');
+            if(p.length < 2) return "🪙";
+            return (FLAGS[p[0]]||"") + (FLAGS[p[1]]||"");
         }
 
         function mostrarAtivos(tipo) {
             document.getElementById('menu-mercados').classList.add('hidden');
-            document.getElementById('lista-ativos').classList.remove('hidden');
+            const list = document.getElementById('lista-ativos');
+            list.classList.remove('hidden');
             document.getElementById('btn-voltar').classList.remove('hidden');
-            const container = document.getElementById('lista-ativos');
-            container.innerHTML = '';
-            MERCADOS[tipo].forEach(ativo => {
-                const btn = document.createElement('button');
-                btn.className = "asset-btn";
-                btn.innerHTML = `${getFlags(ativo)} ${ativo}`;
-                btn.onclick = () => selecionarTF(ativo);
-                container.appendChild(btn);
+            list.innerHTML = '';
+            
+            MERCADOS[tipo].forEach(a => {
+                const b = document.createElement('button');
+                b.className = "asset-btn";
+                b.innerHTML = \`<span>\${getFlags(a)}</span> \${a}\`;
+                b.onclick = () => { 
+                    ativoAtual = a; 
+                    list.classList.add('hidden'); 
+                    document.getElementById('menu-timeframes').classList.remove('hidden'); 
+                };
+                list.appendChild(b);
             });
         }
 
-        function selecionarTF(ativo) {
-            ativoAtual = ativo;
-            document.getElementById('lista-ativos').classList.add('hidden');
-            document.getElementById('menu-timeframes').classList.remove('hidden');
-        }
-
-        function voltarAoMenu() {
-            document.getElementById('menu-mercados').classList.remove('hidden');
-            document.getElementById('lista-ativos').classList.add('hidden');
-            document.getElementById('menu-timeframes').classList.add('hidden');
-            document.getElementById('btn-voltar').classList.add('hidden');
-            document.getElementById('resultado-sinal').classList.add('hidden');
-            document.getElementById('placeholder-ia').classList.remove('hidden');
-        }
+        function voltarAoMenu() { location.reload(); }
 
         function prepararAnalise(tf) {
             tfAtual = tf;
             document.getElementById('menu-timeframes').classList.add('hidden');
             document.getElementById('placeholder-ia').classList.add('hidden');
-            document.getElementById('resultado-sinal').classList.add('hidden');
             document.getElementById('loader-ia').classList.remove('hidden');
-            document.getElementById('btn-voltar').classList.add('hidden');
-
-            for(let i=1; i<=5; i++) document.getElementById(`capa-${i}`).className = "layer-box";
-
-            const timings = [800, 1800, 2800, 3800, 4800];
-            timings.forEach((ms, i) => {
-                setTimeout(() => {
-                    const el = document.getElementById(`capa-${i+1}`);
-                    el.classList.add('layer-active');
-                    if(i > 0) document.getElementById(`capa-${i}`).className = "layer-box layer-done";
-                    if(i === 4) setTimeout(finalizarAnalise, 800);
-                }, ms);
-            });
+            let i = 1;
+            let iv = setInterval(() => {
+                const el = document.getElementById('capa-'+i);
+                if(el) el.className = "layer-box layer-done";
+                i++; if(i>5) { clearInterval(iv); finalizar(); }
+            }, 1000); // 1 segundo por camada
         }
 
-        function finalizarAnalise() {
-            const direcao = Math.random() > 0.5 ? 'BUY' : 'SELL';
-            const conf = (Math.random() * (98.9 - 94.2) + 94.2).toFixed(1);
+        function finalizar() {
             document.getElementById('loader-ia').classList.add('hidden');
             document.getElementById('resultado-sinal').classList.remove('hidden');
-            
+            const d = Math.random() > 0.5 ? 'BUY' : 'SELL';
             const txt = document.getElementById('direcao-texto');
-            const sc = document.getElementById('seta-cima');
-            const sb = document.getElementById('seta-baixo');
-            
-            txt.innerText = direcao;
+            txt.innerText = d;
+            txt.className = d === 'BUY' ? 'signal-text orbitron font-black neon-buy' : 'signal-text orbitron font-black neon-sell';
             document.getElementById('asset-label').innerHTML = getFlags(ativoAtual) + " " + ativoAtual;
-            document.getElementById('confianca-valor').innerText = conf + '%';
-            document.getElementById('tf-valor').innerText = tfAtual;
-
-            if(direcao === 'BUY') {
-                txt.className = "signal-text orbitron font-black neon-buy";
-                sc.className = "fas fa-chevron-double-up text-5xl neon-buy animate-bounce";
-                sb.className = "fas fa-chevron-double-up text-5xl text-white/5";
-            } else {
-                txt.className = "signal-text orbitron font-black neon-sell";
-                sc.className = "fas fa-chevron-double-down text-5xl text-white/5";
-                sb.className = "fas fa-chevron-double-down text-5xl neon-sell animate-bounce";
-            }
+            document.getElementById('conf-val').innerText = (Math.random()*3+95).toFixed(1) + '%';
+            document.getElementById('tf-val').innerText = tfAtual;
         }
     </script>
 </body>
 </html>
+\`;
