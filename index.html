@@ -14,15 +14,11 @@
     <header class="flex justify-between items-center mb-10 max-w-7xl mx-auto">
         <div>
             <h1 class="text-3xl font-bold tracking-tighter text-white">GOD<span class="text-blue-500">BOT</span></h1>
-            <p class="text-xs text-gray-400 uppercase tracking-widest"><span class="live-indicator mr-1"></span> Sistema de Trading Ativo</p>
+            <p class="text-xs text-gray-400 uppercase tracking-widest"><span class="live-indicator mr-1"></span> Sentinel V26.1 Ativo</p>
         </div>
         <div class="flex gap-4 items-center">
-            <div class="text-right hidden md:block mr-4">
-                <p class="text-sm text-gray-400">Saldo Atual</p>
-                <p class="text-xl font-mono font-bold text-white">$14,250.42</p>
-            </div>
-            <button class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-full font-semibold transition flex items-center gap-2">
-                <i class="fas fa-wallet"></i> Conectar API
+            <button onclick="window.location.reload()" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-full font-semibold transition flex items-center gap-2">
+                <i class="fas fa-sync-alt"></i> REINICIAR
             </button>
         </div>
     </header>
@@ -30,62 +26,72 @@
     <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         <div class="space-y-6">
-            <div class="glass-card p-6">
-                <h3 class="text-gray-400 text-sm font-semibold mb-4 uppercase tracking-wider">Mercados</h3>
-                <div class="space-y-4">
-                    <div class="flex justify-between items-center border-b border-gray-800 pb-2">
-                        <span class="font-medium text-gray-200">BTC/USDT</span>
-                        <span class="glow-text-green font-mono font-bold">+2.45%</span>
-                    </div>
-                    <div class="flex justify-between items-center border-b border-gray-800 pb-2">
-                        <span class="font-medium text-gray-200">ETH/USDT</span>
-                        <span class="glow-text-red font-mono font-bold">-1.12%</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="font-medium text-gray-200">SOL/USDT</span>
-                        <span class="glow-text-green font-mono font-bold">+5.89%</span>
-                    </div>
+            <div class="glass-card p-6 border-t-2 border-blue-500">
+                <h3 id="titulo-painel" class="text-gray-400 text-sm font-semibold mb-4 uppercase tracking-wider">Selecionar Mercado</h3>
+                
+                <div id="menu-mercados" class="space-y-3">
+                    <button onclick="mostrarAtivos('GLOBAL FOREX')" class="w-full bg-gray-800/50 hover:bg-blue-600/30 p-4 rounded-xl border border-gray-700 flex justify-between items-center transition">
+                        <span>🌎 GLOBAL FOREX</span>
+                        <i class="fas fa-chevron-right text-blue-500"></i>
+                    </button>
+                    <button onclick="mostrarAtivos('FOREX OTC')" class="w-full bg-gray-800/50 hover:bg-blue-600/30 p-4 rounded-xl border border-gray-700 flex justify-between items-center transition">
+                        <span>🤖 FOREX OTC</span>
+                        <i class="fas fa-chevron-right text-blue-500"></i>
+                    </button>
+                    <button onclick="mostrarAtivos('CRYPTO OTC')" class="w-full bg-gray-800/50 hover:bg-blue-600/30 p-4 rounded-xl border border-gray-700 flex justify-between items-center transition">
+                        <span>₿ CRYPTO OTC</span>
+                        <i class="fas fa-chevron-right text-blue-500"></i>
+                    </button>
                 </div>
+
+                <div id="lista-ativos" class="hidden space-y-2 max-h-[400px] overflow-y-auto pr-2 custom-scroll">
+                    </div>
+
+                <button id="btn-voltar" onclick="voltarAoMenu()" class="hidden w-full mt-4 text-xs text-gray-500 hover:text-white transition uppercase tracking-widest text-center">
+                    <i class="fas fa-arrow-left mr-1"></i> Voltar aos Mercados
+                </button>
             </div>
 
-            <div class="glass-card p-6 border-l-4 border-l-blue-500 bg-gradient-to-r from-blue-900/10 to-transparent">
-                <h3 class="text-gray-400 text-sm font-semibold mb-2 uppercase tracking-wider">Monitoramento</h3>
-                <p class="text-2xl font-bold mb-1 text-white">Posição Aberta</p>
-                <p class="text-sm text-gray-300 mb-4">Lucro Atual: <span class="text-green-400">+$12.40</span></p>
-                <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
-                    <div class="bg-blue-500 h-full w-[65%] shadow-[0_0_10px_#3b82f6]"></div>
+            <div id="card-status" class="glass-card p-6 border-l-4 border-l-blue-500 bg-gradient-to-r from-blue-900/10 to-transparent">
+                <h3 class="text-gray-400 text-sm font-semibold mb-2 uppercase tracking-wider">Sentinel Engine</h3>
+                <p id="status-texto" class="text-xl font-bold mb-1 text-white text-blue-400">Aguardando Seleção...</p>
+                <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden mt-3">
+                    <div id="progresso-ia" class="bg-blue-500 h-full w-0 transition-all duration-500"></div>
                 </div>
             </div>
         </div>
 
         <div class="lg:col-span-2 space-y-6">
-            <div class="glass-card overflow-hidden border border-gray-700/50">
+            <div class="glass-card overflow-hidden border border-gray-700/50 min-h-[400px] flex flex-col">
                 <div class="p-4 border-b border-gray-800 flex justify-between items-center bg-gray-900/30">
-                    <span class="font-bold text-lg text-white"><i class="fas fa-chart-line text-blue-500 mr-2"></i>Análise Técnica</span>
-                    <div class="flex gap-2">
-                        <button class="bg-gray-800 hover:bg-gray-700 text-[10px] px-3 py-1 rounded-md transition">1H</button>
-                        <button class="bg-blue-600 text-[10px] px-3 py-1 rounded-md shadow-lg shadow-blue-900/20">4H</button>
-                        <button class="bg-gray-800 hover:bg-gray-700 text-[10px] px-3 py-1 rounded-md transition">1D</button>
-                    </div>
+                    <span id="ativo-selecionado" class="font-bold text-lg text-white">
+                        <i class="fas fa-microchip text-blue-500 mr-2"></i>ANALISADOR IA
+                    </span>
+                    <div id="badge-sinal" class="hidden bg-green-500/20 text-green-400 px-3 py-1 rounded-md text-xs font-bold border border-green-500/50">SINAL VERIFICADO</div>
                 </div>
                 
-                <div class="trading-chart-placeholder flex flex-col items-center justify-center text-gray-500">
-                    <i class="fas fa-microchip text-4xl mb-2 opacity-20"></i>
-                    <p class="italic opacity-50 text-sm">Aguardando dados da API para renderizar gráfico...</p>
-                </div>
-
-                <div class="p-6 grid grid-cols-3 gap-4 text-center bg-gray-900/20">
-                    <div class="border-r border-gray-800">
-                        <p class="text-xs text-gray-500 uppercase font-bold">RSI (14)</p>
-                        <p class="text-xl font-mono text-white">58.4</p>
+                <div id="display-sinal" class="flex-grow flex flex-col items-center justify-center p-8 text-center">
+                    <div id="placeholder-sinal">
+                        <i class="fas fa-satellite-dish text-6xl mb-4 text-blue-500/20 animate-pulse"></i>
+                        <p class="text-gray-500 italic">Selecione um ativo para iniciar a varredura Alchemist V26.1</p>
                     </div>
-                    <div class="border-r border-gray-800">
-                        <p class="text-xs text-gray-500 uppercase font-bold">MACD</p>
-                        <p class="text-xl font-mono text-green-400">Bullish</p>
-                    </div>
-                    <div>
-                        <p class="text-xs text-gray-500 uppercase font-bold">Volatilidade</p>
-                        <p class="text-xl font-mono text-yellow-500">Média</p>
+                    
+                    <div id="resultado-sinal" class="hidden w-full">
+                        <p class="text-gray-400 uppercase text-xs tracking-widest mb-2">Direção Confirmada</p>
+                        <h2 id="direcao-texto" class="text-6xl font-black mb-4 tracking-tighter">---</h2>
+                        <div class="grid grid-cols-2 gap-4 mt-6">
+                            <div class="bg-gray-800/50 p-4 rounded-xl border border-gray-700">
+                                <p class="text-[10px] text-gray-500 uppercase">Confiança</p>
+                                <p id="confianca-valor" class="text-xl font-mono text-white">0%</p>
+                            </div>
+                            <div class="bg-gray-800/50 p-4 rounded-xl border border-gray-700">
+                                <p class="text-[10px] text-gray-500 uppercase">Estratégia</p>
+                                <p class="text-xl font-mono text-white">Fortress V2</p>
+                            </div>
+                        </div>
+                        <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="block w-full bg-blue-600 hover:bg-blue-500 text-white mt-8 py-4 rounded-xl font-bold transition">
+                            EXECUTAR NA PLATAFORMA
+                        </a>
                     </div>
                 </div>
             </div>
@@ -93,14 +99,87 @@
     </main>
 
     <footer class="max-w-7xl mx-auto mt-6">
-        <div class="glass-card p-4 h-40 overflow-y-auto font-mono text-xs text-gray-400 custom-scroll">
-            <p class="mb-1"><span class="text-blue-500">[19:05:22]</span> > Estabelecendo conexão segura com Binance...</p>
-            <p class="mb-1"><span class="text-blue-500">[19:05:24]</span> > GodBot v2.0 carregado com sucesso.</p>
-            <p class="mb-1"><span class="text-yellow-500">[19:05:25]</span> > Analisando sentimento do mercado (X/Twitter)...</p>
-            <p class="mb-1"><span class="text-green-500">[19:05:28]</span> > Sinal de COMPRA detectado em SOL/USDT.</p>
-            <p class="mb-1"><span class="text-gray-500">[19:05:30]</span> > Monitorando parâmetros de risco...</p>
+        <div id="terminal-log" class="glass-card p-4 h-40 overflow-y-auto font-mono text-xs text-gray-400 custom-scroll">
+            <p class="mb-1"><span class="text-blue-500">[SISTEMA]</span> > Terminal Sentinel V26.1 inicializado.</p>
+            <p class="mb-1"><span class="text-blue-500">[SISTEMA]</span> > Aguardando comando do utilizador...</p>
         </div>
     </footer>
 
+    <script>
+        const MERCADOS = {
+            'GLOBAL FOREX': ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CAD", "USD/CHF", "NZD/USD", "EUR/GBP", "EUR/JPY", "GBP/JPY"],
+            'FOREX OTC': ["EUR/USD OTC", "GBP/USD OTC", "USD/JPY OTC", "AUD/USD OTC", "USD/CAD OTC", "USD/CHF OTC"],
+            'CRYPTO OTC': ["Bitcoin OTC", "Ethereum OTC", "Solana OTC", "Binance Coin OTC", "Cardano OTC"]
+        };
+
+        function mostrarAtivos(tipo) {
+            document.getElementById('menu-mercados').classList.add('hidden');
+            document.getElementById('lista-ativos').classList.remove('hidden');
+            document.getElementById('btn-voltar').classList.remove('hidden');
+            document.getElementById('titulo-painel').innerText = tipo;
+            
+            const container = document.getElementById('lista-ativos');
+            container.innerHTML = '';
+            
+            MERCADOS[tipo].forEach(ativo => {
+                const btn = document.createElement('button');
+                btn.className = "w-full bg-gray-900/50 hover:bg-blue-600/20 p-3 rounded-lg border border-gray-800 text-left text-sm text-gray-300 transition flex items-center justify-between group";
+                btn.innerHTML = `<span><i class="fas fa-chart-line mr-3 text-gray-600 group-hover:text-blue-500"></i>${ativo}</span><i class="fas fa-play text-[10px] opacity-0 group-hover:opacity-100 text-blue-500"></i>`;
+                btn.onclick = () => dispararAnalise(ativo);
+                container.appendChild(btn);
+            });
+        }
+
+        function voltarAoMenu() {
+            document.getElementById('menu-mercados').classList.remove('hidden');
+            document.getElementById('lista-ativos').classList.add('hidden');
+            document.getElementById('btn-voltar').classList.add('hidden');
+            document.getElementById('titulo-painel').innerText = "Selecionar Mercado";
+        }
+
+        function dispararAnalise(ativo) {
+            // Reiniciar Visual
+            document.getElementById('placeholder-sinal').classList.add('hidden');
+            document.getElementById('resultado-sinal').classList.add('hidden');
+            document.getElementById('badge-sinal').classList.add('hidden');
+            document.getElementById('progresso-ia').style.width = '0%';
+            document.getElementById('ativo-selecionado').innerHTML = `<i class="fas fa-sync-alt fa-spin text-blue-500 mr-2"></i>ANALISANDO ${ativo}`;
+            
+            const log = document.getElementById('terminal-log');
+            const etapas = [
+                {p: 20, t: "SCANNING ORDER BLOCKS..."},
+                {p: 40, t: "VOLUME DELTA ANALYSIS..."},
+                {p: 60, t: "M5 TREND CONFLUENCE..."},
+                {p: 80, t: "SMART MONEY FILTERING..."},
+                {p: 100, t: "SNIPER ENTRY READY!"}
+            ];
+
+            etapas.forEach((e, i) => {
+                setTimeout(() => {
+                    document.getElementById('progresso-ia').style.width = e.p + '%';
+                    document.getElementById('status-texto').innerText = e.t;
+                    log.innerHTML += `<p class="mb-1"><span class="text-blue-500">[${ativo}]</span> > ${e.t}</p>`;
+                    log.scrollTop = log.scrollHeight;
+
+                    if(e.p === 100) finalizarSinal(ativo);
+                }, i * 800);
+            });
+        }
+
+        function finalizarSinal(ativo) {
+            const direcao = Math.random() > 0.52 ? 'COMPRA' : 'VENDA';
+            const conf = (Math.random() * (96.4 - 91.2) + 91.2).toFixed(1);
+            
+            const txtElement = document.getElementById('direcao-texto');
+            txtElement.innerText = direcao === 'COMPRA' ? '▲ COMPRA ▲' : '▼ VENDA ▼';
+            txtElement.className = `text-6xl font-black mb-4 tracking-tighter ${direcao === 'COMPRA' ? 'text-green-500' : 'text-red-500'}`;
+            
+            document.getElementById('confianca-valor').innerText = conf + '%';
+            document.getElementById('resultado-sinal').classList.remove('hidden');
+            document.getElementById('badge-sinal').classList.remove('hidden');
+            document.getElementById('status-texto').innerText = "SINAL GERADO";
+            document.getElementById('ativo-selecionado').innerHTML = `<i class="fas fa-check-circle text-green-500 mr-2"></i>${ativo}`;
+        }
+    </script>
 </body>
 </html>
