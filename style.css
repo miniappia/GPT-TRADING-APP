@@ -1,64 +1,25 @@
-/* Definições Gerais */
-body {
-    background: radial-gradient(circle at top left, #0d1117, #161b22);
-    color: #e6edf3;
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@300;700&display=swap');
 
-/* Cartões com efeito Vidro (Glassmorphism) */
-.glass-card {
-    background: rgba(22, 27, 34, 0.7);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(48, 54, 61, 0.8);
-    border-radius: 16px;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-}
+body { font-family: 'Rajdhani', sans-serif; background: #030508; color: white; overflow: hidden; height: 100vh; }
+.orbitron { font-family: 'Orbitron', sans-serif; }
+.glass-card { background: rgba(10, 15, 25, 0.9); border-radius: 1.5rem; border: 1px solid rgba(59, 130, 246, 0.2); }
 
-.glass-card:hover {
-    border-color: #58a6ff;
-    transform: translateY(-4px);
-}
+.market-btn { width: 100%; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 15px; display: flex; justify-content: space-between; font-weight: bold; }
+.market-btn i { color: #3b82f6; font-size: 1.5rem; }
 
-/* Efeitos de Brilho para Trading */
-.glow-text-green {
-    text-shadow: 0 0 10px rgba(63, 185, 80, 0.5);
-    color: #3fb950;
-}
+.asset-btn { width: 100%; padding: 18px; margin-bottom: 8px; background: rgba(255,255,255,0.03); border-radius: 12px; font-weight: 900; font-size: 16px; border: 1px solid rgba(255,255,255,0.1); }
 
-.glow-text-red {
-    text-shadow: 0 0 10px rgba(248, 81, 70, 0.5);
-    color: #f85146;
-}
+.core-container { position: relative; width: 180px; height: 180px; display: flex; align-items: center; justify-content: center; }
+.scanner-ring { position: absolute; inset: 0; border: 2px solid #3b82f6; border-radius: 50%; border-top-color: transparent; animation: spin 2s linear infinite; }
+.ai-brain-core { width: 80px; height: 80px; background: radial-gradient(circle, #3b82f6 0%, transparent 70%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px #3b82f6; }
 
-/* Área do Gráfico */
-.trading-chart-placeholder {
-    background: linear-gradient(180deg, rgba(31, 38, 46, 0) 0%, rgba(31, 38, 46, 1) 100%);
-    height: 300px;
-    border-bottom: 2px solid #30363d;
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
-/* Animação de Bot Ativo */
-@keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
-}
+.signal-text { font-size: 80px; line-height: 1; }
+.neon-buy { color: #10b981; text-shadow: 0 0 20px #10b981; }
+.neon-sell { color: #ef4444; text-shadow: 0 0 20px #ef4444; }
 
-.live-indicator {
-    width: 8px;
-    height: 8px;
-    background-color: #3fb950;
-    border-radius: 50%;
-    display: inline-block;
-    animation: pulse 2s infinite;
-}
-
-/* Customização da Scrollbar dos Logs */
-.custom-scroll::-webkit-scrollbar {
-    width: 6px;
-}
-.custom-scroll::-webkit-scrollbar-thumb {
-    background: #30363d;
-    border-radius: 10px;
-}
+.tf-btn { background: #2563eb; padding: 15px; border-radius: 10px; font-weight: bold; }
+.tf-btn-sec { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; }
+.stat-box { background: rgba(255,255,255,0.03); padding: 10px; border-radius: 10px; font-size: 10px; }
+.stat-box span { font-size: 18px; font-weight: bold; color: #3b82f6; }
