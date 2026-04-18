@@ -24,8 +24,8 @@
         </div>
     </header>
 
-    <main>
-        <div id="tab-analyse" class="tab-content">
+    <main id="main-content">
+        <div id="tab-analyse" class="tab-pane">
             <div class="glass-card p-5 mb-4">
                 <div id="setup-view">
                     <p class="text-gray-500 text-[10px] font-bold tracking-[0.2em] mb-4 text-center uppercase">Initial Calibration</p>
@@ -54,9 +54,9 @@
                 </div>
 
                 <div id="loader-ia" class="hidden w-full flex flex-col items-center">
-                    <div class="scan-matrix mb-8">
-                        <div class="scan-line"></div>
-                        <div class="quantum-pulse"></div>
+                    <div class="scan-container mb-6">
+                        <div class="scan-grid"></div>
+                        <div class="scan-bar"></div>
                     </div>
                     <div class="w-full space-y-1">
                         <div id="capa-1" class="layer-box">>> DECRYPTING ORDER BLOCKS</div>
@@ -91,16 +91,32 @@
             </div>
         </div>
 
-        <div id="tab-home" class="tab-content hidden"><div class="glass-card p-5"><h3 class="orbitron text-blue-500 mb-2 font-bold">HOME</h3><p class="text-xs text-gray-400 leading-relaxed">Bem-vindo ao GodBot. Use a aba Analyse para gerar sinais.</p></div></div>
-        <div id="tab-learn" class="tab-content hidden"><div class="glass-card p-5"><h3 class="orbitron text-blue-500 mb-2 font-bold">LEARN</h3><p class="text-xs text-gray-400">Conteúdo educativo em breve.</p></div></div>
-        <div id="tab-support" class="tab-content hidden"><div class="glass-card p-5 text-center"><i class="fas fa-headset text-3xl mb-3 text-blue-500"></i><h3 class="orbitron text-white mb-2 font-bold">SUPPORT</h3><a href="https://t.me/teu_link" class="block bg-blue-600 p-3 rounded-lg text-xs font-bold">Falar no Telegram</a></div></div>
+        <div id="tab-home" class="tab-pane hidden">
+            <div class="glass-card p-5">
+                <h3 class="orbitron text-blue-500 mb-2 font-bold uppercase tracking-wider">Instructions</h3>
+                <p class="text-[11px] text-gray-400 leading-relaxed">Bem-vindo à central de inteligência GodBot.</p>
+            </div>
+        </div>
+
+        <div id="tab-support" class="tab-pane hidden">
+            <div class="glass-card p-5 text-center">
+                <i class="fas fa-headset text-3xl text-blue-500 mb-3"></i>
+                <h3 class="orbitron text-white mb-4">SUPORTE TELEGRAM</h3>
+                <a href="https://t.me/teu_user" class="block bg-blue-600 p-4 rounded-xl font-bold text-xs">CONTACTAR AGORA</a>
+            </div>
+        </div>
     </main>
 
     <nav class="fixed bottom-0 left-0 right-0 bg-[#0d1117]/95 backdrop-blur-md border-t border-white/10 flex justify-around py-4 px-2 z-50">
-        <button onclick="switchTab('home')" class="tab-btn" id="nav-home"><i class="fas fa-home"></i><span>Home</span></button>
-        <button onclick="switchTab('analyse')" class="tab-btn active" id="nav-analyse"><i class="fas fa-chart-line"></i><span>Analyse</span></button>
-        <button onclick="switchTab('learn')" class="tab-btn" id="nav-learn"><i class="fas fa-graduation-cap"></i><span>Learn</span></button>
-        <button onclick="switchTab('support')" class="tab-btn" id="nav-support"><i class="fas fa-headset"></i><span>Support</span></button>
+        <button onclick="switchTab('home')" class="nav-item" id="nav-home">
+            <i class="fas fa-home"></i><span>Home</span>
+        </button>
+        <button onclick="switchTab('analyse')" class="nav-item active" id="nav-analyse">
+            <i class="fas fa-chart-line"></i><span>Analyse</span>
+        </button>
+        <button onclick="switchTab('support')" class="nav-item" id="nav-support">
+            <i class="fas fa-headset"></i><span>Support</span>
+        </button>
     </nav>
 
     <script>
@@ -113,8 +129,8 @@
         let ativoAtual = ""; let tfAtual = "";
 
         function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.add('hidden'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById('tab-' + tabId).classList.remove('hidden');
             document.getElementById('nav-' + tabId).classList.add('active');
         }
@@ -122,7 +138,6 @@
         function getFlags(par) {
             if (par.toLowerCase().includes('bitcoin')) return "🪙";
             if (par.toLowerCase().includes('ethereum')) return "🪙";
-            if (par.toLowerCase().includes('solana')) return "🪙";
             const moedas = par.split(' ')[0].split('/');
             return moedas.length === 2 ? (FLAGS[moedas[0]] || "🌐") + (FLAGS[moedas[1]] || "🌐") : "🌐";
         }
@@ -157,13 +172,13 @@
             document.getElementById('placeholder-ia').classList.add('hidden');
             document.getElementById('loader-ia').classList.remove('hidden');
             for(let i=1; i<=5; i++) document.getElementById(`capa-${i}`).className = "layer-box";
-            const timings = [600, 1400, 2200, 3000, 3800];
+            const timings = [500, 1200, 2000, 2800, 3500];
             timings.forEach((ms, i) => {
                 setTimeout(() => {
                     const el = document.getElementById(`capa-${i+1}`);
                     el.classList.add('layer-active');
                     if(i > 0) document.getElementById(`capa-${i}`).classList.add('layer-done');
-                    if(i === 4) setTimeout(finalizarAnalise, 600);
+                    if(i === 4) setTimeout(finalizarAnalise, 500);
                 }, ms);
             });
         }
