@@ -1,35 +1,59 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Orbitron:wght@400;900&display=swap');
+body {
+    background: radial-gradient(circle at top left, #0d1117, #161b22);
+    color: #e6edf3;
+    font-family: 'Inter', sans-serif;
+    margin: 0; min-height: 100vh;
+}
 
-body { background: #0d1117; color: #e6edf3; font-family: 'Inter', sans-serif; overflow-x: hidden; }
 .orbitron { font-family: 'Orbitron', sans-serif; }
-.glass-card { background: rgba(22, 27, 34, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(48, 54, 61, 0.8); border-radius: 20px; }
 
-/* NAV */
-.nav-item { display: flex; flex-direction: column; align-items: center; gap: 5px; color: #484f58; transition: 0.3s; }
-.nav-item.active { color: #3b82f6; text-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
-.nav-item span { font-size: 9px; font-weight: 900; text-transform: uppercase; }
+.glass-card {
+    background: rgba(22, 27, 34, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(48, 54, 61, 0.8);
+    border-radius: 16px;
+}
 
-/* SCAN WOWOWOW */
-.wow-container { position: relative; width: 180px; height: 180px; display: flex; align-items: center; justify-content: center; perspective: 1000px; }
-.ring { position: absolute; border: 2px solid rgba(59, 130, 246, 0.3); border-radius: 50%; border-top-color: #3b82f6; }
-.ring-1 { width: 100%; height: 100%; animation: rot1 2s linear infinite; }
-.ring-2 { width: 80%; height: 80%; animation: rot2 1.5s linear infinite; }
-.ring-3 { width: 60%; height: 60%; animation: rot3 1s linear infinite; }
-.core-pulse { width: 15px; height: 15px; background: #3b82f6; border-radius: 50%; box-shadow: 0 0 30px #3b82f6; animation: pulse 0.6s alternate infinite; }
-@keyframes rot1 { 0% { transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg); } 100% { transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg); } }
-@keyframes rot2 { 0% { transform: rotateX(-35deg) rotateY(45deg) rotateZ(360deg); } 100% { transform: rotateX(-35deg) rotateY(45deg) rotateZ(0deg); } }
-@keyframes rot3 { 0% { transform: rotateX(70deg) rotateZ(0deg); } 100% { transform: rotateX(70deg) rotateZ(360deg); } }
-@keyframes pulse { from { opacity: 0.4; } to { opacity: 1; } }
+.market-btn {
+    width: 100%; padding: 18px; background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px; display: flex; justify-content: space-between;
+    align-items: center; font-weight: 700; font-size: 14px;
+}
 
-/* BOTÕES */
-.market-btn { width: 100%; padding: 20px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 15px; color: white; font-weight: 900; display: flex; justify-content: space-between; margin-bottom: 10px; }
-.asset-btn { padding: 15px; background: rgba(255,255,255,0.02); border-radius: 10px; color: white; font-weight: 700; border: 1px solid rgba(255,255,255,0.05); font-size: 11px; }
-.tf-btn { background: #3b82f6; color: white; padding: 15px; border-radius: 12px; font-weight: 900; }
-.tf-btn-sec { background: rgba(255,255,255,0.05); color: white; padding: 15px; border-radius: 12px; font-weight: 700; }
-.signal-text { font-size: 65px; line-height: 1; margin: 10px 0; }
-.neon-buy { color: #10b981; text-shadow: 0 0 20px #10b981; }
-.neon-sell { color: #ef4444; text-shadow: 0 0 20px #ef4444; }
-.stat-box { background: rgba(255,255,255,0.02); padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); }
-.stat-box p { font-size: 8px; color: #484f58; text-transform: uppercase; font-weight: 900; }
-.stat-box span { font-family: 'Orbitron'; font-size: 16px; font-weight: 900; }
-.sub-btn { background: rgba(255,255,255,0.03); color: #8b949e; padding: 18px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); font-weight: 900; text-transform: uppercase; font-size: 10px; }
+.asset-btn {
+    padding: 12px; background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px; font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; gap: 6px; justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tf-btn { background: #2563eb; color: white; padding: 14px; border-radius: 10px; font-weight: 900; }
+.tf-btn-sec { background: rgba(255, 255, 255, 0.05); padding: 14px; border-radius: 10px; font-weight: 700; }
+
+.core-container { position: relative; width: 180px; height: 180px; display: flex; align-items: center; justify-content: center; }
+.ring { position: absolute; border-radius: 50%; border: 2px solid transparent; }
+.ring-1 { inset: 0; border-top-color: #3b82f6; border-bottom-color: #3b82f6; animation: spin 2s linear infinite; }
+.ring-2 { inset: 15px; border-left-color: #60a5fa; border-right-color: #60a5fa; animation: spin-reverse 3s linear infinite; opacity: 0.5; }
+.ring-3 { inset: 30px; border: 1px dashed rgba(59, 130, 246, 0.5); animation: spin 10s linear infinite; }
+.core-brain { position: absolute; inset: 50px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, rgba(59, 130, 246, 0.3), transparent); border-radius: 50%; }
+
+.layer-box { font-size: 10px; font-weight: 700; padding: 10px; background: rgba(255,255,255,0.02); border-left: 3px solid #1e293b; transition: all 0.4s; }
+.layer-active { border-left-color: #3b82f6; background: rgba(59, 130, 246, 0.1); color: #60a5fa; }
+.layer-done { border-left-color: #10b981; color: #10b981; }
+
+.signal-text { font-size: 80px; line-height: 1; }
+.neon-buy { color: #10b981; text-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
+.neon-sell { color: #ef4444; text-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
+.arrow-glow { font-size: 40px; }
+
+.stat-box { background: rgba(255, 255, 255, 0.03); padding: 12px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); }
+.stat-box p { font-size: 9px; color: #64748b; text-transform: uppercase; margin-bottom: 4px; }
+.stat-box span { font-size: 20px; font-weight: 900; font-family: 'Orbitron'; }
+
+.sub-btn { background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 10px; font-size: 10px; font-weight: 700; width: 100%; border: 1px solid rgba(255, 255, 255, 0.1); }
+
+.custom-scroll { overflow-y: auto; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes spin-reverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+.scale-up { animation: scaleUp 0.3s ease-out; }
+@keyframes scaleUp { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
