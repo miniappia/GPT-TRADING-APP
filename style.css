@@ -1,39 +1,41 @@
 body { background: radial-gradient(circle at top left, #0d1117, #161b22); color: #e6edf3; font-family: 'Inter', sans-serif; margin: 0; min-height: 100vh; overflow-x: hidden; }
 .orbitron { font-family: 'Orbitron', sans-serif; }
-.glass-card { background: rgba(22, 27, 34, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(48, 54, 61, 0.8); border-radius: 16px; }
+.glass-card { background: rgba(22, 27, 34, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(48, 54, 61, 0.8); border-radius: 20px; }
 
-/* ABAS */
+/* NAVEGAÇÃO */
 .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #64748b; background: none; border: none; cursor: pointer; transition: 0.3s; }
 .nav-item i { font-size: 18px; }
 .nav-item span { font-size: 9px; font-weight: bold; text-transform: uppercase; }
 .nav-item.active { color: #3b82f6; text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
 .hidden { display: none !important; }
 
-/* BOTÕES */
-.market-btn { width: 100%; padding: 18px; background: rgba(255, 255, 255, 0.05); border-radius: 12px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 14px; margin-bottom: 8px; border: 1px solid transparent; }
-.asset-btn { padding: 12px; background: rgba(255, 255, 255, 0.03); border-radius: 10px; font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 6px; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.05); color: white; }
+/* BOTÕES E LISTAS */
+.market-btn { width: 100%; padding: 18px; background: rgba(255, 255, 255, 0.05); border-radius: 12px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 13px; margin-bottom: 8px; color: white; border: 1px solid rgba(255,255,255,0.05); }
+.asset-btn { padding: 12px; background: rgba(255, 255, 255, 0.03); border-radius: 10px; font-size: 11px; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.05); color: white; text-align: center; }
 .tf-btn { background: #2563eb; color: white; padding: 14px; border-radius: 10px; font-weight: 900; }
 .tf-btn-sec { background: rgba(255, 255, 255, 0.05); padding: 14px; border-radius: 10px; font-weight: 700; color: white; }
 
-/* NOVO SCAN (WOW) */
-.scan-container { position: relative; width: 200px; height: 120px; border: 1px solid rgba(59, 130, 246, 0.3); overflow: hidden; }
-.scan-grid { position: absolute; inset: 0; background: linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px); background-size: 20px 20px; }
-.scan-bar { position: absolute; width: 100%; height: 3px; background: #3b82f6; box-shadow: 0 0 15px #3b82f6; animation: scanAnim 2s infinite ease-in-out; }
-@keyframes scanAnim { 0% { top: 0; } 50% { top: 100%; } 100% { top: 0; } }
+/* SCAN WOWOWOW */
+.wow-container { position: relative; width: 180px; height: 180px; display: flex; align-items: center; justify-content: center; perspective: 1000px; }
+.ring { position: absolute; border: 2px solid rgba(59, 130, 246, 0.4); border-radius: 50%; border-top-color: #3b82f6; border-bottom-color: #60a5fa; }
+.ring-1 { width: 100%; height: 100%; animation: rotate3D1 2s linear infinite; }
+.ring-2 { width: 80%; height: 80%; border-color: rgba(37, 99, 235, 0.2); border-left-color: #2563eb; animation: rotate3D2 1.5s linear infinite; }
+.ring-3 { width: 60%; height: 60%; animation: rotate3D3 1s linear infinite; }
+.core-pulse { width: 20px; height: 20px; background: #3b82f6; border-radius: 50%; box-shadow: 0 0 40px 10px #3b82f6; animation: coreFlash 0.5s alternate infinite; }
+.scanning-text { position: absolute; bottom: -20px; font-size: 10px; letter-spacing: 4px; color: #3b82f6; font-weight: 900; }
 
-/* ANALISE */
-.layer-box { font-size: 10px; font-weight: 700; padding: 10px; background: rgba(255,255,255,0.02); border-left: 3px solid #1e293b; transition: 0.3s; margin-bottom: 4px; }
-.layer-active { border-left-color: #3b82f6; background: rgba(59, 130, 246, 0.1); color: #60a5fa; }
-.layer-done { border-left-color: #10b981; color: #10b981; }
+@keyframes rotate3D1 { 0% { transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg); } 100% { transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg); } }
+@keyframes rotate3D2 { 0% { transform: rotateX(-35deg) rotateY(45deg) rotateZ(360deg); } 100% { transform: rotateX(-35deg) rotateY(45deg) rotateZ(0deg); } }
+@keyframes rotate3D3 { 0% { transform: rotateX(70deg) rotateZ(0deg); } 100% { transform: rotateX(70deg) rotateZ(360deg); } }
+@keyframes coreFlash { from { opacity: 0.3; transform: scale(0.8); } to { opacity: 1; transform: scale(1.2); } }
 
+/* SINAL */
+.layer-box { font-size: 10px; font-weight: 700; padding: 10px; background: rgba(255,255,255,0.02); border-left: 3px solid #1e293b; margin-bottom: 4px; }
+.layer-active { border-left-color: #3b82f6; color: #60a5fa; }
 .signal-text { font-size: 75px; line-height: 1; }
 .neon-buy { color: #10b981; text-shadow: 0 0 25px rgba(16, 185, 129, 0.5); }
 .neon-sell { color: #ef4444; text-shadow: 0 0 25px rgba(239, 68, 68, 0.5); }
-.arrow-glow { font-size: 45px; }
 .stat-box { background: rgba(255, 255, 255, 0.03); padding: 12px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); text-align: center; }
 .stat-box p { font-size: 9px; color: #64748b; text-transform: uppercase; }
-.stat-box span { font-size: 20px; font-weight: 900; color: white; font-family: 'Orbitron'; }
-.sub-btn { background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 10px; font-size: 10px; font-weight: 700; width: 100%; border: 1px solid rgba(255, 255, 255, 0.1); color: white; }
-.custom-scroll { overflow-y: auto; }
-@keyframes scaleUp { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-.scale-up { animation: scaleUp 0.3s ease-out; }
+.stat-box span { font-size: 18px; font-weight: 900; color: white; font-family: 'Orbitron'; }
+.sub-btn { background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 12px; font-size: 10px; font-weight: 900; width: 100%; border: 1px solid rgba(255, 255, 255, 0.1); color: white; text-transform: uppercase; }
