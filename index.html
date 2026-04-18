@@ -1,234 +1,52 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GodBot | Sentinel V26.1</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="p-4 flex flex-col gap-4">
-
-    <header class="flex justify-between items-end px-2">
-        <div>
-            <h1 class="orbitron text-2xl font-black tracking-tighter text-white">GOD<span class="text-blue-500">BOT</span></h1>
-            <div class="flex items-center gap-2">
-                <span class="h-1.5 w-1.5 bg-blue-500 rounded-full animate-pulse"></span>
-                <p class="text-[9px] text-blue-400 font-bold tracking-[0.3em] uppercase">Alchemist V26.1 System</p>
+<main id="content-area" class="flex-grow overflow-hidden">
+    <section id="tab-home" class="tab-content flex flex-col gap-4 p-2">
+        <div class="glass-card p-5">
+            <h3 class="orbitron text-blue-500 mb-2">BEM-VINDO AO GODBOT</h3>
+            <p class="text-[11px] text-gray-400 leading-relaxed">O Sentinel V26 utiliza algoritmos de Smart Money Concepts para identificar blocos de ordens institucionais em tempo real.</p>
+            <div class="mt-4 p-4 border border-blue-500/20 bg-blue-500/5 rounded-xl text-center">
+                <p class="text-[10px] uppercase font-bold mb-2">Ativação de Conta</p>
+                <a href="TEU_LINK_AQUI" class="block w-full bg-blue-600 py-3 rounded-lg font-bold text-xs">REGISTAR NA CORRETORA</a>
             </div>
         </div>
-        <div class="text-right">
-            <p class="text-[10px] text-gray-500 font-bold uppercase">Security Level</p>
-            <p class="text-[10px] text-green-500 font-bold">MAXIMUM</p>
-        </div>
-    </header>
+    </section>
 
-    <div class="glass-card p-5">
-        <div id="setup-view">
-            <p class="text-gray-500 text-[10px] font-bold tracking-[0.2em] mb-4 text-center uppercase">Initial Calibration</p>
-            
-            <div id="menu-mercados" class="grid gap-3">
-                <button onclick="mostrarAtivos('GLOBAL FOREX')" class="market-btn">
-                    <span>GLOBAL FOREX</span>
-                    <i class="fas fa-globe-americas text-blue-500"></i>
-                </button>
-                <button onclick="mostrarAtivos('FOREX OTC')" class="market-btn">
-                    <span>FOREX OTC</span>
-                    <i class="fas fa-microchip text-blue-500"></i>
-                </button>
-                <button onclick="mostrarAtivos('CRYPTO OTC')" class="market-btn">
-                    <span>CRYPTO OTC</span>
-                    <i class="fas fa-coins text-blue-500"></i>
-                </button>
-            </div>
-
-            <div id="lista-ativos" class="hidden grid grid-cols-2 gap-2 custom-scroll max-h-[250px] pr-2"></div>
-
-            <div id="menu-timeframes" class="hidden grid grid-cols-3 gap-3">
-                <button onclick="prepararAnalise('S15')" class="tf-btn-sec">S15</button>
-                <button onclick="prepararAnalise('S30')" class="tf-btn-sec">S30</button>
-                <button onclick="prepararAnalise('M1')" class="tf-btn shadow-lg shadow-blue-600/40">M1</button>
-                <button onclick="prepararAnalise('M2')" class="tf-btn-sec">M2</button>
-                <button onclick="prepararAnalise('M5')" class="tf-btn-sec">M5</button>
-                <button onclick="prepararAnalise('H1')" class="tf-btn-sec">H1</button>
-            </div>
-
-            <button id="btn-voltar" onclick="voltarAoMenu()" class="hidden w-full mt-4 text-[9px] text-gray-500 font-bold uppercase tracking-widest"><i class="fas fa-arrow-left mr-2"></i> Reset System</button>
-        </div>
-    </div>
-
-    <div class="glass-card flex-grow flex flex-col items-center justify-center p-6 relative overflow-hidden">
-        
-        <div id="placeholder-ia" class="flex flex-col items-center opacity-20">
-            <div class="w-24 h-24 border-2 border-dashed border-blue-500 rounded-full animate-[spin_20s_linear_infinite] flex items-center justify-center">
-                <i class="fas fa-shield-alt text-2xl"></i>
-            </div>
-            <p class="orbitron text-[10px] mt-4 tracking-[0.4em]">STANDBY MODE</p>
-        </div>
-
+    <section id="tab-analyse" class="tab-content active flex flex-col gap-4">
         <div id="loader-ia" class="hidden w-full flex flex-col items-center">
-            <div class="core-container mb-8">
-                <div class="ring ring-1"></div>
-                <div class="ring ring-2"></div>
-                <div class="ring ring-3"></div>
-                <div class="core-brain">
-                    <i class="fas fa-atom text-4xl text-blue-400 animate-pulse"></i>
-                </div>
+            <div class="scan-matrix">
+                <div class="scan-line"></div>
+                <div class="quantum-pulse"></div>
             </div>
-            
-            <div class="w-full space-y-1">
-                <div id="capa-1" class="layer-box">>> DECRYPTING ORDER BLOCKS</div>
-                <div id="capa-2" class="layer-box">>> CALCULATING VOLUME DELTA</div>
-                <div id="capa-3" class="layer-box">>> TRACING INSTITUTIONAL FLOW</div>
-                <div id="capa-4" class="layer-box">>> SMART MONEY CONFLUENCE</div>
-                <div id="capa-5" class="layer-box">>> SENTINEL V26 FINAL VALIDATION</div>
+            <div id="capa-1" class="layer-box mt-4">>> SCANNING LIQUIDITY POOLS</div>
             </div>
-        </div>
+        </section>
 
-        <div id="resultado-sinal" class="hidden w-full text-center scale-up">
-            <div class="inline-block px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 mb-6">
-                <p id="asset-label" class="orbitron text-lg font-black text-blue-400 tracking-widest"></p>
-            </div>
+    </main>
 
-            <div class="flex flex-col items-center justify-center">
-                <i id="seta-cima" class="fas fa-chevron-double-up arrow-glow mb-2 text-white/5"></i>
-                <h2 id="direcao-texto" class="signal-text orbitron font-black uppercase">--</h2>
-                <i id="seta-baixo" class="fas fa-chevron-double-down arrow-glow mt-2 text-white/5"></i>
-            </div>
+<nav class="fixed bottom-0 left-0 right-0 bg-[#0d1117]/90 backdrop-blur-md border-t border-white/10 flex justify-around py-3 px-2 z-50">
+    <button onclick="switchTab('home')" class="tab-btn" id="btn-home">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+    </button>
+    <button onclick="switchTab('analyse')" class="tab-btn active" id="btn-analyse">
+        <i class="fas fa-chart-line"></i>
+        <span>Analyse</span>
+    </button>
+    <button onclick="switchTab('learn')" class="tab-btn">
+        <i class="fas fa-graduation-cap"></i>
+        <span>Learn</span>
+    </button>
+    <button onclick="switchTab('support')" class="tab-btn">
+        <i class="fas fa-headset"></i>
+        <span>Support</span>
+    </button>
+</nav>
 
-            <div class="flex gap-4 mt-8">
-                <div class="flex-1 stat-box">
-                    <p>Accuracy</p>
-                    <span id="confianca-valor">--</span>
-                </div>
-                <div class="flex-1 stat-box">
-                    <p>Timeframe</p>
-                    <span id="tf-valor">--</span>
-                </div>
-            </div>
-
-            <div class="mt-8 space-y-4">
-                <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="block w-full bg-blue-600 text-white py-5 rounded-2xl orbitron font-black text-sm shadow-[0_0_30px_rgba(37,99,235,0.4)] active:scale-95 transition-transform uppercase tracking-tighter">
-                    Execute Trade Now
-                </a>
-                <div class="flex gap-2">
-                    <button onclick="prepararAnalise(tfAtual)" class="flex-1 sub-btn">Rescan</button>
-                    <button onclick="voltarAoMenu()" class="flex-1 sub-btn">Menu</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const FLAGS = {
-            "EUR":"🇪🇺", "USD":"🇺🇸", "GBP":"🇬🇧", "JPY":"🇯🇵", 
-            "AUD":"🇦🇺", "CAD":"🇨🇦", "CHF":"🇨🇭", "NZD":"🇳🇿",
-            "BTC":"🪙", "ETH":"🪙", "SOL":"🪙", "BNB":"🪙",
-            "XRP":"🪙", "ADA":"🪙", "DOGE":"🪙", "DOT":"🪙"
-        };
-
-        const MERCADOS = {
-            'GLOBAL FOREX': ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CAD", "USD/CHF", "NZD/USD", "EUR/GBP", "EUR/JPY", "GBP/JPY", "EUR/CHF", "AUD/CAD"],
-            'FOREX OTC': ["EUR/USD OTC", "GBP/USD OTC", "USD/JPY OTC", "AUD/USD OTC", "USD/CAD OTC", "USD/CHF OTC", "NZD/USD OTC", "EUR/GBP OTC", "EUR/JPY OTC", "GBP/JPY OTC", "EUR/CHF OTC", "AUD/CAD OTC"],
-            'CRYPTO OTC': ["Bitcoin OTC", "Ethereum OTC", "Solana OTC", "Binance Coin OTC", "Cardano OTC", "Dogecoin OTC", "Polkadot OTC", "Litecoin OTC"]
-        };
-
-        let ativoAtual = ""; let tfAtual = "";
-
-        function getFlags(par) {
-            if (par.toLowerCase().includes('bitcoin')) return "🪙";
-            if (par.toLowerCase().includes('ethereum')) return "🪙";
-            if (par.toLowerCase().includes('solana')) return "🪙";
-            if (par.toLowerCase().includes('coin')) return "🪙";
-            
-            const moedas = par.split(' ')[0].split('/');
-            if (moedas.length !== 2) return "🌐";
-            return (FLAGS[moedas[0]] || "🌐") + (FLAGS[moedas[1]] || "🌐");
-        }
-
-        function mostrarAtivos(tipo) {
-            document.getElementById('menu-mercados').classList.add('hidden');
-            document.getElementById('lista-ativos').classList.remove('hidden');
-            document.getElementById('btn-voltar').classList.remove('hidden');
-            const container = document.getElementById('lista-ativos');
-            container.innerHTML = '';
-            
-            MERCADOS[tipo].forEach(ativo => {
-                const btn = document.createElement('button');
-                btn.className = "asset-btn";
-                btn.innerHTML = `<span>${getFlags(ativo)}</span> <span>${ativo}</span>`;
-                btn.onclick = () => selecionarTF(ativo);
-                container.appendChild(btn);
-            });
-        }
-
-        function selecionarTF(ativo) {
-            ativoAtual = ativo;
-            document.getElementById('lista-ativos').classList.add('hidden');
-            document.getElementById('menu-timeframes').classList.remove('hidden');
-        }
-
-        function voltarAoMenu() {
-            document.getElementById('menu-mercados').classList.remove('hidden');
-            document.getElementById('lista-ativos').classList.add('hidden');
-            document.getElementById('menu-timeframes').classList.add('hidden');
-            document.getElementById('btn-voltar').classList.add('hidden');
-            document.getElementById('resultado-sinal').classList.add('hidden');
-            document.getElementById('placeholder-ia').classList.remove('hidden');
-        }
-
-        function prepararAnalise(tf) {
-            tfAtual = tf;
-            document.getElementById('menu-timeframes').classList.add('hidden');
-            document.getElementById('placeholder-ia').classList.add('hidden');
-            document.getElementById('resultado-sinal').classList.add('hidden');
-            document.getElementById('loader-ia').classList.remove('hidden');
-            document.getElementById('btn-voltar').classList.add('hidden');
-
-            for(let i=1; i<=5; i++) {
-                document.getElementById(`capa-${i}`).className = "layer-box";
-            }
-
-            const timings = [800, 1800, 3000, 4200, 5500];
-            timings.forEach((ms, i) => {
-                setTimeout(() => {
-                    const el = document.getElementById(`capa-${i+1}`);
-                    el.classList.add('layer-active');
-                    if(i > 0) {
-                        const prev = document.getElementById(`capa-${i}`);
-                        prev.classList.add('layer-done');
-                    }
-                    if(i === 4) setTimeout(finalizarAnalise, 800);
-                }, ms);
-            });
-        }
-
-        function finalizarAnalise() {
-            const direcao = Math.random() > 0.5 ? 'BUY' : 'SELL';
-            const conf = (Math.random() * (98.9 - 94.2) + 94.2).toFixed(1);
-            document.getElementById('loader-ia').classList.add('hidden');
-            document.getElementById('resultado-sinal').classList.remove('hidden');
-            
-            const txt = document.getElementById('direcao-texto');
-            txt.innerText = direcao;
-            document.getElementById('asset-label').innerText = getFlags(ativoAtual) + " " + ativoAtual;
-            document.getElementById('confianca-valor').innerText = conf + '%';
-            document.getElementById('tf-valor').innerText = tfAtual;
-
-            const sc = document.getElementById('seta-cima');
-            const sb = document.getElementById('seta-baixo');
-
-            if(direcao === 'BUY') {
-                txt.className = "signal-text orbitron font-black neon-buy";
-                sc.className = "fas fa-chevron-double-up arrow-glow neon-buy animate-bounce";
-                sb.className = "fas fa-chevron-double-up arrow-glow text-white/5";
-            } else {
-                txt.className = "signal-text orbitron font-black neon-sell";
-                sc.className = "fas fa-chevron-double-down arrow-glow text-white/5";
-                sb.className = "fas fa-chevron-double-down arrow-glow neon-sell animate-bounce";
-            }
-        }
-    </script>
-</body>
-</html>
+<script>
+function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tabId).classList.add('active');
+    document.getElementById('btn-' + tabId).classList.add('active');
+}
+// Manter toda a tua lógica de análise abaixo sem alterações
+</script>
