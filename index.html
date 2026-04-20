@@ -69,7 +69,7 @@
                 <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="block bg-blue-600 text-white p-4 rounded-xl font-black orbitron uppercase">ATIVAR AGORA</a>
             </div>
 
-            <div id="analyse-content">
+            <div id="analyse-content" class="hidden">
                 <div class="glass-card p-5 mb-4">
                     <div id="setup-view">
                         <p class="text-gray-500 text-[10px] font-bold tracking-[0.2em] mb-4 text-center uppercase">Initial Calibration</p>
@@ -133,7 +133,6 @@
 
         <div id="tab-free" class="tab-pane hidden">
             <div class="glass-card flex flex-col items-center justify-center p-6 relative overflow-hidden min-h-[400px]">
-                
                 <div id="free-start-box" class="text-center">
                     <i class="fas fa-bolt text-4xl text-blue-500 animate-pulse mb-4"></i>
                     <h2 class="orbitron text-white font-black mb-2 uppercase tracking-tighter">TESTAR</h2>
@@ -153,19 +152,16 @@
                     <div class="inline-block px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 mb-6">
                         <p id="free-asset-label" class="orbitron text-lg font-black text-blue-400 tracking-widest uppercase"></p>
                     </div>
-                    
                     <div class="flex flex-col items-center justify-center">
                         <i id="free-seta-cima" class="fas fa-chevron-double-up arrow-glow mb-2 text-white/5"></i>
                         <h2 id="free-direcao-texto" class="signal-text orbitron font-black uppercase">--</h2>
                         <i id="free-seta-baixo" class="fas fa-chevron-double-down arrow-glow mt-2 text-white/5"></i>
                     </div>
-
                     <div id="free-win-label" class="hidden">
                         <h2 class="neon-buy text-6xl orbitron font-black animate-bounce mt-4 italic">WIN</h2>
                     </div>
-
                     <div class="bg-black/40 p-4 mt-8 border border-white/5 rounded-xl w-full">
-                        <p class="text-[8px] text-gray-500 uppercase font-bold tracking-widest mb-3">ULTIMAS 6 ANALISES FREE (M1)</p>
+                        <p class="text-[8px] text-gray-500 uppercase font-bold tracking-widest mb-3">ÚLTIMAS 6 ANÁLISES FREE (M1)</p>
                         <div class="flex justify-center gap-2">
                             <span class="w-8 h-8 flex items-center justify-center bg-green-500/10 text-green-500 rounded-lg border border-green-500/20 text-[10px]">✅</span>
                             <span class="w-8 h-8 flex items-center justify-center bg-green-500/10 text-green-500 rounded-lg border border-green-500/20 text-[10px]">✅</span>
@@ -175,12 +171,10 @@
                             <span class="w-8 h-8 flex items-center justify-center bg-green-500/10 text-green-500 rounded-lg border border-green-500/20 text-[10px]">✅</span>
                         </div>
                     </div>
-
                     <div id="free-timer-msg" class="hidden glass-card p-4 border border-white/5 mt-6 w-full">
-                        <p class="text-[9px] text-gray-500 mb-1 uppercase font-bold tracking-widest">PROXIMA ANALISE GRATIS EM:</p>
+                        <p class="text-[9px] text-gray-500 mb-1 uppercase font-bold tracking-widest">PRÓXIMA ANÁLISE GRÁTIS EM:</p>
                         <span id="free-timer-clock" class="orbitron text-blue-500 font-black text-2xl">30:00</span>
                     </div>
-
                     <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="block w-full bg-blue-600 text-white py-5 rounded-2xl orbitron font-black text-sm shadow-[0_0_30px_rgba(37,99,235,0.4)] uppercase mt-8">Libertar Sinais VIP</a>
                 </div>
             </div>
@@ -210,9 +204,9 @@
             'CRYPTO OTC': ["Bitcoin OTC", "Ethereum OTC", "Solana OTC", "Binance Coin OTC", "Cardano OTC", "Dogecoin OTC", "Polkadot OTC", "Litecoin OTC"]
         };
         
-        // TEU ID ADMINISTRADOR AQUI
         const vips = ["5052278069"]; 
         let ativoAtual = ""; let tfAtual = "";
+        let isUserVip = false;
 
         function switchTab(tabId) {
             document.querySelectorAll('.tab-pane').forEach(p => p.classList.add('hidden'));
@@ -230,6 +224,7 @@
         }
 
         function mostrarAtivos(tipo) {
+            if(!isUserVip) return;
             document.getElementById('menu-mercados').classList.add('hidden');
             const list = document.getElementById('lista-ativos');
             list.classList.remove('hidden');
@@ -254,6 +249,7 @@
         }
 
         function prepararAnalise(tf) {
+            if(!isUserVip) return;
             tfAtual = tf;
             document.getElementById('menu-timeframes').classList.add('hidden');
             document.getElementById('placeholder-ia').classList.add('hidden');
@@ -291,13 +287,11 @@
             }
         }
 
-        // --- LÓGICA FREE REFORMULADA ---
         const paresFree = ["EUR/USD OTC", "GBP/USD OTC", "BTC/USD", "USD/JPY OTC", "ETH/USD"];
 
         function executarSinalFree() {
             const ultimaExecucao = localStorage.getItem('lastFreeSignal');
             const agora = Date.now();
-            
             if (ultimaExecucao && (agora - ultimaExecucao < 30 * 60 * 1000)) {
                 document.getElementById('free-start-box').classList.add('hidden');
                 document.getElementById('free-result-box').classList.remove('hidden');
@@ -306,21 +300,16 @@
                 iniciarContagemTrintaMinutos(tempoRestante);
                 return;
             }
-
             document.getElementById('free-start-box').classList.add('hidden');
             document.getElementById('free-loading-box').classList.remove('hidden');
-            
             setTimeout(() => {
                 document.getElementById('free-loading-box').classList.add('hidden');
                 document.getElementById('free-result-box').classList.remove('hidden');
-                
                 const parSorteado = paresFree[Math.floor(Math.random() * paresFree.length)];
                 const direcao = Math.random() > 0.5 ? 'BUY' : 'SELL';
-                
                 document.getElementById('free-asset-label').innerText = getFlags(parSorteado) + " " + parSorteado;
                 const txt = document.getElementById('free-direcao-texto');
                 txt.innerText = direcao;
-                
                 const sc = document.getElementById('free-seta-cima'); 
                 const sb = document.getElementById('free-seta-baixo');
                 if(direcao === 'BUY') {
@@ -332,10 +321,8 @@
                     sc.className = "fas fa-chevron-double-down arrow-glow text-white/5";
                     sb.className = "fas fa-chevron-double-down arrow-glow neon-sell animate-bounce";
                 }
-                
                 document.getElementById('free-win-label').classList.add('hidden');
                 localStorage.setItem('lastFreeSignal', Date.now());
-
                 setTimeout(() => {
                     document.getElementById('free-win-label').classList.remove('hidden');
                     document.getElementById('free-timer-msg').classList.remove('hidden');
@@ -359,36 +346,32 @@
             }, 1000);
         }
 
-        // --- VERIFICAÇÃO DE ACESSO ---
         window.addEventListener('load', () => {
             const tg = window.Telegram.WebApp;
             tg.expand();
-            
             const checkUser = () => {
                 const user = tg.initDataUnsafe?.user;
                 if(user) {
                     const idString = user.id.toString();
                     document.getElementById('user-id-home').innerText = idString;
                     document.getElementById('user-name-display').innerText = user.first_name || "Membro Sentinel";
-                    
                     if(vips.includes(idString)) {
+                        isUserVip = true;
                         document.getElementById('lock-screen').classList.add('hidden');
                         document.getElementById('analyse-content').classList.remove('hidden');
                         const badge = document.getElementById('vip-badge');
                         badge.innerText = "ACESSO ADMIN";
                         badge.className = "text-[8px] bg-green-600/20 text-green-500 border border-green-500/30 px-2 py-1 rounded font-black uppercase";
+                    } else {
+                        document.getElementById('lock-screen').classList.remove('hidden');
+                        document.getElementById('analyse-content').classList.add('hidden');
                     }
                 }
             };
-
             checkUser();
-
             const ultimaExecucao = localStorage.getItem('lastFreeSignal');
-            if (ultimaExecucao) {
-                const agora = Date.now();
-                if (agora - ultimaExecucao < 30 * 60 * 1000) {
-                    executarSinalFree();
-                }
+            if (ultimaExecucao && (Date.now() - ultimaExecucao < 30 * 60 * 1000)) {
+                executarSinalFree();
             }
         });
     </script>
