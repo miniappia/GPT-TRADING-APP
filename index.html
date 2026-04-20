@@ -132,25 +132,52 @@
         </div>
 
         <div id="tab-free" class="tab-pane hidden">
-            <div class="glass-card p-6 min-h-[400px] flex flex-col justify-center items-center relative overflow-hidden">
+            <div class="glass-card flex flex-col items-center justify-center p-6 relative overflow-hidden min-h-[320px]">
                 <div id="free-start-box" class="text-center">
                     <i class="fas fa-bolt text-4xl text-blue-500 animate-pulse mb-4"></i>
                     <h2 class="orbitron text-white font-black mb-2 uppercase tracking-tighter">Amostra Grátis</h2>
                     <p class="text-[10px] text-gray-500 uppercase mb-8 tracking-widest italic">1 Sinal a cada 30 min</p>
                     <button onclick="executarSinalFree()" class="bg-white text-black px-10 py-4 rounded-xl orbitron font-black text-[11px] uppercase">Analisar Agora</button>
                 </div>
+
                 <div id="free-loading-box" class="hidden text-center w-full">
                     <div class="scan-container mx-auto mb-6"><div class="scan-bar"></div></div>
                     <p class="orbitron text-[10px] text-blue-500 animate-pulse uppercase">Varrendo Algoritmo...</p>
                 </div>
-                <div id="free-result-box" class="hidden w-full text-center">
-                    <p id="free-asset-name" class="text-blue-400 font-bold mb-4 text-[12px] uppercase tracking-widest">---</p>
-                    <h2 id="free-dir-text" class="orbitron text-7xl font-black mb-6 italic tracking-tighter">--</h2>
-                    <div id="free-status-label" class="text-[10px] font-black text-gray-500 uppercase mb-8 tracking-widest">Aguardando Expiração...</div>
-                    <div id="free-timer-msg" class="hidden bg-black/60 p-5 rounded-xl border border-white/5 mt-4">
-                        <p class="text-[9px] text-gray-500 mb-2 uppercase font-bold tracking-widest">Próximo Teste em:</p>
+
+                <div id="free-result-box" class="hidden w-full text-center scale-up">
+                    <div class="inline-block px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 mb-6">
+                        <p id="free-asset-label" class="orbitron text-lg font-black text-blue-400 tracking-widest uppercase"></p>
+                    </div>
+                    
+                    <div class="flex flex-col items-center justify-center">
+                        <i id="free-seta-cima" class="fas fa-chevron-double-up arrow-glow mb-2 text-white/5"></i>
+                        <h2 id="free-direcao-texto" class="signal-text orbitron font-black uppercase">--</h2>
+                        <i id="free-seta-baixo" class="fas fa-chevron-double-down arrow-glow mt-2 text-white/5"></i>
+                    </div>
+
+                    <div id="free-result-label" class="hidden">
+                        <h2 class="neon-buy text-6xl orbitron font-black animate-bounce mt-4">WIN</h2>
+                    </div>
+
+                    <div class="glass-card p-4 bg-black/40 mt-10 border border-white/5 w-full">
+                        <p class="text-[9px] text-gray-500 uppercase font-bold tracking-widest mb-3">Últimas 6 Análises Free:</p>
+                        <div class="flex justify-around gap-1 text-[12px]">
+                            <span class="p-1.5 bg-green-600/10 text-green-500 rounded border border-green-500/20">M1 ✅</span>
+                            <span class="p-1.5 bg-green-600/10 text-green-500 rounded border border-green-500/20">M1 ✅</span>
+                            <span class="p-1.5 bg-green-600/10 text-green-500 rounded border border-green-500/20">M1 ✅</span>
+                            <span class="p-1.5 bg-red-600/10 text-red-500 rounded border border-red-500/20">M1 ❌</span>
+                            <span class="p-1.5 bg-green-600/10 text-green-500 rounded border border-green-500/20">M1 ✅</span>
+                            <span class="p-1.5 bg-green-600/10 text-green-500 rounded border border-green-500/20">M1 ✅</span>
+                        </div>
+                    </div>
+
+                    <div id="free-timer-msg" class="hidden glass-card p-5 border border-white/5 mt-6 w-full text-center">
+                        <p class="text-[9px] text-gray-500 mb-2 uppercase font-bold tracking-widest">Próxima Análise Grátis em:</p>
                         <span id="free-timer-clock" class="orbitron text-blue-500 font-black text-2xl">30:00</span>
                     </div>
+
+                    <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="block w-full bg-blue-600 text-white py-5 rounded-2xl orbitron font-black text-sm shadow-[0_0_30px_rgba(37,99,235,0.4)] uppercase tracking-tighter mt-8">Operar no Link Oficial</a>
                 </div>
             </div>
         </div>
@@ -257,7 +284,7 @@
             }
         }
 
-        // --- LÓGICA FREE CORRIGIDA ---
+        // --- LÓGICA FREE CORRIGIDA COM VISUAL VIP ---
         const paresFree = ["EUR/USD OTC", "GBP/USD OTC", "BTC/USD", "USD/JPY OTC", "ETH/USD"];
 
         function executarSinalFree() {
@@ -265,6 +292,7 @@
             const agora = Date.now();
             
             if (ultimaExecucao && (agora - ultimaExecucao < 30 * 60 * 1000)) {
+                // Bloqueia e mostra o timer
                 document.getElementById('free-start-box').classList.add('hidden');
                 document.getElementById('free-result-box').classList.remove('hidden');
                 document.getElementById('free-timer-msg').classList.remove('hidden');
@@ -283,16 +311,32 @@
                 const parSorteado = paresFree[Math.floor(Math.random() * paresFree.length)];
                 const direcao = Math.random() > 0.5 ? 'BUY' : 'SELL';
                 
-                // Correção aqui: usando ID específico para o nome do par
-                document.getElementById('free-asset-name').innerText = `📊 ${parSorteado} (M1)`;
-                const el = document.getElementById('free-dir-text');
-                el.innerText = direcao;
-                el.className = `orbitron text-7xl font-black mb-6 italic ${direcao==='BUY'?'text-green-500':'text-red-500'}`;
+                // CORREÇÃO: Usando a tua função getFlags() para as bandeiras no Free
+                document.getElementById('free-asset-label').innerText = getFlags(parSorteado) + " " + parSorteado;
+                const txt = document.getElementById('free-direcao-texto');
+                txt.innerText = direcao;
                 
+                // CORREÇÃO VISUAL: Aplicando as classes neon e setas piscar do VIP
+                const sc = document.getElementById('free-seta-cima'); 
+                const sb = document.getElementById('free-seta-baixo');
+                if(direcao === 'BUY') {
+                    txt.className = "signal-text orbitron font-black neon-buy";
+                    sc.className = "fas fa-chevron-double-up arrow-glow neon-buy animate-bounce";
+                    sb.className = "fas fa-chevron-double-up arrow-glow text-white/5";
+                } else {
+                    txt.className = "signal-text orbitron font-black neon-sell";
+                    sc.className = "fas fa-chevron-double-down arrow-glow text-white/5";
+                    sb.className = "fas fa-chevron-double-down arrow-glow neon-sell animate-bounce";
+                }
+                
+                // Esconde WIN antigo
+                document.getElementById('free-result-label').classList.add('hidden');
+
                 localStorage.setItem('lastFreeSignal', Date.now());
 
+                // Espera 62 segundos para o WIN
                 setTimeout(() => {
-                    document.getElementById('free-status-label').innerHTML = '<span class="text-green-500 font-black text-6xl block mt-4 animate-bounce uppercase">WIN</span>';
+                    document.getElementById('free-result-label').classList.remove('hidden');
                     document.getElementById('free-timer-msg').classList.remove('hidden');
                     iniciarContagemTrintaMinutos(30 * 60);
                 }, 62000); 
