@@ -170,3 +170,102 @@
         <button onclick="switchTab('free')" class="nav-item" id="nav-free"><i class="fas fa-bolt"></i><span>Free</span></button>
         <button onclick="switchTab('support')" class="nav-item" id="nav-support"><i class="fas fa-headset"></i><span>Support</span></button>
     </nav>
+
+    <script>
+        const FLAGS = { "EUR":"🇪🇺", "USD":"🇺🇸", "GBP":"🇬🇧", "JPY":"🇯🇵", "AUD":"🇦🇺", "CAD":"🇨🇦", "CHF":"🇨🇭", "NZD":"🇳🇿", "BTC":"🪙", "ETH":"🪙", "SOL":"🪙", "BNB":"🪙", "XRP":"🪙", "ADA":"🪙", "DOGE":"🪙", "DOT":"🪙" };
+        const MERCADOS = {
+            'GLOBAL FOREX': ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CAD", "USD/CHF", "NZD/USD", "EUR/GBP", "EUR/JPY", "GBP/JPY", "EUR/CHF", "AUD/CAD"],
+            'FOREX OTC': ["EUR/USD OTC", "GBP/USD OTC", "USD/JPY OTC", "AUD/USD OTC", "USD/CAD OTC", "USD/CHF OTC", "NZD/USD OTC", "EUR/GBP OTC", "EUR/JPY OTC", "GBP/JPY OTC", "EUR/CHF OTC", "AUD/CAD OTC"],
+            'CRYPTO OTC': ["Bitcoin OTC", "Ethereum OTC", "Solana OTC", "Binance Coin OTC", "Cardano OTC", "Dogecoin OTC", "Polkadot OTC", "Litecoin OTC"]
+        };
+        const vips = ["5052278069"];
+        let ativoAtual = ""; let tfAtual = "";
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.add('hidden'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            document.getElementById('nav-' + tabId).classList.add('active');
+        }
+
+        function getFlags(par) {
+            if (par.toLowerCase().includes('bitcoin')) return "🪙";
+            if (par.toLowerCase().includes('ethereum')) return "🪙";
+            const moedas = par.split(' ')[0].split('/');
+            return moedas.length === 2 ? (FLAGS[moedas[0]] || "🌐") + (FLAGS[moedas[1]] || "🌐") : "🌐";
+        }
+
+        function mostrarAtivos(tipo) {
+            document.getElementById('menu-mercados').classList.add('hidden');
+            const list = document.getElementById('lista-ativos');
+            list.classList.remove('hidden');
+            document.getElementById('btn-voltar').classList.remove('hidden');
+            list.innerHTML = '';
+            MERCADOS[tipo].forEach(ativo => {
+                const btn = document.createElement('button');
+                btn.className = "asset-btn";
+                btn.innerHTML = `<span>${getFlags(ativo)}</span> <span>${ativo}</span>`;
+                btn.onclick = () => { ativoAtual = ativo; list.classList.add('hidden'); document.getElementById('menu-timeframes').classList.remove('hidden'); };
+                list.appendChild(btn);
+            });
+        }
+
+        function voltarAoMenu() {
+            document.getElementById('menu-mercados').classList.remove('hidden');
+            document.getElementById('lista-ativos').classList.add('hidden');
+            document.getElementById('menu-timeframes').classList.add('hidden');
+            document.getElementById('btn-voltar').classList.add('hidden');
+            document.getElementById('resultado-sinal').classList.add('hidden');
+            document.getElementById('placeholder-ia').classList.remove('hidden');
+        }
+
+        function prepararAnalise(tf) {
+            tfAtual = tf;
+            document.getElementById('menu-timeframes').classList.add('hidden');
+            document.getElementById('placeholder-ia').classList.add('hidden');
+            document.getElementById('loader-ia').classList.remove('hidden');
+            for(let i=1; i<=5; i++) document.getElementById(`capa-${i}`).className = "layer-box";
+            const timings = [500, 1200, 2000, 2800, 3500];
+            timings.forEach((ms, i) => {
+                setTimeout(() => {
+                    const el = document.getElementById(`capa-${i+1}`);
+                    el.classList.add('layer-active');
+                    if(i > 0) document.getElementById(`capa-${i}`).classList.add('layer-done');
+                    if(i === 4) setTimeout(finalizarAnalise, 500);
+                }, ms);
+            });
+        }
+
+        function finalizarAnalise() {
+            const direcao = Math.random() > 0.5 ? 'BUY' : 'SELL';
+            document.getElementById('loader-ia').classList.add('hidden');
+            document.getElementById('resultado-sinal').classList.remove('hidden');
+            const txt = document.getElementById('direcao-texto');
+            txt.innerText = direcao;
+            document.getElementById('asset-label').innerText = getFlags(ativoAtual) + " " + ativoAtual;
+            document.getElementById('confianca-valor').innerText = (Math.random() * (4.7) + 94.2).toFixed(1) + '%';
+            document.getElementById('tf-valor').innerText = tfAtual;
+            const sc = document.getElementById('seta-cima'); const sb = document.getElementById('seta-baixo');
+            if(direcao === 'BUY') {
+                txt.className = "signal-text orbitron font-black neon-buy";
+                sc.className = "fas fa-chevron-double-up arrow-glow neon-buy animate-bounce";
+                sb.className = "fas fa-chevron-double-up arrow-glow text-white/5";
+            } else {
+                txt.className = "signal-text orbitron font-black neon-sell";
+                sc.className = "fas fa-chevron-double-down arrow-glow text-white/5";
+                sb.className = "fas fa-chevron-double-down arrow-glow neon-sell animate-bounce";
+            }
+        }
+
+        const paresFree = ["EUR/USD OTC", "GBP/USD OTC", "BTC/USD", "USD/JPY OTC", "ETH/USD"];
+
+        function executarSinalFree() {
+            const ultimaExecucao = localStorage.getItem('lastFreeSignal');
+            const agora = Date.now();
+            
+            if (ultimaExecucao && (agora - ultimaExecucao < 30 * 60 * 1000)) {
+                document.getElementById('free-start-box').classList.add('hidden');
+                document.getElementById('free-result-box').classList.remove('hidden');
+                document.getElementById('free-timer-msg').classList.remove('hidden');
+                const tempoRestante = Math.ceil((30 * 60 * 1000 - (agora - ultimaExecucao)) / 1000);
+                iniciarContagemTrinta
