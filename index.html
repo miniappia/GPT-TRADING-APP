@@ -33,7 +33,7 @@
                         <i class="fas fa-user-shield text-blue-500"></i>
                     </div>
                     <div>
-                        <h3 class="orbitron text-white font-black text-xs uppercase tracking-wider">Perfil</h3>
+                        <h3 class="orbitron text-white font-black text-xs uppercase tracking-wider">Perfil Sentinel</h3>
                         <p id="user-name-display" class="text-[9px] text-gray-500 uppercase">Acesso VIP Pendente</p>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                         <div class="w-full space-y-1">
                             <div id="capa-1" class="layer-box">>> DECRYPTING ORDER BLOCKS</div>
                             <div id="capa-2" class="layer-box">>> CALCULATING VOLUME DELTA</div>
-                            <div id="capa-3" class="layer-box">>> TRACKING INSTITUTIONAL FLOW</div>
+                            <div id="capa-3" class="layer-box">>> TRACING INSTITUTIONAL FLOW</div>
                             <div id="capa-4" class="layer-box">>> SMART MONEY CONFLUENCE</div>
                             <div id="capa-5" class="layer-box">>> SENTINEL V26 FINAL VALIDATION</div>
                         </div>
@@ -135,16 +135,16 @@
             <div class="glass-card p-6 min-h-[400px] flex flex-col justify-center items-center relative overflow-hidden">
                 <div id="free-start-box" class="text-center">
                     <i class="fas fa-bolt text-4xl text-blue-500 animate-pulse mb-4"></i>
-                    <h2 class="orbitron text-white font-black mb-2 uppercase tracking-tighter">TESTAR</h2>
+                    <h2 class="orbitron text-white font-black mb-2 uppercase tracking-tighter">Amostra Grátis</h2>
                     <p class="text-[10px] text-gray-500 uppercase mb-8 tracking-widest italic">1 Sinal a cada 30 min</p>
                     <button onclick="executarSinalFree()" class="bg-white text-black px-10 py-4 rounded-xl orbitron font-black text-[11px] uppercase">Analisar Agora</button>
                 </div>
                 <div id="free-loading-box" class="hidden text-center w-full">
                     <div class="scan-container mx-auto mb-6"><div class="scan-bar"></div></div>
-                    <p class="orbitron text-[10px] text-blue-500 animate-pulse uppercase">Analisando Algoritmo...</p>
+                    <p class="orbitron text-[10px] text-blue-500 animate-pulse uppercase">Varrendo Algoritmo...</p>
                 </div>
                 <div id="free-result-box" class="hidden w-full text-center">
-                    <p class="text-blue-400 font-bold mb-4 text-[12px] uppercase tracking-widest">🇪🇺🇺🇸 EUR/USD OTC (M1)</p>
+                    <p class="text-blue-400 font-bold mb-4 text-[12px] uppercase tracking-widest">---</p>
                     <h2 id="free-dir-text" class="orbitron text-7xl font-black mb-6 italic tracking-tighter">--</h2>
                     <div id="free-status-label" class="text-[10px] font-black text-gray-500 uppercase mb-8 tracking-widest">Aguardando Expiração...</div>
                     <div id="free-timer-msg" class="hidden bg-black/60 p-5 rounded-xl border border-white/5 mt-4">
@@ -158,7 +158,7 @@
         <div id="tab-support" class="tab-pane hidden">
             <div class="glass-card p-8 text-center">
                 <div class="w-20 h-20 bg-blue-600/10 rounded-full flex items-center justify-center mx-auto mb-6"><i class="fas fa-headset text-3xl text-blue-500"></i></div>
-                <h3 class="orbitron text-white mb-2 font-black">SUPORTE</h3>
+                <h3 class="orbitron text-white mb-2 font-black">Suporte Sentinel</h3>
                 <a href="https://t.me/Tgomes0" class="block bg-white text-black p-4 rounded-2xl font-black text-[11px] orbitron uppercase shadow-xl">Contactar Especialista</a>
             </div>
         </div>
@@ -170,187 +170,3 @@
         <button onclick="switchTab('free')" class="nav-item" id="nav-free"><i class="fas fa-bolt"></i><span>Free</span></button>
         <button onclick="switchTab('support')" class="nav-item" id="nav-support"><i class="fas fa-headset"></i><span>Support</span></button>
     </nav>
-
-    <script>
-        const FLAGS = { "EUR":"🇪🇺", "USD":"🇺🇸", "GBP":"🇬🇧", "JPY":"🇯🇵", "AUD":"🇦🇺", "CAD":"🇨🇦", "CHF":"🇨🇭", "NZD":"🇳🇿", "BTC":"🪙", "ETH":"🪙", "SOL":"🪙", "BNB":"🪙", "XRP":"🪙", "ADA":"🪙", "DOGE":"🪙", "DOT":"🪙" };
-        const MERCADOS = {
-            'GLOBAL FOREX': ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CAD", "USD/CHF", "NZD/USD", "EUR/GBP", "EUR/JPY", "GBP/JPY", "EUR/CHF", "AUD/CAD"],
-            'FOREX OTC': ["EUR/USD OTC", "GBP/USD OTC", "USD/JPY OTC", "AUD/USD OTC", "USD/CAD OTC", "USD/CHF OTC", "NZD/USD OTC", "EUR/GBP OTC", "EUR/JPY OTC", "GBP/JPY OTC", "EUR/CHF OTC", "AUD/CAD OTC"],
-            'CRYPTO OTC': ["Bitcoin OTC", "Ethereum OTC", "Solana OTC", "Binance Coin OTC", "Cardano OTC", "Dogecoin OTC", "Polkadot OTC", "Litecoin OTC"]
-        };
-        const vips = ["5052278069"];
-        let ativoAtual = ""; let tfAtual = "";
-
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-pane').forEach(p => p.classList.add('hidden'));
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
-            document.getElementById('nav-' + tabId).classList.add('active');
-        }
-
-        function getFlags(par) {
-            if (par.toLowerCase().includes('bitcoin')) return "🪙";
-            if (par.toLowerCase().includes('ethereum')) return "🪙";
-            const moedas = par.split(' ')[0].split('/');
-            return moedas.length === 2 ? (FLAGS[moedas[0]] || "🌐") + (FLAGS[moedas[1]] || "🌐") : "🌐";
-        }
-
-        function mostrarAtivos(tipo) {
-            document.getElementById('menu-mercados').classList.add('hidden');
-            const list = document.getElementById('lista-ativos');
-            list.classList.remove('hidden');
-            document.getElementById('btn-voltar').classList.remove('hidden');
-            list.innerHTML = '';
-            MERCADOS[tipo].forEach(ativo => {
-                const btn = document.createElement('button');
-                btn.className = "asset-btn";
-                btn.innerHTML = `<span>${getFlags(ativo)}</span> <span>${ativo}</span>`;
-                btn.onclick = () => { ativoAtual = ativo; list.classList.add('hidden'); document.getElementById('menu-timeframes').classList.remove('hidden'); };
-                list.appendChild(btn);
-            });
-        }
-
-        function voltarAoMenu() {
-            document.getElementById('menu-mercados').classList.remove('hidden');
-            document.getElementById('lista-ativos').classList.add('hidden');
-            document.getElementById('menu-timeframes').classList.add('hidden');
-            document.getElementById('btn-voltar').classList.add('hidden');
-            document.getElementById('resultado-sinal').classList.add('hidden');
-            document.getElementById('placeholder-ia').classList.remove('hidden');
-        }
-
-        function prepararAnalise(tf) {
-            tfAtual = tf;
-            document.getElementById('menu-timeframes').classList.add('hidden');
-            document.getElementById('placeholder-ia').classList.add('hidden');
-            document.getElementById('loader-ia').classList.remove('hidden');
-            for(let i=1; i<=5; i++) document.getElementById(`capa-${i}`).className = "layer-box";
-            const timings = [500, 1200, 2000, 2800, 3500];
-            timings.forEach((ms, i) => {
-                setTimeout(() => {
-                    const el = document.getElementById(`capa-${i+1}`);
-                    el.classList.add('layer-active');
-                    if(i > 0) document.getElementById(`capa-${i}`).classList.add('layer-done');
-                    if(i === 4) setTimeout(finalizarAnalise, 500);
-                }, ms);
-            });
-        }
-
-        function finalizarAnalise() {
-            const direcao = Math.random() > 0.5 ? 'BUY' : 'SELL';
-            document.getElementById('loader-ia').classList.add('hidden');
-            document.getElementById('resultado-sinal').classList.remove('hidden');
-            const txt = document.getElementById('direcao-texto');
-            txt.innerText = direcao;
-            document.getElementById('asset-label').innerText = getFlags(ativoAtual) + " " + ativoAtual;
-            document.getElementById('confianca-valor').innerText = (Math.random() * (4.7) + 94.2).toFixed(1) + '%';
-            document.getElementById('tf-valor').innerText = tfAtual;
-            const sc = document.getElementById('seta-cima'); const sb = document.getElementById('seta-baixo');
-            if(direcao === 'BUY') {
-                txt.className = "signal-text orbitron font-black neon-buy";
-                sc.className = "fas fa-chevron-double-up arrow-glow neon-buy animate-bounce";
-                sb.className = "fas fa-chevron-double-up arrow-glow text-white/5";
-            } else {
-                txt.className = "signal-text orbitron font-black neon-sell";
-                sc.className = "fas fa-chevron-double-down arrow-glow text-white/5";
-                sb.className = "fas fa-chevron-double-down arrow-glow neon-sell animate-bounce";
-            }
-        }
-
-// LISTA DE PARES PARA O FREE (Podes mudar os nomes aqui)
-const paresFree = ["EUR/USD OTC", "GBP/USD OTC", "EUR/USD", "GBP/USD", "USD/JPY OTC", "AUD/USD"];
-
-function executarSinalFree() {
-    // 1. Verificar se já existe um tempo guardado no telemóvel
-    const ultimaExecucao = localStorage.getItem('lastFreeSignal');
-    const agora = Date.now();
-    
-    if (ultimaExecucao && (agora - ultimaExecucao < 30 * 60 * 1000)) {
-        // Se ainda não passaram 30 min, bloqueia e inicia o timer
-        document.getElementById('free-start-box').classList.add('hidden');
-        document.getElementById('free-result-box').classList.remove('hidden');
-        document.getElementById('free-timer-msg').classList.remove('hidden');
-        const tempoRestante = Math.ceil((30 * 60 * 1000 - (agora - ultimaExecucao)) / 1000);
-        iniciarContagemTrintaMinutos(tempoRestante);
-        return;
-    }
-
-    // 2. Se estiver livre, executa a análise
-    document.getElementById('free-start-box').classList.add('hidden');
-    document.getElementById('free-loading-box').classList.remove('hidden');
-    
-    setTimeout(() => {
-        document.getElementById('free-loading-box').classList.add('hidden');
-        document.getElementById('free-result-box').classList.remove('hidden');
-        
-        // Escolhe par aleatório
-        const parSorteado = paresFree[Math.floor(Math.random() * paresFree.length)];
-        const direcao = Math.random() > 0.5 ? 'BUY' : 'SELL';
-        
-        // Atualiza os textos (Podes mudar "text-7xl" se achares grande demais)
-        document.querySelector('#free-result-box p').innerText = `📊 ${parSorteado} (M1)`;
-        const el = document.getElementById('free-dir-text');
-        el.innerText = direcao;
-        el.className = `orbitron text-7xl font-black mb-6 italic ${direcao==='BUY'?'text-green-500':'text-red-500'}`;
-        
-        // Guarda o momento da execução para bloquear o reset
-        localStorage.setItem('lastFreeSignal', Date.now());
-
-        // Espera 62 segundos para o WIN
-        setTimeout(() => {
-            document.getElementById('free-status-label').innerHTML = '<span class="text-green-500 font-black text-6xl block mt-4 animate-bounce uppercase">WIN</span>';
-            document.getElementById('free-timer-msg').classList.remove('hidden');
-            iniciarContagemTrintaMinutos(30 * 60);
-        }, 62000); 
-    }, 4000);
-}
-
-function iniciarContagemTrintaMinutos(duracaoSegundos) {
-    let tempo = duracaoSegundos;
-    const clock = document.getElementById('free-timer-clock');
-    // Limpa qualquer intervalo anterior para não bugar
-    if(window.freeInterval) clearInterval(window.freeInterval);
-    
-    window.freeInterval = setInterval(() => {
-        let m = Math.floor(tempo / 60); 
-        let s = tempo % 60;
-        clock.innerText = `${m}:${s < 10 ? '0'+s : s}`;
-        if (tempo-- <= 0) { 
-            clearInterval(window.freeInterval); 
-            localStorage.removeItem('lastFreeSignal');
-            location.reload(); 
-        }
-    }, 1000);
-}
-
-// 3. ADICIONA ISTO NO FINAL: Verifica o timer assim que abre o bot
-window.addEventListener('load', () => {
-    const ultimaExecucao = localStorage.getItem('lastFreeSignal');
-    if (ultimaExecucao) {
-        const agora = Date.now();
-        if (agora - ultimaExecucao < 30 * 60 * 1000) {
-            executarSinalFree(); // Isto vai disparar o bloqueio automaticamente
-        }
-    }
-});
-        }
-
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-        if(tg.initDataUnsafe?.user) {
-            const user = tg.initDataUnsafe.user;
-            document.getElementById('user-id-home').innerText = user.id;
-            document.getElementById('user-name-display').innerText = user.first_name || "Membro Sentinel";
-            if(vips.includes(user.id.toString())) {
-                document.getElementById('lock-screen').classList.add('hidden');
-                document.getElementById('analyse-content').classList.remove('hidden');
-                document.getElementById('vip-badge').innerText = "VIP ATIVO";
-                document.getElementById('vip-badge').className = "text-[8px] bg-green-600/20 text-green-500 border border-green-500/30 px-2 py-1 rounded font-black uppercase";
-            } else {
-                document.getElementById('lock-screen').classList.remove('hidden');
-                document.getElementById('analyse-content').classList.add('hidden');
-            }
-        }
-    </script>
-</body>
-</html>
