@@ -144,7 +144,7 @@
                     <p class="orbitron text-[10px] text-blue-500 animate-pulse uppercase">Varrendo Algoritmo...</p>
                 </div>
                 <div id="free-result-box" class="hidden w-full text-center">
-                    <p class="text-blue-400 font-bold mb-4 text-[12px] uppercase tracking-widest">---</p>
+                    <p id="free-asset-name" class="text-blue-400 font-bold mb-4 text-[12px] uppercase tracking-widest">---</p>
                     <h2 id="free-dir-text" class="orbitron text-7xl font-black mb-6 italic tracking-tighter">--</h2>
                     <div id="free-status-label" class="text-[10px] font-black text-gray-500 uppercase mb-8 tracking-widest">Aguardando Expiração...</div>
                     <div id="free-timer-msg" class="hidden bg-black/60 p-5 rounded-xl border border-white/5 mt-4">
@@ -257,6 +257,7 @@
             }
         }
 
+        // --- LÓGICA FREE CORRIGIDA ---
         const paresFree = ["EUR/USD OTC", "GBP/USD OTC", "BTC/USD", "USD/JPY OTC", "ETH/USD"];
 
         function executarSinalFree() {
@@ -268,4 +269,81 @@
                 document.getElementById('free-result-box').classList.remove('hidden');
                 document.getElementById('free-timer-msg').classList.remove('hidden');
                 const tempoRestante = Math.ceil((30 * 60 * 1000 - (agora - ultimaExecucao)) / 1000);
-                iniciarContagemTrinta
+                iniciarContagemTrintaMinutos(tempoRestante);
+                return;
+            }
+
+            document.getElementById('free-start-box').classList.add('hidden');
+            document.getElementById('free-loading-box').classList.remove('hidden');
+            
+            setTimeout(() => {
+                document.getElementById('free-loading-box').classList.add('hidden');
+                document.getElementById('free-result-box').classList.remove('hidden');
+                
+                const parSorteado = paresFree[Math.floor(Math.random() * paresFree.length)];
+                const direcao = Math.random() > 0.5 ? 'BUY' : 'SELL';
+                
+                // Correção aqui: usando ID específico para o nome do par
+                document.getElementById('free-asset-name').innerText = `📊 ${parSorteado} (M1)`;
+                const el = document.getElementById('free-dir-text');
+                el.innerText = direcao;
+                el.className = `orbitron text-7xl font-black mb-6 italic ${direcao==='BUY'?'text-green-500':'text-red-500'}`;
+                
+                localStorage.setItem('lastFreeSignal', Date.now());
+
+                setTimeout(() => {
+                    document.getElementById('free-status-label').innerHTML = '<span class="text-green-500 font-black text-6xl block mt-4 animate-bounce uppercase">WIN</span>';
+                    document.getElementById('free-timer-msg').classList.remove('hidden');
+                    iniciarContagemTrintaMinutos(30 * 60);
+                }, 62000); 
+            }, 4000);
+        }
+
+        function iniciarContagemTrintaMinutos(duracaoSegundos) {
+            let tempo = duracaoSegundos;
+            const clock = document.getElementById('free-timer-clock');
+            if(window.freeInterval) clearInterval(window.freeInterval);
+            
+            window.freeInterval = setInterval(() => {
+                let m = Math.floor(tempo / 60); 
+                let s = tempo % 60;
+                clock.innerText = `${m}:${s < 10 ? '0'+s : s}`;
+                if (tempo-- <= 0) { 
+                    clearInterval(window.freeInterval); 
+                    localStorage.removeItem('lastFreeSignal');
+                    location.reload(); 
+                }
+            }, 1000);
+        }
+
+        window.addEventListener('load', () => {
+            const tg = window.Telegram.WebApp;
+            tg.expand();
+            
+            const user = tg.initDataUnsafe?.user;
+            if(user) {
+                document.getElementById('user-id-home').innerText = user.id;
+                document.getElementById('user-name-display').innerText = user.first_name || "Membro Sentinel";
+                
+                if(vips.includes(user.id.toString())) {
+                    document.getElementById('lock-screen').classList.add('hidden');
+                    document.getElementById('analyse-content').classList.remove('hidden');
+                    const badge = document.getElementById('vip-badge');
+                    if(badge) {
+                        badge.innerText = "VIP ATIVO";
+                        badge.className = "text-[8px] bg-green-600/20 text-green-500 border border-green-500/30 px-2 py-1 rounded font-black uppercase";
+                    }
+                }
+            }
+
+            const ultimaExecucao = localStorage.getItem('lastFreeSignal');
+            if (ultimaExecucao) {
+                const agora = Date.now();
+                if (agora - ultimaExecucao < 30 * 60 * 1000) {
+                    executarSinalFree();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
