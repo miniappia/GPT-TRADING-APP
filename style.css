@@ -1,56 +1,37 @@
-/* MANTER O TEU VISUAL HACKER */
-body { background: radial-gradient(circle at top left, #0d1117, #161b22); color: #e6edf3; font-family: 'Inter', sans-serif; margin: 0; min-height: 100vh; overflow-x: hidden; padding-bottom: 100px; }
+body { background: radial-gradient(circle at top left, #0d1117, #161b22); color: #e6edf3; font-family: 'Inter', sans-serif; margin: 0; min-height: 100vh; overflow-x: hidden; }
 .orbitron { font-family: 'Orbitron', sans-serif; }
-.glass-card { background: rgba(22, 27, 34, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(48, 54, 61, 0.8); border-radius: 16px; position: relative; z-index: 1; }
+.glass-card { background: rgba(22, 27, 34, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(48, 54, 61, 0.8); border-radius: 16px; }
 
-/* AJUSTE DAS ABAS PARA FUNCIONAREM AO TOQUE */
-.tab-pane { display: none; width: 100%; animation: fadeIn 0.3s ease; }
+/* ABAS */
+.tab-pane { display: none; width: 100%; }
 .tab-pane.active-pane { display: block !important; }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-/* BARRA DE NAVEGAÇÃO - AGORA TOTALMENTE CLICÁVEL */
 nav { 
-    position: fixed !important; 
-    bottom: 0 !important; 
-    left: 0 !important; 
-    right: 0 !important; 
-    height: 80px;
-    background: rgba(13, 17, 23, 0.95) !important; 
-    backdrop-filter: blur(15px); 
-    border-t: 1px solid rgba(255, 255, 255, 0.1); 
-    display: flex !important; 
-    justify-content: space-around; 
-    align-items: center; 
-    z-index: 9999 !important; /* Garante que está à frente de tudo */
-    pointer-events: auto !important;
+    position: fixed; bottom: 0; left: 0; right: 0; height: 80px;
+    background: rgba(13, 17, 23, 0.98); border-t: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex; justify-content: space-around; align-items: center; z-index: 10000;
 }
 
 .nav-item { 
-    flex: 1;
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center;
-    gap: 4px; 
-    color: #64748b; 
-    background: none; 
-    border: none; 
-    height: 100%;
-    cursor: pointer; 
-    -webkit-tap-highlight-color: transparent;
-    pointer-events: auto !important;
+    display: flex; flex-direction: column; align-items: center; gap: 4px; color: #64748b; 
+    background: none; border: none; flex: 1; cursor: pointer; -webkit-tap-highlight-color: transparent;
 }
-
 .nav-item.active { color: #3b82f6; text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
-.nav-item i { font-size: 20px; pointer-events: none; }
-.nav-item span { font-size: 10px; font-weight: bold; text-transform: uppercase; pointer-events: none; }
+.nav-item i { font-size: 18px; }
+.nav-item span { font-size: 9px; font-weight: bold; text-transform: uppercase; }
 
-/* BOTÕES E ELEMENTOS DO CÉREBRO (SEM MUDANÇA VISUAL) */
-.market-btn, .asset-btn, .tf-btn, .tf-btn-sec { cursor: pointer; pointer-events: auto; }
+/* CÉREBRO ANALYSE */
+.market-btn { width: 100%; padding: 18px; background: rgba(255, 255, 255, 0.05); border-radius: 12px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; color: white; margin-bottom: 8px; }
+.asset-btn { padding: 12px; background: rgba(255, 255, 255, 0.03); border-radius: 10px; font-size: 11px; font-weight: 700; color: white; border: 1px solid rgba(255, 255, 255, 0.05); }
+.tf-btn { background: #2563eb; color: white; padding: 14px; border-radius: 10px; font-weight: 900; }
+.tf-btn-sec { background: rgba(255, 255, 255, 0.05); padding: 14px; border-radius: 10px; font-weight: 700; color: white; }
+.signal-text { font-size: 70px; line-height: 1; }
+.sub-btn { background: rgba(255, 255, 255, 0.05); padding: 14px; border-radius: 12px; font-size: 10px; font-weight: bold; color: white; border: 1px solid rgba(255, 255, 255, 0.1); }
+
+/* SCANNER */
+.scan-container { position: relative; width: 100%; height: 80px; border: 1px solid rgba(59, 130, 246, 0.2); overflow: hidden; }
+.scan-bar { position: absolute; width: 100%; height: 2px; background: #3b82f6; box-shadow: 0 0 10px #3b82f6; animation: scanAnim 2s infinite ease-in-out; }
+@keyframes scanAnim { 0%, 100% { top: 0; } 50% { top: 100%; } }
+.layer-box { font-size: 9px; padding: 10px; background: rgba(255,255,255,0.02); border-left: 3px solid #1e293b; margin-bottom: 4px; transition: 0.3s; }
+.layer-active { border-left-color: #3b82f6; color: #60a5fa; background: rgba(59, 130, 246, 0.1); }
 .hidden { display: none !important; }
-
-/* SCANNER E ANIMAÇÕES */
-.scan-container { position: relative; width: 200px; height: 100px; border: 1px solid rgba(59, 130, 246, 0.3); overflow: hidden; margin: 0 auto; }
-.scan-bar { position: absolute; width: 100%; height: 3px; background: #3b82f6; box-shadow: 0 0 15px #3b82f6; animation: scanAnim 2s infinite ease-in-out; }
-@keyframes scanAnim { 0% { top: 0; } 50% { top: 100%; } 100% { top: 0; } }
