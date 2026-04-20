@@ -3,35 +3,37 @@ body { background: radial-gradient(circle at top left, #0d1117, #161b22); color:
 .glass-card { background: rgba(22, 27, 34, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(48, 54, 61, 0.8); border-radius: 16px; }
 
 /* ABAS */
-.tab-pane { display: none; width: 100%; }
-.tab-pane.active-pane { display: block !important; }
-
-nav { 
-    position: fixed; bottom: 0; left: 0; right: 0; height: 80px;
-    background: rgba(13, 17, 23, 0.98); border-t: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex; justify-content: space-around; align-items: center; z-index: 10000;
-}
-
-.nav-item { 
-    display: flex; flex-direction: column; align-items: center; gap: 4px; color: #64748b; 
-    background: none; border: none; flex: 1; cursor: pointer; -webkit-tap-highlight-color: transparent;
-}
-.nav-item.active { color: #3b82f6; text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+.nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #64748b; background: none; border: none; cursor: pointer; transition: 0.3s; flex: 1; }
 .nav-item i { font-size: 18px; }
 .nav-item span { font-size: 9px; font-weight: bold; text-transform: uppercase; }
+.nav-item.active { color: #3b82f6; text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+.hidden { display: none !important; }
 
-/* CÉREBRO ANALYSE */
-.market-btn { width: 100%; padding: 18px; background: rgba(255, 255, 255, 0.05); border-radius: 12px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; color: white; margin-bottom: 8px; }
-.asset-btn { padding: 12px; background: rgba(255, 255, 255, 0.03); border-radius: 10px; font-size: 11px; font-weight: 700; color: white; border: 1px solid rgba(255, 255, 255, 0.05); }
+/* BOTÕES */
+.market-btn { width: 100%; padding: 18px; background: rgba(255, 255, 255, 0.05); border-radius: 12px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 14px; margin-bottom: 8px; border: 1px solid transparent; color: white; }
+.asset-btn { padding: 12px; background: rgba(255, 255, 255, 0.03); border-radius: 10px; font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 6px; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.05); color: white; }
 .tf-btn { background: #2563eb; color: white; padding: 14px; border-radius: 10px; font-weight: 900; }
 .tf-btn-sec { background: rgba(255, 255, 255, 0.05); padding: 14px; border-radius: 10px; font-weight: 700; color: white; }
-.signal-text { font-size: 70px; line-height: 1; }
-.sub-btn { background: rgba(255, 255, 255, 0.05); padding: 14px; border-radius: 12px; font-size: 10px; font-weight: bold; color: white; border: 1px solid rgba(255, 255, 255, 0.1); }
 
 /* SCANNER */
-.scan-container { position: relative; width: 100%; height: 80px; border: 1px solid rgba(59, 130, 246, 0.2); overflow: hidden; }
-.scan-bar { position: absolute; width: 100%; height: 2px; background: #3b82f6; box-shadow: 0 0 10px #3b82f6; animation: scanAnim 2s infinite ease-in-out; }
-@keyframes scanAnim { 0%, 100% { top: 0; } 50% { top: 100%; } }
-.layer-box { font-size: 9px; padding: 10px; background: rgba(255,255,255,0.02); border-left: 3px solid #1e293b; margin-bottom: 4px; transition: 0.3s; }
-.layer-active { border-left-color: #3b82f6; color: #60a5fa; background: rgba(59, 130, 246, 0.1); }
-.hidden { display: none !important; }
+.scan-container { position: relative; width: 200px; height: 120px; border: 1px solid rgba(59, 130, 246, 0.3); overflow: hidden; }
+.scan-grid { position: absolute; inset: 0; background: linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px); background-size: 20px 20px; }
+.scan-bar { position: absolute; width: 100%; height: 3px; background: #3b82f6; box-shadow: 0 0 15px #3b82f6; animation: scanAnim 2s infinite ease-in-out; }
+@keyframes scanAnim { 0% { top: 0; } 50% { top: 100%; } 100% { top: 0; } }
+
+/* ANALISE */
+.layer-box { font-size: 10px; font-weight: 700; padding: 10px; background: rgba(255,255,255,0.02); border-left: 3px solid #1e293b; transition: 0.3s; margin-bottom: 4px; }
+.layer-active { border-left-color: #3b82f6; background: rgba(59, 130, 246, 0.1); color: #60a5fa; }
+.layer-done { border-left-color: #10b981; color: #10b981; }
+
+.signal-text { font-size: 75px; line-height: 1; }
+.neon-buy { color: #10b981; text-shadow: 0 0 25px rgba(16, 185, 129, 0.5); }
+.neon-sell { color: #ef4444; text-shadow: 0 0 25px rgba(239, 68, 68, 0.5); }
+.arrow-glow { font-size: 45px; }
+.stat-box { background: rgba(255, 255, 255, 0.03); padding: 12px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); text-align: center; }
+.stat-box p { font-size: 9px; color: #64748b; text-transform: uppercase; }
+.stat-box span { font-size: 20px; font-weight: 900; color: white; font-family: 'Orbitron'; }
+.sub-btn { background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 10px; font-size: 10px; font-weight: 700; width: 100%; border: 1px solid rgba(255, 255, 255, 0.1); color: white; }
+.custom-scroll { overflow-y: auto; }
+@keyframes scaleUp { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.scale-up { animation: scaleUp 0.3s ease-out; }
