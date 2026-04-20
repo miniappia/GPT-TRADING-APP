@@ -257,34 +257,82 @@
             }
         }
 
-        function executarSinalFree() {
-            document.getElementById('free-start-box').classList.add('hidden');
-            document.getElementById('free-loading-box').classList.remove('hidden');
-            setTimeout(() => {
-                document.getElementById('free-loading-box').classList.add('hidden');
-                document.getElementById('free-result-box').classList.remove('hidden');
-                const d = Math.random() > 0.5 ? 'BUY' : 'SELL';
-                const el = document.getElementById('free-dir-text');
-                el.innerText = d;
-                el.className = `orbitron text-7xl font-black mb-6 italic ${d==='BUY'?'text-green-500':'text-red-500'}`;
-                
-                // CORREÇÃO: Espera 62 segundos para o WIN aparecer e fica GRANDE
-                setTimeout(() => {
-                    document.getElementById('free-status-label').innerHTML = '<span class="text-green-500 font-black text-5xl block mt-4 animate-bounce">WIN ✅</span>';
-                    document.getElementById('free-timer-msg').classList.remove('hidden');
-                    iniciarContagemTrintaMinutos();
-                }, 62000); 
-            }, 4000);
-        }
+// LISTA DE PARES PARA O FREE (Podes mudar os nomes aqui)
+const paresFree = ["EUR/USD OTC", "GBP/USD OTC", "EUR/USD", "GBP/USD", "USD/JPY OTC", "AUD/USD"];
 
-        function iniciarContagemTrintaMinutos() {
-            let tempo = 30 * 60;
-            const clock = document.getElementById('free-timer-clock');
-            const interval = setInterval(() => {
-                let m = Math.floor(tempo / 60); let s = tempo % 60;
-                clock.innerText = `${m}:${s < 10 ? '0'+s : s}`;
-                if (tempo-- <= 0) { clearInterval(interval); location.reload(); }
-            }, 1000);
+function executarSinalFree() {
+    // 1. Verificar se já existe um tempo guardado no telemóvel
+    const ultimaExecucao = localStorage.getItem('lastFreeSignal');
+    const agora = Date.now();
+    
+    if (ultimaExecucao && (agora - ultimaExecucao < 30 * 60 * 1000)) {
+        // Se ainda não passaram 30 min, bloqueia e inicia o timer
+        document.getElementById('free-start-box').classList.add('hidden');
+        document.getElementById('free-result-box').classList.remove('hidden');
+        document.getElementById('free-timer-msg').classList.remove('hidden');
+        const tempoRestante = Math.ceil((30 * 60 * 1000 - (agora - ultimaExecucao)) / 1000);
+        iniciarContagemTrintaMinutos(tempoRestante);
+        return;
+    }
+
+    // 2. Se estiver livre, executa a análise
+    document.getElementById('free-start-box').classList.add('hidden');
+    document.getElementById('free-loading-box').classList.remove('hidden');
+    
+    setTimeout(() => {
+        document.getElementById('free-loading-box').classList.add('hidden');
+        document.getElementById('free-result-box').classList.remove('hidden');
+        
+        // Escolhe par aleatório
+        const parSorteado = paresFree[Math.floor(Math.random() * paresFree.length)];
+        const direcao = Math.random() > 0.5 ? 'BUY' : 'SELL';
+        
+        // Atualiza os textos (Podes mudar "text-7xl" se achares grande demais)
+        document.querySelector('#free-result-box p').innerText = `📊 ${parSorteado} (M1)`;
+        const el = document.getElementById('free-dir-text');
+        el.innerText = direcao;
+        el.className = `orbitron text-7xl font-black mb-6 italic ${direcao==='BUY'?'text-green-500':'text-red-500'}`;
+        
+        // Guarda o momento da execução para bloquear o reset
+        localStorage.setItem('lastFreeSignal', Date.now());
+
+        // Espera 62 segundos para o WIN
+        setTimeout(() => {
+            document.getElementById('free-status-label').innerHTML = '<span class="text-green-500 font-black text-6xl block mt-4 animate-bounce uppercase">WIN</span>';
+            document.getElementById('free-timer-msg').classList.remove('hidden');
+            iniciarContagemTrintaMinutos(30 * 60);
+        }, 62000); 
+    }, 4000);
+}
+
+function iniciarContagemTrintaMinutos(duracaoSegundos) {
+    let tempo = duracaoSegundos;
+    const clock = document.getElementById('free-timer-clock');
+    // Limpa qualquer intervalo anterior para não bugar
+    if(window.freeInterval) clearInterval(window.freeInterval);
+    
+    window.freeInterval = setInterval(() => {
+        let m = Math.floor(tempo / 60); 
+        let s = tempo % 60;
+        clock.innerText = `${m}:${s < 10 ? '0'+s : s}`;
+        if (tempo-- <= 0) { 
+            clearInterval(window.freeInterval); 
+            localStorage.removeItem('lastFreeSignal');
+            location.reload(); 
+        }
+    }, 1000);
+}
+
+// 3. ADICIONA ISTO NO FINAL: Verifica o timer assim que abre o bot
+window.addEventListener('load', () => {
+    const ultimaExecucao = localStorage.getItem('lastFreeSignal');
+    if (ultimaExecucao) {
+        const agora = Date.now();
+        if (agora - ultimaExecucao < 30 * 60 * 1000) {
+            executarSinalFree(); // Isto vai disparar o bloqueio automaticamente
+        }
+    }
+});
         }
 
         const tg = window.Telegram.WebApp;
