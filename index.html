@@ -9,111 +9,267 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
-<body>
+<body class="p-4 pb-24 flex flex-col gap-4">
 
-    <header class="p-4 flex justify-between items-end">
+    <header class="flex justify-between items-end px-2">
         <div>
-            <h1 class="orbitron text-2xl font-black text-white">GOD<span class="text-blue-500">BOT</span></h1>
-            <p class="text-[9px] text-blue-400 font-bold uppercase tracking-[0.3em]">Sentinel V26.1</p>
+            <h1 class="orbitron text-2xl font-black tracking-tighter text-white">GOD<span class="text-blue-500">BOT</span></h1>
+            <div class="flex items-center gap-2">
+                <span class="h-1.5 w-1.5 bg-blue-500 rounded-full animate-pulse"></span>
+                <p class="text-[9px] text-blue-400 font-bold tracking-[0.3em] uppercase">Alchemist V26.1 System</p>
+            </div>
+        </div>
+        <div class="text-right">
+            <p class="text-[10px] text-gray-500 font-bold uppercase">Security Level</p>
+            <p class="text-[10px] text-green-500 font-bold">MAXIMUM</p>
         </div>
     </header>
 
-    <main id="main-content" class="p-4">
+    <main id="main-content">
         <div id="tab-home" class="tab-pane active-pane">
             <div class="glass-card p-6">
-                <p class="orbitron text-white text-xs mb-4">TERMINAL STATUS: <span id="vip-badge" class="text-red-500">OFFLINE</span></p>
-                <div class="bg-black/40 p-4 rounded-xl mb-6">
-                    <p class="text-[9px] text-gray-500 font-bold uppercase">ID Utilizador</p>
-                    <code id="user-id-home" class="orbitron text-lg text-white">------</code>
+                <div class="flex items-center gap-3 mb-6 border-b border-white/5 pb-4">
+                    <div class="h-10 w-10 bg-blue-600/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-user-shield text-blue-500"></i>
+                    </div>
+                    <div>
+                        <h3 class="orbitron text-white font-black text-xs uppercase tracking-wider">Perfil Sentinel</h3>
+                        <p id="user-name-display" class="text-[9px] text-gray-500 uppercase">A identificar...</p>
+                    </div>
                 </div>
-                <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="block w-full bg-blue-600 text-center py-4 rounded-xl orbitron font-black text-xs text-white">ATIVAR LICENÇA</a>
+
+                <div class="space-y-4">
+                    <div class="bg-black/40 border border-white/5 p-4 rounded-xl">
+                        <p class="text-[9px] text-gray-500 font-bold mb-1 uppercase tracking-widest">O Teu ID Telegram</p>
+                        <div class="flex justify-between items-center">
+                            <code id="user-id-home" class="orbitron text-lg font-black text-white">------</code>
+                            <span id="vip-badge" class="text-[8px] bg-red-600/20 text-red-500 border border-red-500/30 px-2 py-1 rounded font-black uppercase">Bloqueado</span>
+                        </div>
+                    </div>
+
+                    <div class="text-[11px] text-gray-400 leading-relaxed space-y-3 py-2 border-t border-white/5 pt-4">
+                        <p class="text-white font-black uppercase text-[10px] tracking-tighter">Ativação do Motor Alchemist:</p>
+                        <div class="flex gap-3">
+                            <span class="bg-blue-600 h-5 w-5 rounded-full flex items-center justify-center text-[10px] text-white font-bold shrink-0">1</span>
+                            <p>Regista-te na corretora oficial pelo link abaixo.</p>
+                        </div>
+                        <div class="flex gap-3">
+                            <span class="bg-blue-600 h-5 w-5 rounded-full flex items-center justify-center text-[10px] text-white font-bold shrink-0">2</span>
+                            <p>Efetua o depósito e envia o teu ID ao suporte.</p>
+                        </div>
+                    </div>
+
+                    <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="block w-full bg-blue-600 text-center py-4 rounded-xl orbitron font-black text-[11px] uppercase shadow-lg shadow-blue-600/30">Criar Conta Oficial</a>
+                    <a href="https://t.me/Tgomes0" class="block w-full border border-white/10 text-center py-4 rounded-xl orbitron font-black text-[11px] uppercase text-gray-400">Verificar Licença</a>
+                </div>
             </div>
         </div>
 
         <div id="tab-analyse" class="tab-pane">
             <div id="lock-screen" class="glass-card p-8 text-center hidden">
-                <i class="fas fa-lock text-3xl text-red-500 mb-4 animate-pulse"></i>
-                <h3 class="orbitron text-white font-black mb-4">ACESSO BLOQUEADO</h3>
-                <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="block bg-blue-600 text-white p-4 rounded-xl font-black text-[10px] orbitron">COMPRAR LICENÇA</a>
+                <div class="w-20 h-20 bg-red-600/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-red-500/20">
+                    <i class="fas fa-lock text-3xl text-red-500 animate-pulse"></i>
+                </div>
+                <h3 class="orbitron text-white mb-2 font-black italic">ACESSO RESTRITO</h3>
+                <p class="text-[10px] text-gray-500 mb-8 px-4 uppercase tracking-widest">Ativa a tua licença para libertar o radar institucional.</p>
+                <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="block bg-blue-600 text-white p-4 rounded-xl font-black text-[11px] orbitron uppercase">ATIVAR AGORA</a>
             </div>
+
             <div id="analyse-content">
-                <div id="setup-view" class="glass-card p-4 mb-4">
-                    <div id="menu-mercados" class="grid gap-2">
-                        <button onclick="mostrarAtivos()" class="market-btn bg-white/5 p-4 rounded-lg flex justify-between text-white font-bold">GLOBAL FOREX <i class="fas fa-globe text-blue-500"></i></button>
+                <div class="glass-card p-5 mb-4">
+                    <div id="setup-view">
+                        <div id="menu-mercados" class="grid gap-3">
+                            <button onclick="mostrarAtivos('GLOBAL FOREX')" class="market-btn"><span>GLOBAL FOREX</span><i class="fas fa-globe-americas text-blue-500"></i></button>
+                            <button onclick="mostrarAtivos('FOREX OTC')" class="market-btn"><span>FOREX OTC</span><i class="fas fa-microchip text-blue-500"></i></button>
+                            <button onclick="mostrarAtivos('CRYPTO OTC')" class="market-btn"><span>CRYPTO OTC</span><i class="fas fa-coins text-blue-500"></i></button>
+                        </div>
+                        <div id="lista-ativos" class="hidden grid grid-cols-2 gap-2 custom-scroll max-h-[250px] pr-2"></div>
+                        <div id="menu-timeframes" class="hidden grid grid-cols-3 gap-2">
+                            <button onclick="prepararAnalise('S15')" class="tf-btn-sec">S15</button>
+                            <button onclick="prepararAnalise('S30')" class="tf-btn-sec">S30</button>
+                            <button onclick="prepararAnalise('M1')" class="tf-btn">M1</button>
+                            <button onclick="prepararAnalise('M5')" class="tf-btn-sec">M5</button>
+                            <button onclick="prepararAnalise('M15')" class="tf-btn-sec">M15</button>
+                            <button onclick="prepararAnalise('H1')" class="tf-btn-sec">H1</button>
+                        </div>
+                        <button id="btn-voltar" onclick="voltarAoMenu()" class="hidden w-full mt-4 text-[9px] text-gray-500 font-bold uppercase tracking-widest">Reset System</button>
                     </div>
                 </div>
+
+                <div class="glass-card flex flex-col items-center justify-center p-6 relative min-h-[320px]">
+                    <div id="placeholder-ia" class="opacity-20 flex flex-col items-center">
+                        <i class="fas fa-shield-alt text-4xl mb-4"></i>
+                        <p class="orbitron text-[10px] tracking-[0.4em]">STANDBY MODE</p>
+                    </div>
+
+                    <div id="loader-ia" class="hidden w-full">
+                        <div class="scan-container mb-6"><div class="scan-bar"></div></div>
+                        <div class="space-y-1">
+                            <div id="capa-1" class="layer-box">>> DECRYPTING ORDER BLOCKS</div>
+                            <div id="capa-2" class="layer-box">>> CALCULATING VOLUME DELTA</div>
+                            <div id="capa-3" class="layer-box">>> TRACING INSTITUTIONAL FLOW</div>
+                            <div id="capa-4" class="layer-box">>> SMART MONEY CONFLUENCE</div>
+                            <div id="capa-5" class="layer-box">>> SENTINEL FINAL VALIDATION</div>
+                        </div>
+                    </div>
+
+                    <div id="resultado-sinal" class="hidden w-full text-center scale-up">
+                        <div class="inline-block px-4 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 mb-6">
+                            <p id="asset-label" class="orbitron text-sm font-black text-blue-400 tracking-widest uppercase"></p>
+                        </div>
+                        <h2 id="direcao-texto" class="signal-text orbitron font-black italic">--</h2>
+                        <div class="flex gap-2 mt-8">
+                            <button onclick="voltarAoMenu()" class="flex-1 sub-btn">NOVO SCAN</button>
+                            <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="flex-1 sub-btn bg-blue-600/20 text-blue-400">OPERAR</a>
+                        </div>
+                    </div>
                 </div>
+            </div>
         </div>
 
         <div id="tab-free" class="tab-pane">
-            <div class="glass-card p-10 text-center">
-                <i class="fas fa-bolt text-blue-500 text-3xl mb-4"></i>
-                <h3 class="orbitron text-white font-black">MODO DEMO</h3>
-                <button onclick="alert('Analisando...')" class="mt-6 bg-white text-black px-8 py-3 rounded-lg font-bold">GERAR SINAL</button>
+            <div class="glass-card p-6 text-center min-h-[400px] flex flex-col justify-center items-center">
+                <div id="free-start-box">
+                    <i class="fas fa-bolt text-4xl text-blue-500 mb-6 animate-pulse"></i>
+                    <h2 class="orbitron text-white font-black mb-2 uppercase tracking-tighter">AMOSTRA GRÁTIS</h2>
+                    <p class="text-[10px] text-gray-500 mb-8 uppercase tracking-widest italic">1 SINAL A CADA 30 MIN</p>
+                    <button onclick="executarSinalFree()" class="bg-white text-black px-10 py-4 rounded-xl orbitron font-black text-[11px] uppercase">GERAR SINAL</button>
+                </div>
+                <div id="free-loading-box" class="hidden w-full">
+                    <div class="scan-container mb-4"><div class="scan-bar"></div></div>
+                    <p class="orbitron text-[10px] text-blue-500 animate-pulse">A CALCULAR...</p>
+                </div>
+                <div id="free-result-box" class="hidden w-full">
+                    <p class="text-blue-400 font-bold mb-4 text-[12px] uppercase">EUR/USD OTC (M1)</p>
+                    <h2 id="free-dir-text" class="orbitron text-7xl font-black mb-6 italic tracking-tighter text-green-500">--</h2>
+                    <div id="free-timer-msg" class="p-4 bg-black/40 rounded-xl border border-white/5">
+                        <p class="text-[9px] text-gray-500 mb-2 uppercase">PRÓXIMO TESTE EM:</p>
+                        <span id="free-timer-clock" class="orbitron text-blue-500 font-black text-2xl">30:00</span>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div id="tab-support" class="tab-pane">
             <div class="glass-card p-10 text-center">
-                <i class="fas fa-headset text-blue-500 text-3xl mb-4"></i>
-                <h3 class="orbitron text-white font-black">SUPORTE</h3>
-                <a href="https://t.me/Tgomes0" class="block mt-6 bg-blue-600 text-white py-3 rounded-lg font-bold">ABRIR TELEGRAM</a>
+                <div class="w-20 h-20 bg-blue-600/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-blue-500/20">
+                    <i class="fas fa-headset text-3xl text-blue-500"></i>
+                </div>
+                <h3 class="orbitron text-white mb-2 font-black uppercase">SUPOSTE SENTINEL</h3>
+                <p class="text-[11px] text-gray-500 mb-8 px-4 leading-relaxed">Tens dúvidas ou queres ativar a tua licença VIP? Fala diretamente com o especialista.</p>
+                <a href="https://t.me/Tgomes0" class="block bg-white text-black p-4 rounded-2xl font-black orbitron text-xs uppercase shadow-xl">ABRIR CHAT TELEGRAM</a>
             </div>
         </div>
     </main>
 
     <nav>
-        <button type="button" onclick="switchTab('home')" class="nav-item active" id="nav-home"><i class="fas fa-home"></i><span>Home</span></button>
-        <button type="button" onclick="switchTab('analyse')" class="nav-item" id="nav-analyse"><i class="fas fa-chart-line"></i><span>Analyse</span></button>
-        <button type="button" onclick="switchTab('free')" class="nav-item" id="nav-free"><i class="fas fa-bolt"></i><span>Free</span></button>
-        <button type="button" onclick="switchTab('support')" class="nav-item" id="nav-support"><i class="fas fa-headset"></i><span>Support</span></button>
+        <button onclick="switchTab('home')" class="nav-item active" id="nav-home"><i class="fas fa-home"></i><span>Home</span></button>
+        <button onclick="switchTab('analyse')" class="nav-item" id="nav-analyse"><i class="fas fa-chart-line"></i><span>Analyse</span></button>
+        <button onclick="switchTab('free')" class="nav-item" id="nav-free"><i class="fas fa-bolt"></i><span>Free</span></button>
+        <button onclick="switchTab('support')" class="nav-item" id="nav-support"><i class="fas fa-headset"></i><span>Support</span></button>
     </nav>
 
     <script>
-        const vips = ["5052278069"]; 
+        const FLAGS = { "EUR":"🇪🇺", "USD":"🇺🇸", "GBP":"🇬🇧", "JPY":"🇯🇵", "AUD":"🇦🇺", "CAD":"🇨🇦", "CHF":"🇨🇭", "NZD":"🇳🇿", "BTC":"🪙", "ETH":"🪙" };
+        const MERCADOS = {
+            'GLOBAL FOREX': ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CAD", "EUR/GBP", "EUR/JPY"],
+            'FOREX OTC': ["EUR/USD OTC", "GBP/USD OTC", "USD/JPY OTC", "AUD/USD OTC", "USD/CAD OTC", "EUR/GBP OTC"],
+            'CRYPTO OTC': ["Bitcoin OTC", "Ethereum OTC", "Solana OTC", "Binance Coin OTC"]
+        };
+        const vips = ["5052278069"];
+        let ativoAtual = ""; let tfAtual = "";
 
         function switchTab(tabId) {
-            console.log("A mudar para: " + tabId); // Para veres no console do PC se clica
-            
-            // 1. Remove active de todas as panes
-            document.querySelectorAll('.tab-pane').forEach(pane => {
-                pane.classList.remove('active-pane');
-            });
-
-            // 2. Remove active de todos os botões
-            document.querySelectorAll('.nav-item').forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            // 3. Ativa a pane correta
-            const targetPane = document.getElementById('tab-' + tabId);
-            if(targetPane) {
-                targetPane.classList.add('active-pane');
-            }
-
-            // 4. Ativa o botão correto
-            const targetBtn = document.getElementById('nav-' + tabId);
-            if(targetBtn) {
-                targetBtn.classList.add('active');
-            }
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active-pane'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active-pane');
+            document.getElementById('nav-' + tabId).classList.add('active');
         }
 
-        // --- INICIALIZAÇÃO TELEGRAM ---
+        function mostrarAtivos(tipo) {
+            document.getElementById('menu-mercados').classList.add('hidden');
+            const list = document.getElementById('lista-ativos');
+            list.classList.remove('hidden');
+            document.getElementById('btn-voltar').classList.remove('hidden');
+            list.innerHTML = '';
+            MERCADOS[tipo].forEach(a => {
+                const b = document.createElement('button');
+                b.className = "asset-btn"; b.innerText = a;
+                b.onclick = () => { ativoAtual = a; list.classList.add('hidden'); document.getElementById('menu-timeframes').classList.remove('hidden'); };
+                list.appendChild(b);
+            });
+        }
+
+        function voltarAoMenu() {
+            document.getElementById('menu-mercados').classList.remove('hidden');
+            document.getElementById('lista-ativos').classList.add('hidden');
+            document.getElementById('menu-timeframes').classList.add('hidden');
+            document.getElementById('btn-voltar').classList.add('hidden');
+            document.getElementById('resultado-sinal').classList.add('hidden');
+            document.getElementById('placeholder-ia').classList.remove('hidden');
+        }
+
+        function prepararAnalise(tf) {
+            tfAtual = tf;
+            document.getElementById('menu-timeframes').classList.add('hidden');
+            document.getElementById('placeholder-ia').classList.add('hidden');
+            document.getElementById('loader-ia').classList.remove('hidden');
+            for(let i=1; i<=5; i++) document.getElementById(`capa-${i}`).className = "layer-box";
+            
+            [500, 1200, 2000, 2800, 3500].forEach((ms, i) => {
+                setTimeout(() => {
+                    const el = document.getElementById(`capa-${i+1}`);
+                    el.classList.add('layer-active');
+                    if(i === 4) setTimeout(finalizarAnalise, 500);
+                }, ms);
+            });
+        }
+
+        function finalizarAnalise() {
+            const d = Math.random() > 0.5 ? 'BUY' : 'SELL';
+            document.getElementById('loader-ia').classList.add('hidden');
+            document.getElementById('resultado-sinal').classList.remove('hidden');
+            const el = document.getElementById('direcao-texto');
+            el.innerText = d;
+            el.className = `signal-text orbitron font-black italic ${d==='BUY'?'text-green-500':'text-red-500'}`;
+            document.getElementById('asset-label').innerText = ativoAtual + " (" + tfAtual + ")";
+        }
+
+        function executarSinalFree() {
+            document.getElementById('free-start-box').classList.add('hidden');
+            document.getElementById('free-loading-box').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('free-loading-box').classList.add('hidden');
+                document.getElementById('free-result-box').classList.remove('hidden');
+                document.getElementById('free-dir-text').innerText = Math.random() > 0.5 ? 'BUY' : 'SELL';
+                iniciarTimerFree();
+            }, 3000);
+        }
+
+        function iniciarTimerFree() {
+            let t = 30 * 60;
+            const c = document.getElementById('free-timer-clock');
+            const i = setInterval(() => {
+                let m = Math.floor(t/60); let s = t%60;
+                c.innerText = `${m}:${s < 10 ? '0'+s : s}`;
+                if(t-- <= 0) { clearInterval(i); location.reload(); }
+            }, 1000);
+        }
+
         const tg = window.Telegram.WebApp;
         tg.expand();
-
         if(tg.initDataUnsafe?.user) {
             const uID = tg.initDataUnsafe.user.id.toString();
             document.getElementById('user-id-home').innerText = uID;
-            
+            document.getElementById('user-name-display').innerText = tg.initDataUnsafe.user.first_name || "Membro";
             if(vips.includes(uID)) {
                 document.getElementById('lock-screen').classList.add('hidden');
-                document.getElementById('analyse-content').classList.remove('hidden');
-                document.getElementById('vip-badge').innerText = "ONLINE (VIP)";
-                document.getElementById('vip-badge').className = "text-green-500 font-black";
+                document.getElementById('vip-badge').innerText = "ATIVADO";
+                document.getElementById('vip-badge').className = "text-[8px] bg-green-600/20 text-green-500 border border-green-500/30 px-2 py-1 rounded font-black uppercase";
             } else {
                 document.getElementById('lock-screen').classList.remove('hidden');
                 document.getElementById('analyse-content').classList.add('hidden');
+                document.getElementById('nav-analyse').innerHTML = '<i class="fas fa-lock text-gray-700"></i><span>Analyse</span>';
             }
         }
     </script>
