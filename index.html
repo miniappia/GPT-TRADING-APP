@@ -197,11 +197,33 @@
     </nav>
 
     <script>
-        const FLAGS = { "EUR":"🇪🇺", "USD":"🇺🇸", "GBP":"🇬🇧", "JPY":"🇯🇵", "AUD":"🇦🇺", "CAD":"🇨🇦", "CHF":"🇨🇭", "NZD":"🇳🇿", "BTC":"🪙", "ETH":"🪙", "SOL":"🪙", "BNB":"🪙", "XRP":"🪙", "ADA":"🪙", "DOGE":"🪙", "DOT":"🪙" };
+        const FLAGS = { 
+            // Moedas Fiat (Forex)
+            "EUR":"🇪🇺", "USD":"🇺🇸", "GBP":"🇬🇧", "JPY":"🇯🇵", 
+            "AUD":"🇦🇺", "CAD":"🇨🇦", "CHF":"🇨🇭", "NZD":"🇳🇿", 
+            // Criptomoedas (Símbolos)
+            "BTC":"🪙", "ETH":"🪙", "SOL":"🪙", "BNB":"🪙", 
+            "XRP":"🪙", "ADA":"🪙", "DOGE":"🪙", "DOT":"🪙",
+            "AVAX":"🪙", "LINK":"🪙", "LTC":"🪙" 
+        };
+
         const MERCADOS = {
-            'GLOBAL FOREX': ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CAD", "USD/CHF", "NZD/USD", "EUR/GBP", "EUR/JPY", "GBP/JPY", "EUR/CHF", "AUD/CAD"],
-            'FOREX OTC': ["EUR/USD OTC", "GBP/USD OTC", "USD/JPY OTC", "AUD/USD OTC", "USD/CAD OTC", "USD/CHF OTC", "NZD/USD OTC", "EUR/GBP OTC", "EUR/JPY OTC", "GBP/JPY OTC", "EUR/CHF OTC", "AUD/CAD OTC"],
-            'CRYPTO OTC': ["Bitcoin OTC", "Ethereum OTC", "Solana OTC", "Binance Coin OTC", "Cardano OTC", "Dogecoin OTC", "Polkadot OTC", "Litecoin OTC"]
+            'GLOBAL FOREX': [
+                "EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CAD", 
+                "USD/CHF", "NZD/USD", "EUR/GBP", "EUR/JPY", "GBP/JPY", 
+                "EUR/CHF", "AUD/CAD", "AUD/JPY", "CAD/JPY", "GBP/AUD", 
+                "GBP/CHF", "EUR/AUD", "NZD/JPY"
+            ],
+            'FOREX OTC': [
+                "EUR/USD OTC", "GBP/USD OTC", "USD/JPY OTC", "AUD/USD OTC", "USD/CAD OTC", 
+                "USD/CHF OTC", "NZD/USD OTC", "EUR/GBP OTC", "EUR/JPY OTC", "GBP/JPY OTC", 
+                "EUR/CHF OTC", "AUD/CAD OTC", "AUD/JPY OTC", "CAD/JPY OTC", "GBP/AUD OTC"
+            ],
+            'CRYPTO OTC': [
+                "Bitcoin OTC", "Ethereum OTC", "Solana OTC", "Binance Coin OTC", 
+                "Cardano OTC", "Dogecoin OTC", "Polkadot OTC", "Litecoin OTC",
+                "XRP OTC", "Avalanche OTC", "Chainlink OTC"
+            ]
         };
         
         const vips = ["5052278069"]; 
@@ -217,10 +239,29 @@
 
         function getFlags(par) {
             if (!par) return "🌐";
-            if (par.toLowerCase().includes('bitcoin')) return "🪙";
-            if (par.toLowerCase().includes('ethereum')) return "🪙";
+            const p = par.toLowerCase();
+
+            // Verificação para Criptomoedas
+            if (p.includes('bitcoin') || p.includes('btc')) return "🪙";
+            if (p.includes('ethereum') || p.includes('eth')) return "🪙";
+            if (p.includes('solana') || p.includes('sol')) return "🪙";
+            if (p.includes('binance') || p.includes('bnb')) return "🪙";
+            if (p.includes('cardano') || p.includes('ada')) return "🪙";
+            if (p.includes('dogecoin') || p.includes('doge')) return "🪙";
+            if (p.includes('polkadot') || p.includes('dot')) return "🪙";
+            if (p.includes('litecoin') || p.includes('ltc')) return "🪙";
+            if (p.includes('xrp')) return "🪙";
+            if (p.includes('avalanche') || p.includes('avax')) return "🪙";
+            if (p.includes('chainlink') || p.includes('link')) return "🪙";
+
+            // Verificação para Forex
             const moedas = par.split(' ')[0].split('/');
-            return moedas.length === 2 ? (FLAGS[moedas[0]] || "🌐") + (FLAGS[moedas[1]] || "🌐") : "🌐";
+            if (moedas.length === 2) {
+                const flag1 = FLAGS[moedas[0].toUpperCase()] || "🌐";
+                const flag2 = FLAGS[moedas[1].toUpperCase()] || "🌐";
+                return flag1 + flag2;
+            }
+            return "🌐";
         }
 
         function mostrarAtivos(tipo) {
