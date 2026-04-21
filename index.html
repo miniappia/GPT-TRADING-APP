@@ -262,7 +262,7 @@
             
             if (!isUserVip && ultima && (agora - ultima < 30 * 60 * 1000)) {
                 const restante = Math.ceil((30 * 60 * 1000 - (agora - ultima)) / 1000);
-                alert(`⚠️ SISTEMA EM ARREFECIMENTO\n\nAguarde ${Math.floor(restante/60)}min para nova análise grátis.\n\nPara ACESSO ILIMITADO:\n1. Vá ao menu HOME\n2. Siga as instruções de inscrição na corretora\n3. Envie o seu ID ao suporte.`);
+                alert(`⚠️ ACESSO LIMITADO ⚠️\n\nAguarde ${Math.floor(restante/60)}min para nova análise.\n\nPara ACESSO ILIMITADO:\n1. Vá ao menu HOME\n2. Siga as instruções de inscrição\n3. Envie o seu ID ao suporte.`);
                 return;
             }
 
@@ -349,7 +349,7 @@
                 const div = document.createElement('div');
                 div.className = "text-[9px] font-mono text-gray-400 border-l-2 " + (isWin ? "border-blue-600" : "border-red-600") + " pl-3 py-1 flex justify-between animate-fade-in";
                 div.innerHTML = `<span>[${time}] ${p} - ${tf}</span> ` + 
-                    (isWin ? `<span class="text-green-500 font-bold">SUCCESS ✅</span>` : `<span class="text-red-500 font-bold">LOSS ❌</span>`);
+                    (isWin ? `<span class="text-green-500 font-bold">WIN ✅</span>` : `<span class="text-red-500 font-bold">LOSS ❌</span>`);
                 logs.prepend(div);
                 if(logs.children.length > 10) logs.lastChild.remove();
             }
