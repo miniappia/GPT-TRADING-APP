@@ -132,53 +132,7 @@
         </div>
 
         <div id="tab-free" class="tab-pane hidden">
-            <div class="glass-card flex flex-col items-center justify-center p-6 relative overflow-hidden min-h-[400px]">
-                <div id="free-start-box" class="text-center">
-                    <i class="fas fa-bolt text-4xl text-blue-500 animate-pulse mb-4"></i>
-                    <h2 class="orbitron text-white font-black mb-2 uppercase tracking-tighter">TESTAR</h2>
-                    <p class="text-[10px] text-gray-500 uppercase mb-8 tracking-widest italic">1 Sinal a cada 30 min</p>
-                    <button onclick="executarSinalFree()" class="bg-white text-black px-10 py-4 rounded-xl orbitron font-black text-[11px] uppercase">Analisar Agora</button>
-                </div>
-
-                <div id="free-loading-box" class="hidden text-center w-full">
-                    <div class="scan-container mx-auto mb-6"><div class="scan-bar"></div></div>
-                    <div class="space-y-2">
-                        <p class="orbitron text-[9px] text-blue-500 animate-pulse uppercase tracking-[0.3em]">Bypassing Firewalls...</p>
-                        <p class="orbitron text-[9px] text-gray-600 uppercase tracking-[0.2em]">Capturing Liquidity Pools</p>
-                    </div>
-                </div>
-
-                <div id="free-result-box" class="hidden w-full text-center scale-up">
-                    <div class="inline-block px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 mb-6">
-                        <p id="free-asset-label" class="orbitron text-lg font-black text-blue-400 tracking-widest uppercase"></p>
-                    </div>
-                    <div class="flex flex-col items-center justify-center">
-                        <i id="free-seta-cima" class="fas fa-chevron-double-up arrow-glow mb-2 text-white/5"></i>
-                        <h2 id="free-direcao-texto" class="signal-text orbitron font-black uppercase">--</h2>
-                        <i id="free-seta-baixo" class="fas fa-chevron-double-down arrow-glow mt-2 text-white/5"></i>
-                    </div>
-                    <div id="free-win-label" class="hidden">
-                        <h2 class="neon-buy text-6xl orbitron font-black animate-bounce mt-4 italic">WIN</h2>
-                    </div>
-                    <div class="bg-black/40 p-4 mt-8 border border-white/5 rounded-xl w-full">
-                        <p class="text-[8px] text-gray-500 uppercase font-bold tracking-widest mb-3">ÚLTIMAS 6 ANÁLISES FREE</p>
-                        <div class="flex justify-center gap-2">
-                            <span class="w-8 h-8 flex items-center justify-center bg-green-500/10 text-green-500 rounded-lg border border-green-500/20 text-[10px]">✅</span>
-                            <span class="w-8 h-8 flex items-center justify-center bg-green-500/10 text-green-500 rounded-lg border border-green-500/20 text-[10px]">✅</span>
-                            <span class="w-8 h-8 flex items-center justify-center bg-green-500/10 text-green-500 rounded-lg border border-green-500/20 text-[10px]">✅</span>
-                            <span class="w-8 h-8 flex items-center justify-center bg-red-500/10 text-red-500 rounded-lg border border-red-500/20 text-[10px]">❌</span>
-                            <span class="w-8 h-8 flex items-center justify-center bg-green-500/10 text-green-500 rounded-lg border border-green-500/20 text-[10px]">✅</span>
-                            <span class="w-8 h-8 flex items-center justify-center bg-green-500/10 text-green-500 rounded-lg border border-green-500/20 text-[10px]">✅</span>
-                        </div>
-                    </div>
-                    <div id="free-timer-msg" class="hidden glass-card p-4 border border-white/5 mt-6 w-full">
-                        <p class="text-[9px] text-gray-500 mb-1 uppercase font-bold tracking-widest">PRÓXIMA ANÁLISE GRÁTIS EM:</p>
-                        <span id="free-timer-clock" class="orbitron text-blue-500 font-black text-2xl">30:00</span>
-                    </div>
-                    <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="block w-full bg-blue-600 text-white py-5 rounded-2xl orbitron font-black text-sm shadow-[0_0_30px_rgba(37,99,235,0.4)] uppercase mt-8">Libertar Sinais VIP</a>
-                </div>
             </div>
-        </div>
 
         <div id="tab-support" class="tab-pane hidden">
             <div class="glass-card p-8 text-center">
@@ -192,7 +146,7 @@
     <nav class="fixed bottom-0 left-0 right-0 bg-[#0d1117]/95 backdrop-blur-md border-t border-white/10 flex justify-around py-4 px-2 z-50">
         <button onclick="switchTab('home')" class="nav-item active" id="nav-home"><i class="fas fa-home"></i><span>Home</span></button>
         <button onclick="switchTab('analyse')" class="nav-item" id="nav-analyse"><i class="fas fa-chart-line"></i><span>Analyse</span></button>
-        <button onclick="switchTab('free')" class="nav-item" id="nav-free"><i class="fas fa-bolt"></i><span>Free</span></button>
+        <button onclick="switchTab('free')" class="nav-item" id="nav-free"><i class="fas fa-bolt"></i><span>Stats</span></button>
         <button onclick="switchTab('support')" class="nav-item" id="nav-support"><i class="fas fa-headset"></i><span>Support</span></button>
     </nav>
 
@@ -262,7 +216,7 @@
             
             if (!isUserVip && ultima && (agora - ultima < 30 * 60 * 1000)) {
                 const restante = Math.ceil((30 * 60 * 1000 - (agora - ultima)) / 1000);
-                alert(`⚠️ ACESSO LIMITADO ⚠️\n\nAguarde ${Math.floor(restante/60)}min para nova análise.\n\nPara ACESSO ILIMITADO:\n1. Vá ao menu HOME\n2. Siga as instruções de inscrição\n3. Envie o seu ID ao suporte.`);
+                alert(`⚠️ ACESSO LIMITADO ⚠️\n\nAguarde ${Math.floor(restante/60)}min para nova análise.\n\nPara ACESSO ILIMITADO e sinais em tempo real:\n1. Vá ao menu HOME\n2. Siga os 2 passos de inscrição\n3. Envie o seu ID ao suporte.`);
                 return;
             }
 
@@ -340,8 +294,10 @@
                 }
                 sinaisHoje++;
                 
-                document.getElementById('live-wr').innerText = globalWinRate.toFixed(1) + '%';
-                document.getElementById('live-sinais').innerText = sinaisHoje;
+                const wrEl = document.getElementById('live-wr');
+                const snEl = document.getElementById('live-sinais');
+                if(wrEl) wrEl.innerText = globalWinRate.toFixed(1) + '%';
+                if(snEl) snEl.innerText = sinaisHoje;
 
                 const p = pares[Math.floor(Math.random()*pares.length)];
                 const tf = tfs[Math.floor(Math.random()*tfs.length)];
@@ -350,8 +306,11 @@
                 div.className = "text-[9px] font-mono text-gray-400 border-l-2 " + (isWin ? "border-blue-600" : "border-red-600") + " pl-3 py-1 flex justify-between animate-fade-in";
                 div.innerHTML = `<span>[${time}] ${p} - ${tf}</span> ` + 
                     (isWin ? `<span class="text-green-500 font-bold">WIN ✅</span>` : `<span class="text-red-500 font-bold">LOSS ❌</span>`);
-                logs.prepend(div);
-                if(logs.children.length > 10) logs.lastChild.remove();
+                
+                if(logs) {
+                    logs.prepend(div);
+                    if(logs.children.length > 10) logs.lastChild.remove();
+                }
             }
             
             for(let i=0; i<8; i++) addLog();
