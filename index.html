@@ -79,14 +79,18 @@
                             <button onclick="mostrarAtivos('CRYPTO OTC')" class="market-btn"><span>CRYPTO OTC</span><i class="fas fa-coins text-blue-500"></i></button>
                         </div>
                         <div id="lista-ativos" class="hidden grid grid-cols-2 gap-2 custom-scroll max-h-[250px] pr-2"></div>
-                        <div id="menu-timeframes" class="hidden grid grid-cols-3 gap-3">
-                            <button onclick="prepararAnalise('S15')" class="tf-btn-sec">S15</button>
-                            <button onclick="prepararAnalise('S30')" class="tf-btn-sec">S30</button>
-                            <button onclick="prepararAnalise('M1')" class="tf-btn shadow-lg shadow-blue-600/40">M1</button>
-                            <button onclick="prepararAnalise('M2')" class="tf-btn-sec">M2</button>
-                            <button onclick="prepararAnalise('M5')" class="tf-btn-sec">M5</button>
-                            <button onclick="prepararAnalise('H1')" class="tf-btn-sec">H1</button>
-                        </div>
+                        <div id="menu-timeframes" class="hidden grid grid-cols-4 gap-2">
+    <button onclick="prepararAnalise('S5')" class="tf-btn-sec py-2 text-[10px]">S5</button>
+    <button onclick="prepararAnalise('S15')" class="tf-btn-sec py-2 text-[10px]">S15</button>
+    <button onclick="prepararAnalise('S30')" class="tf-btn-sec py-2 text-[10px]">S30</button>
+    <button onclick="prepararAnalise('M1')" class="tf-btn py-2 text-[10px] shadow-lg shadow-blue-600/40">M1</button>
+    <button onclick="prepararAnalise('M2')" class="tf-btn-sec py-2 text-[10px]">M2</button>
+    <button onclick="prepararAnalise('M3')" class="tf-btn-sec py-2 text-[10px]">M3</button>
+    <button onclick="prepararAnalise('M5')" class="tf-btn-sec py-2 text-[10px]">M5</button>
+    <button onclick="prepararAnalise('M15')" class="tf-btn-sec py-2 text-[10px]">M15</button>
+    <button onclick="prepararAnalise('M30')" class="tf-btn-sec py-2 text-[10px]">M30</button>
+    <button onclick="prepararAnalise('H1')" class="tf-btn-sec py-2 text-[10px]">H1</button>
+</div>
                         <button id="btn-voltar" onclick="voltarAoMenu()" class="hidden w-full mt-4 text-[9px] text-gray-500 font-bold uppercase tracking-widest"><i class="fas fa-arrow-left mr-2"></i> Reset System</button>
                     </div>
                 </div>
