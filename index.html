@@ -62,14 +62,7 @@
         </div>
 
         <div id="tab-analyse" class="tab-pane hidden">
-            <div id="lock-screen" class="glass-card p-8 text-center hidden">
-                <i class="fas fa-lock text-3xl text-red-500 mb-6 animate-pulse"></i>
-                <h3 class="orbitron text-white mb-2 font-black italic">ACESSO RESTRITO</h3>
-                <p class="text-[10px] text-gray-500 mb-8 uppercase tracking-widest">Ativa a licença VIP para libertar o radar.</p>
-                <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="block bg-blue-600 text-white p-4 rounded-xl font-black orbitron uppercase">ATIVAR AGORA</a>
-            </div>
-
-            <div id="analyse-content" class="hidden">
+            <div id="analyse-content">
                 <div class="glass-card p-5 mb-4">
                     <div id="setup-view">
                         <p class="text-gray-500 text-[10px] font-bold tracking-[0.2em] mb-4 text-center uppercase">Initial Calibration</p>
@@ -102,7 +95,7 @@
                     </div>
                     <div id="loader-ia" class="hidden w-full flex flex-col items-center">
                         <div class="scan-container mb-6"><div class="scan-grid"></div><div class="scan-bar"></div></div>
-                        <div class="w-full space-y-1">
+                        <div class="w-full space-y-1 text-center">
                             <div id="capa-1" class="layer-box">>> DECRYPTING ORDER BLOCKS</div>
                             <div id="capa-2" class="layer-box">>> CALCULATING VOLUME DELTA</div>
                             <div id="capa-3" class="layer-box">>> TRACKING INSTITUTIONAL FLOW</div>
@@ -139,7 +132,7 @@
             <div class="glass-card p-4">
                 <div class="flex justify-between items-center mb-6">
                     <div>
-                        <h3 class="orbitron text-white text-xs font-black italic">LIVE SENTINEL FEED</h3>
+                        <h3 class="orbitron text-white text-xs font-black italic uppercase">Live Sentinel Feed</h3>
                         <p class="text-[8px] text-blue-500 font-bold tracking-widest uppercase">Global Network Activity</p>
                     </div>
                     <div class="text-right">
@@ -155,7 +148,7 @@
                     </div>
                     <div class="bg-black/40 p-3 rounded-lg border border-white/5">
                         <p class="text-[8px] text-gray-500 font-bold uppercase mb-1">Server Status</p>
-                        <p class="orbitron text-green-500 font-black text-sm">OPTIMIZED</p>
+                        <p class="orbitron text-green-500 font-black text-sm text-[10px]">OPTIMIZED</p>
                     </div>
                 </div>
                 <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="block w-full bg-blue-600 text-white text-center py-4 rounded-xl orbitron font-black text-[10px] uppercase shadow-lg shadow-blue-600/20">Aceder Terminal VIP</a>
@@ -165,8 +158,8 @@
         <div id="tab-support" class="tab-pane hidden">
             <div class="glass-card p-8 text-center">
                 <div class="w-20 h-20 bg-blue-600/10 rounded-full flex items-center justify-center mx-auto mb-6"><i class="fas fa-headset text-3xl text-blue-500"></i></div>
-                <h3 class="orbitron text-white mb-2 font-black">Suporte</h3>
-                <a href="https://t.me/Tgomes0" class="block bg-white text-black p-4 rounded-2xl font-black text-[11px] orbitron uppercase shadow-xl">Contactar Especialista</a>
+                <h3 class="orbitron text-white mb-2 font-black uppercase">Suporte</h3>
+                <a href="https://t.me/Tgomes0" target="_blank" class="block bg-white text-black p-4 rounded-2xl font-black text-[11px] orbitron uppercase shadow-xl">Contactar Especialista</a>
             </div>
         </div>
     </main>
@@ -174,4 +167,148 @@
     <nav class="fixed bottom-0 left-0 right-0 bg-[#0d1117]/95 backdrop-blur-md border-t border-white/10 flex justify-around py-4 px-2 z-50">
         <button onclick="switchTab('home')" class="nav-item active" id="nav-home"><i class="fas fa-home"></i><span>Home</span></button>
         <button onclick="switchTab('analyse')" class="nav-item" id="nav-analyse"><i class="fas fa-chart-line"></i><span>Analyse</span></button>
-        <button onclick="switchTab('free')" class="nav-item" id="nav-free"><i class="fas fa-bolt
+        <button onclick="switchTab('free')" class="nav-item" id="nav-free"><i class="fas fa-bolt"></i><span>Stats</span></button>
+        <button onclick="switchTab('support')" class="nav-item" id="nav-support"><i class="fas fa-headset"></i><span>Support</span></button>
+    </nav>
+
+    <script>
+        const FLAGS = { "EUR":"🇪🇺", "USD":"🇺🇸", "GBP":"🇬🇧", "JPY":"🇯🇵", "AUD":"🇦🇺", "CAD":"🇨🇦", "CHF":"🇨🇭", "NZD":"🇳🇿", "BTC":"🪙", "ETH":"🪙", "SOL":"🪙", "BNB":"🪙", "XRP":"🪙", "ADA":"🪙", "DOGE":"🪙", "DOT":"🪙", "AVAX":"🪙", "LINK":"🪙", "LTC":"🪙" };
+        const MERCADOS = {
+            'GLOBAL FOREX': ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CAD", "USD/CHF", "NZD/USD", "EUR/GBP", "EUR/JPY", "GBP/JPY", "EUR/CHF", "AUD/CAD", "AUD/JPY", "CAD/JPY", "GBP/AUD", "GBP/CHF", "EUR/AUD", "NZD/JPY"],
+            'FOREX OTC': ["EUR/USD OTC", "GBP/USD OTC", "USD/JPY OTC", "AUD/USD OTC", "USD/CAD OTC", "USD/CHF OTC", "NZD/USD OTC", "EUR/GBP OTC", "EUR/JPY OTC", "GBP/JPY OTC", "EUR/CHF OTC", "AUD/CAD OTC", "AUD/JPY OTC", "CAD/JPY OTC", "GBP/AUD OTC"],
+            'CRYPTO OTC': ["Bitcoin OTC", "Ethereum OTC", "Solana OTC", "Binance Coin OTC", "Cardano OTC", "Dogecoin OTC", "Polkadot OTC", "Litecoin OTC", "XRP OTC", "Avalanche OTC", "Chainlink OTC"]
+        };
+        
+        const vips = ["5052278069"]; 
+        let ativoAtual = ""; let tfAtual = ""; let isUserVip = false;
+        let globalWinRate = 93.4; let sinaisHoje = Math.floor(Math.random() * 50 + 430);
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.add('hidden'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            document.getElementById('nav-' + tabId).classList.add('active');
+            if(tabId === 'free') atualizarLiveFeed();
+        }
+
+        function getFlags(par) {
+            if (!par) return "🌐";
+            const p = par.toLowerCase();
+            if (p.includes('bitcoin') || p.includes('btc') || p.includes('eth') || p.includes('sol')) return "🪙";
+            const moedas = par.split(' ')[0].split('/');
+            if (moedas.length === 2) return (FLAGS[moedas[0].toUpperCase()] || "🌐") + (FLAGS[moedas[1].toUpperCase()] || "🌐");
+            return "🌐";
+        }
+
+        function mostrarAtivos(tipo) {
+            document.getElementById('menu-mercados').classList.add('hidden');
+            const list = document.getElementById('lista-ativos');
+            list.classList.remove('hidden');
+            document.getElementById('btn-voltar').classList.remove('hidden');
+            list.innerHTML = '';
+            MERCADOS[tipo].forEach(ativo => {
+                const btn = document.createElement('button');
+                btn.className = "asset-btn";
+                btn.innerHTML = `<span>${getFlags(ativo)}</span> <span>${ativo}</span>`;
+                btn.onclick = () => { ativoAtual = ativo; list.classList.add('hidden'); document.getElementById('menu-timeframes').classList.remove('hidden'); };
+                list.appendChild(btn);
+            });
+        }
+
+        function voltarAoMenu() {
+            document.getElementById('menu-mercados').classList.remove('hidden');
+            document.getElementById('lista-ativos').classList.add('hidden');
+            document.getElementById('menu-timeframes').classList.add('hidden');
+            document.getElementById('btn-voltar').classList.add('hidden');
+            document.getElementById('resultado-sinal').classList.add('hidden');
+            document.getElementById('placeholder-ia').classList.remove('hidden');
+        }
+
+        function prepararAnalise(tf) {
+            const agora = Date.now();
+            const ultima = localStorage.getItem('lastSignalTime');
+            if (!isUserVip && ultima && (agora - ultima < 30 * 60 * 1000)) {
+                const restante = Math.ceil((30 * 60 * 1000 - (agora - ultima)) / 1000);
+                alert(`⚠️ ACESSO LIMITADO ⚠️\n\nAguarde ${Math.floor(restante/60)}min para nova análise.\n\nPara ACESSO ILIMITADO e sinais em tempo real:\n1. Vá ao menu HOME\n2. Siga os 2 passos de inscrição\n3. Envie o seu ID ao suporte.`);
+                return;
+            }
+            tfAtual = tf;
+            document.getElementById('menu-timeframes').classList.add('hidden');
+            document.getElementById('placeholder-ia').classList.add('hidden');
+            document.getElementById('loader-ia').classList.remove('hidden');
+            for(let i=1; i<=5; i++) document.getElementById(`capa-${i}`).className = "layer-box";
+            setTimeout(() => { document.getElementById('capa-1').classList.add('layer-active'); }, 500);
+            setTimeout(() => { document.getElementById('capa-1').classList.add('layer-done'); document.getElementById('capa-2').classList.add('layer-active'); }, 1200);
+            setTimeout(() => { document.getElementById('capa-2').classList.add('layer-done'); document.getElementById('capa-3').classList.add('layer-active'); }, 2000);
+            setTimeout(() => { document.getElementById('capa-3').classList.add('layer-done'); document.getElementById('capa-4').classList.add('layer-active'); }, 2800);
+            setTimeout(() => { document.getElementById('capa-4').classList.add('layer-done'); document.getElementById('capa-5').classList.add('layer-active'); }, 3500);
+            setTimeout(() => { finalizarAnalise(); }, 4200);
+        }
+
+        function finalizarAnalise() {
+            const direcao = Math.random() > 0.5 ? 'BUY' : 'SELL';
+            if (!isUserVip) localStorage.setItem('lastSignalTime', Date.now());
+            document.getElementById('loader-ia').classList.add('hidden');
+            document.getElementById('resultado-sinal').classList.remove('hidden');
+            const txt = document.getElementById('direcao-texto');
+            txt.innerText = direcao;
+            document.getElementById('asset-label').innerText = getFlags(ativoAtual) + " " + ativoAtual;
+            document.getElementById('confianca-valor').innerText = (Math.random() * (4.7) + 94.2).toFixed(1) + '%';
+            document.getElementById('tf-valor').innerText = tfAtual;
+            const sc = document.getElementById('seta-cima'); const sb = document.getElementById('seta-baixo');
+            if(direcao === 'BUY') {
+                txt.className = "signal-text orbitron font-black neon-buy";
+                sc.className = "fas fa-chevron-double-up arrow-glow neon-buy animate-bounce";
+                sb.className = "fas fa-chevron-double-up arrow-glow text-white/5";
+            } else {
+                txt.className = "signal-text orbitron font-black neon-sell";
+                sc.className = "fas fa-chevron-double-down arrow-glow text-white/5";
+                sb.className = "fas fa-chevron-double-down arrow-glow neon-sell animate-bounce";
+            }
+        }
+
+        function atualizarLiveFeed() {
+            const logs = document.getElementById('feed-logs');
+            if(!logs) return;
+            const pares = ["EUR/USD", "GBP/JPY", "BTC/USD", "AUD/JPY OTC", "GOLD", "ETH/USD", "EUR/GBP OTC", "USD/CAD"];
+            const tfs = ["S5", "S15", "S30", "M1", "M2", "M5", "M15", "M30", "H1"];
+            function addLog() {
+                const isWin = Math.random() < 0.92; 
+                globalWinRate = isWin ? Math.min(94.8, globalWinRate + 0.1) : Math.max(91.2, globalWinRate - 0.3);
+                sinaisHoje++;
+                document.getElementById('live-wr').innerText = globalWinRate.toFixed(1) + '%';
+                document.getElementById('live-sinais').innerText = sinaisHoje;
+                const p = pares[Math.floor(Math.random()*pares.length)];
+                const tf = tfs[Math.floor(Math.random()*tfs.length)];
+                const time = new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+                const div = document.createElement('div');
+                div.className = "text-[9px] font-mono text-gray-400 border-l-2 " + (isWin ? "border-blue-600" : "border-red-600") + " pl-3 py-1 flex justify-between";
+                div.innerHTML = `<span>[${time}] ${p} - ${tf}</span> ` + (isWin ? `<span class="text-green-500 font-bold">WIN ✅</span>` : `<span class="text-red-500 font-bold">LOSS ❌</span>`);
+                logs.prepend(div);
+                if(logs.children.length > 8) logs.lastChild.remove();
+            }
+            logs.innerHTML = '';
+            for(let i=0; i<6; i++) addLog();
+            if(window.feedInterval) clearInterval(window.feedInterval);
+            window.feedInterval = setInterval(addLog, 5000);
+        }
+
+        window.addEventListener('load', () => {
+            const tg = window.Telegram.WebApp;
+            tg.expand();
+            const user = tg.initDataUnsafe?.user;
+            if(user) {
+                const idStr = user.id.toString();
+                document.getElementById('user-id-home').innerText = idStr;
+                document.getElementById('user-name-display').innerText = user.first_name || "Operador Sentinel";
+                if(vips.includes(idStr)) {
+                    isUserVip = true;
+                    const badge = document.getElementById('vip-badge');
+                    badge.innerText = "ACESSO VIP";
+                    badge.className = "text-[8px] bg-green-600/20 text-green-500 border border-green-500/30 px-2 py-1 rounded font-black uppercase";
+                }
+            }
+        });
+    </script>
+</body>
+</html>
