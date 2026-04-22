@@ -168,7 +168,7 @@
                     <i id="guia-icon" class="fas fa-chevron-down"></i>
                 </button>
 
-                <div id="guia-conteudo" class="hidden space-y-3 mb-6 animate-fade-in">
+                <div id="guia-conteudo" class="hidden space-y-3 mb-6">
                     <div class="bg-black/40 p-4 rounded-xl border border-white/5 text-[11px] leading-relaxed">
                         <div class="space-y-4">
                             <div class="flex gap-3">
@@ -195,7 +195,7 @@
                                 <span class="text-blue-500 font-black">06.</span>
                                 <p>Após o sinal (BUY ou SELL), entre na corretora com o valor desejado e siga a direção indicada.</p>
                             </div>
-                            <div class="bg-blue-600/20 p-2 rounded text-center text-blue-400 font-bold text-[9px]">
+                            <div class="bg-blue-600/20 p-2 rounded text-center text-blue-400 font-bold text-[9px] uppercase">
                                 AGUARDE O FECHO DA VELA E RECOLHA O LUCRO!
                             </div>
                         </div>
@@ -230,111 +230,4 @@
         function switchTab(tabId) {
             document.querySelectorAll('.tab-pane').forEach(p => p.classList.add('hidden'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
-            document.getElementById('nav-' + tabId).classList.add('active');
-            if(tabId === 'free') atualizarLiveFeed();
-        }
-
-        function toggleGuia() {
-            const content = document.getElementById('guia-conteudo');
-            const icon = document.getElementById('guia-icon');
-            content.classList.toggle('hidden');
-            icon.classList.toggle('fa-chevron-down');
-            icon.classList.toggle('fa-chevron-up');
-        }
-
-        function getFlags(par) {
-            if (!par) return "🌐";
-            const p = par.toLowerCase();
-            if (p.includes('bitcoin') || p.includes('btc') || p.includes('eth') || p.includes('sol')) return "🪙";
-            const moedas = par.split(' ')[0].split('/');
-            if (moedas.length === 2) return (FLAGS[moedas[0].toUpperCase()] || "🌐") + (FLAGS[moedas[1].toUpperCase()] || "🌐");
-            return "🌐";
-        }
-
-        function mostrarAtivos(tipo) {
-            document.getElementById('menu-mercados').classList.add('hidden');
-            const list = document.getElementById('lista-ativos');
-            list.classList.remove('hidden');
-            document.getElementById('btn-voltar').classList.remove('hidden');
-            list.innerHTML = '';
-            MERCADOS[tipo].forEach(ativo => {
-                const btn = document.createElement('button');
-                btn.className = "asset-btn";
-                btn.innerHTML = `<span>${getFlags(ativo)}</span> <span>${ativo}</span>`;
-                btn.onclick = () => { ativoAtual = ativo; list.classList.add('hidden'); document.getElementById('menu-timeframes').classList.remove('hidden'); };
-                list.appendChild(btn);
-            });
-        }
-
-        function voltarAoMenu() {
-            document.getElementById('menu-mercados').classList.remove('hidden');
-            document.getElementById('lista-ativos').classList.add('hidden');
-            document.getElementById('menu-timeframes').classList.add('hidden');
-            document.getElementById('btn-voltar').classList.add('hidden');
-            document.getElementById('resultado-sinal').classList.add('hidden');
-            document.getElementById('placeholder-ia').classList.remove('hidden');
-        }
-
-        function prepararAnalise(tf) {
-            const agora = Date.now();
-            const ultima = localStorage.getItem('lastSignalTime');
-            if (!isUserVip && ultima && (agora - ultima < 30 * 60 * 1000)) {
-                const restante = Math.ceil((30 * 60 * 1000 - (agora - ultima)) / 1000);
-                alert(`⚠️ ACESSO LIMITADO ⚠️\n\nAguarde ${Math.floor(restante/60)}min para nova análise.\n\nPara ACESSO ILIMITADO e sinais em tempo real:\n1. Vá ao menu HOME\n2. Siga os 2 passos de inscrição\n3. Envie o seu ID ao suporte.`);
-                return;
-            }
-            tfAtual = tf;
-            document.getElementById('menu-timeframes').classList.add('hidden');
-            document.getElementById('placeholder-ia').classList.add('hidden');
-            document.getElementById('loader-ia').classList.remove('hidden');
-            for(let i=1; i<=5; i++) document.getElementById(`capa-${i}`).className = "layer-box";
-            setTimeout(() => { document.getElementById('capa-1').classList.add('layer-active'); }, 500);
-            setTimeout(() => { document.getElementById('capa-1').classList.add('layer-done'); document.getElementById('capa-2').classList.add('layer-active'); }, 1200);
-            setTimeout(() => { document.getElementById('capa-2').classList.add('layer-done'); document.getElementById('capa-3').classList.add('layer-active'); }, 2000);
-            setTimeout(() => { document.getElementById('capa-3').classList.add('layer-done'); document.getElementById('capa-4').classList.add('layer-active'); }, 2800);
-            setTimeout(() => { document.getElementById('capa-4').classList.add('layer-done'); document.getElementById('capa-5').classList.add('layer-active'); }, 3500);
-            setTimeout(() => { finalizarAnalise(); }, 4200);
-        }
-
-        function finalizarAnalise() {
-            const direcao = Math.random() > 0.5 ? 'BUY' : 'SELL';
-            if (!isUserVip) localStorage.setItem('lastSignalTime', Date.now());
-            document.getElementById('loader-ia').classList.add('hidden');
-            document.getElementById('resultado-sinal').classList.remove('hidden');
-            const txt = document.getElementById('direcao-texto');
-            txt.innerText = direcao;
-            document.getElementById('asset-label').innerText = getFlags(ativoAtual) + " " + ativoAtual;
-            document.getElementById('confianca-valor').innerText = (Math.random() * (4.7) + 94.2).toFixed(1) + '%';
-            document.getElementById('tf-valor').innerText = tfAtual;
-            const sc = document.getElementById('seta-cima'); const sb = document.getElementById('seta-baixo');
-            if(direcao === 'BUY') {
-                txt.className = "signal-text orbitron font-black neon-buy";
-                sc.className = "fas fa-chevron-double-up arrow-glow neon-buy animate-bounce";
-                sb.className = "fas fa-chevron-double-up arrow-glow text-white/5";
-            } else {
-                txt.className = "signal-text orbitron font-black neon-sell";
-                sc.className = "fas fa-chevron-double-down arrow-glow text-white/5";
-                sb.className = "fas fa-chevron-double-down arrow-glow neon-sell animate-bounce";
-            }
-        }
-
-        function atualizarLiveFeed() {
-            const logs = document.getElementById('feed-logs');
-            if(!logs) return;
-            const pares = ["EUR/USD", "GBP/JPY", "BTC/USD", "AUD/JPY OTC", "GOLD", "ETH/USD", "EUR/GBP OTC", "USD/CAD"];
-            const tfs = ["S5", "S15", "S30", "M1", "M2", "M5", "M15", "M30", "H1"];
-            function addLog() {
-                const isWin = Math.random() < 0.92; 
-                globalWinRate = isWin ? Math.min(94.8, globalWinRate + 0.1) : Math.max(91.2, globalWinRate - 0.3);
-                sinaisHoje++;
-                const wrEl = document.getElementById('live-wr');
-                const snEl = document.getElementById('live-sinais');
-                if(wrEl) wrEl.innerText = globalWinRate.toFixed(1) + '%';
-                if(snEl) snEl.innerText = sinaisHoje;
-                const p = pares[Math.floor(Math.random()*pares.length)];
-                const tf = tfs[Math.floor(Math.random()*tfs.length)];
-                const time = new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
-                const div = document.createElement('div');
-                div.className = "text-[9px] font-mono text-gray-400 border-l-2 " + (isWin ? "border-blue-600" : "border-red-600") + " pl-3 py-1 flex justify-between";
-                div.innerHTML = `<span>[${time}] ${p} - ${tf}</span> ` + (isWin ? `<span class="text-green-50
+            const targetTab = document.getElementById('tab-' + tabId);
