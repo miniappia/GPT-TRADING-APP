@@ -156,34 +156,34 @@
         </div>
 
         <div id="tab-support" class="tab-pane hidden">
-    <div class="glass-card p-5">
-        <div class="text-center mb-6">
-            <div class="w-16 h-16 bg-blue-600/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                <i class="fas fa-headset text-2xl text-blue-500"></i>
-            </div>
-            <h3 class="orbitron text-white text-sm font-black uppercase">Suporte</h3>
-        </div>
-
-        <button onclick="toggleGuia()" class="w-full bg-blue-600/10 border border-blue-500/30 text-blue-400 p-4 rounded-xl font-bold text-[10px] orbitron uppercase mb-4 flex justify-between items-center">
-            <span>Instruções de Uso</span>
-            <i id="guia-icon" class="fas fa-chevron-down"></i>
-        </button>
-
-        <div id="guia-conteudo" class="hidden space-y-3 mb-6">
-            <div class="bg-black/40 p-4 rounded-xl border border-white/5 text-[11px] leading-relaxed text-gray-300 text-left">
-                <div class="space-y-4">
-                    <div class="flex gap-3"><span class="text-blue-500 font-black">01.</span><p><a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="text-blue-400 underline font-bold">Clica aqui</a> e cria a tua conta oficial.</p></div>
-                    <div class="flex gap-3"><span class="text-blue-500 font-black">02.</span><p>Faz o depósito para ativar a IA.</p></div>
-                    <div class="flex gap-3"><span class="text-blue-500 font-black">03.</span><p>Envia o teu ID ao suporte.</p></div>
-                    <div class="flex gap-3"><span class="text-blue-500 font-black">04.</span><p>Escolhe o par e o tempo na corretora.</p></div>
-                    <div class="flex gap-3"><span class="text-blue-500 font-black">05.</span><p>Seleciona o mesmo par no Bot e aguarda.</p></div>
+            <div class="glass-card p-5">
+                <div class="text-center mb-6">
+                    <div class="w-16 h-16 bg-blue-600/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-headset text-2xl text-blue-500"></i>
+                    </div>
+                    <h3 class="orbitron text-white text-sm font-black uppercase">Suporte</h3>
                 </div>
+
+                <button onclick="toggleGuia()" class="w-full bg-blue-600/10 border border-blue-500/30 text-blue-400 p-4 rounded-xl font-bold text-[10px] orbitron uppercase mb-4 flex justify-between items-center">
+                    <span>Instruções de Uso</span>
+                    <i id="guia-icon" class="fas fa-chevron-down"></i>
+                </button>
+
+                <div id="guia-conteudo" class="hidden space-y-3 mb-6">
+                    <div class="bg-black/40 p-4 rounded-xl border border-white/5 text-[11px] leading-relaxed text-gray-300 text-left">
+                        <div class="space-y-4">
+                            <div class="flex gap-3"><span class="text-blue-500 font-black">01.</span><p><a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="text-blue-400 underline font-bold">Clica aqui</a> e cria a tua conta oficial.</p></div>
+                            <div class="flex gap-3"><span class="text-blue-500 font-black">02.</span><p>Faz o depósito para ativar a IA.</p></div>
+                            <div class="flex gap-3"><span class="text-blue-500 font-black">03.</span><p>Envia o teu ID ao suporte.</p></div>
+                            <div class="flex gap-3"><span class="text-blue-500 font-black">04.</span><p>Escolhe o par e o tempo na corretora.</p></div>
+                            <div class="flex gap-3"><span class="text-blue-500 font-black">05.</span><p>Seleciona o mesmo par no Bot e aguarda.</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="https://t.me/Tgomes0" target="_blank" class="block bg-white text-black p-4 rounded-2xl font-black text-[11px] orbitron uppercase shadow-xl text-center">Contactar Suporte</a>
             </div>
         </div>
-
-        <a href="https://t.me/Tgomes0" target="_blank" class="block bg-white text-black p-4 rounded-2xl font-black text-[11px] orbitron uppercase shadow-xl text-center">Contactar Suporte</a>
-    </div>
-</div>
     </main>
 
     <nav class="fixed bottom-0 left-0 right-0 bg-[#0d1117]/95 backdrop-blur-md border-t border-white/10 flex justify-around py-4 px-2 z-50">
@@ -212,12 +212,14 @@
             document.getElementById('nav-' + tabId).classList.add('active');
             if(tabId === 'free') atualizarLiveFeed();
         }
-function toggleGuia() {
-    const content = document.getElementById('guia-conteudo');
-    const icon = document.getElementById('guia-icon');
-    content.classList.toggle('hidden');
-    icon.classList.toggle('fa-chevron-down');
-    icon.classList.toggle('fa-chevron-up');
+
+        function toggleGuia() {
+            const content = document.getElementById('guia-conteudo');
+            const icon = document.getElementById('guia-icon');
+            content.classList.toggle('hidden');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        }
 
         function getFlags(par) {
             if (!par) return "🌐";
@@ -265,78 +267,4 @@ function toggleGuia() {
             document.getElementById('placeholder-ia').classList.add('hidden');
             document.getElementById('loader-ia').classList.remove('hidden');
             for(let i=1; i<=5; i++) document.getElementById(`capa-${i}`).className = "layer-box";
-            setTimeout(() => { document.getElementById('capa-1').classList.add('layer-active'); }, 500);
-            setTimeout(() => { document.getElementById('capa-1').classList.add('layer-done'); document.getElementById('capa-2').classList.add('layer-active'); }, 1200);
-            setTimeout(() => { document.getElementById('capa-2').classList.add('layer-done'); document.getElementById('capa-3').classList.add('layer-active'); }, 2000);
-            setTimeout(() => { document.getElementById('capa-3').classList.add('layer-done'); document.getElementById('capa-4').classList.add('layer-active'); }, 2800);
-            setTimeout(() => { document.getElementById('capa-4').classList.add('layer-done'); document.getElementById('capa-5').classList.add('layer-active'); }, 3500);
-            setTimeout(() => { finalizarAnalise(); }, 4200);
-        }
-
-        function finalizarAnalise() {
-            const direcao = Math.random() > 0.5 ? 'BUY' : 'SELL';
-            if (!isUserVip) localStorage.setItem('lastSignalTime', Date.now());
-            document.getElementById('loader-ia').classList.add('hidden');
-            document.getElementById('resultado-sinal').classList.remove('hidden');
-            const txt = document.getElementById('direcao-texto');
-            txt.innerText = direcao;
-            document.getElementById('asset-label').innerText = getFlags(ativoAtual) + " " + ativoAtual;
-            document.getElementById('confianca-valor').innerText = (Math.random() * (4.7) + 94.2).toFixed(1) + '%';
-            document.getElementById('tf-valor').innerText = tfAtual;
-            const sc = document.getElementById('seta-cima'); const sb = document.getElementById('seta-baixo');
-            if(direcao === 'BUY') {
-                txt.className = "signal-text orbitron font-black neon-buy";
-                sc.className = "fas fa-chevron-double-up arrow-glow neon-buy animate-bounce";
-                sb.className = "fas fa-chevron-double-up arrow-glow text-white/5";
-            } else {
-                txt.className = "signal-text orbitron font-black neon-sell";
-                sc.className = "fas fa-chevron-double-down arrow-glow text-white/5";
-                sb.className = "fas fa-chevron-double-down arrow-glow neon-sell animate-bounce";
-            }
-        }
-
-        function atualizarLiveFeed() {
-            const logs = document.getElementById('feed-logs');
-            if(!logs) return;
-            const pares = ["EUR/USD", "GBP/JPY", "BTC/USD", "AUD/JPY OTC", "GOLD", "ETH/USD", "EUR/GBP OTC", "USD/CAD"];
-            const tfs = ["S5", "S15", "S30", "M1", "M2", "M5", "M15", "M30", "H1"];
-            function addLog() {
-                const isWin = Math.random() < 0.92; 
-                globalWinRate = isWin ? Math.min(94.8, globalWinRate + 0.1) : Math.max(91.2, globalWinRate - 0.3);
-                sinaisHoje++;
-                document.getElementById('live-wr').innerText = globalWinRate.toFixed(1) + '%';
-                document.getElementById('live-sinais').innerText = sinaisHoje;
-                const p = pares[Math.floor(Math.random()*pares.length)];
-                const tf = tfs[Math.floor(Math.random()*tfs.length)];
-                const time = new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
-                const div = document.createElement('div');
-                div.className = "text-[9px] font-mono text-gray-400 border-l-2 " + (isWin ? "border-blue-600" : "border-red-600") + " pl-3 py-1 flex justify-between";
-                div.innerHTML = `<span>[${time}] ${p} - ${tf}</span> ` + (isWin ? `<span class="text-green-500 font-bold">WIN ✅</span>` : `<span class="text-red-500 font-bold">LOSS ❌</span>`);
-                logs.prepend(div);
-                if(logs.children.length > 8) logs.lastChild.remove();
-            }
-            logs.innerHTML = '';
-            for(let i=0; i<6; i++) addLog();
-            if(window.feedInterval) clearInterval(window.feedInterval);
-            window.feedInterval = setInterval(addLog, 5000);
-        }
-
-        window.addEventListener('load', () => {
-            const tg = window.Telegram.WebApp;
-            tg.expand();
-            const user = tg.initDataUnsafe?.user;
-            if(user) {
-                const idStr = user.id.toString();
-                document.getElementById('user-id-home').innerText = idStr;
-                document.getElementById('user-name-display').innerText = user.first_name || "Operador Sentinel";
-                if(vips.includes(idStr)) {
-                    isUserVip = true;
-                    const badge = document.getElementById('vip-badge');
-                    badge.innerText = "ACESSO VIP";
-                    badge.className = "text-[8px] bg-green-600/20 text-green-500 border border-green-500/30 px-2 py-1 rounded font-black uppercase";
-                }
-            }
-        });
-    </script>
-</body>
-</html>
+            setTimeout(() => { document.getElementById('capa-1').classList.add('layer-active');
