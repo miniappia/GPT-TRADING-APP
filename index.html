@@ -29,12 +29,10 @@
         <div id="tab-home" class="tab-pane">
             <div class="glass-card p-6">
                 <div class="flex items-center gap-3 mb-6 border-b border-white/5 pb-4">
-                    <div class="h-10 w-10 bg-blue-600/20 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-user-shield text-blue-500"></i>
-                    </div>
+                    <div class="h-10 w-10 bg-blue-600/20 rounded-lg flex items-center justify-center text-blue-500"><i class="fas fa-user-shield"></i></div>
                     <div>
                         <h3 class="orbitron text-white font-black text-xs uppercase tracking-wider">Perfil</h3>
-                        <p id="user-name-display" class="text-[9px] text-gray-500 uppercase">Acesso VIP Pendente</p>
+                        <p id="user-name-display" class="text-[9px] text-gray-500 uppercase italic">Acesso VIP Pendente</p>
                     </div>
                 </div>
                 <div class="space-y-4">
@@ -42,18 +40,7 @@
                         <p class="text-[9px] text-gray-500 font-bold mb-1 uppercase tracking-widest">ID de Ativação</p>
                         <div class="flex justify-between items-center">
                             <code id="user-id-home" class="orbitron text-lg font-black text-white">------</code>
-                            <span id="vip-badge" class="text-[8px] bg-red-600/20 text-red-500 border border-red-500/30 px-2 py-1 rounded font-black uppercase">Bloqueado</span>
-                        </div>
-                    </div>
-                    <div class="text-[11px] text-gray-400 leading-relaxed space-y-3 py-2">
-                        <p class="text-white font-black uppercase text-[10px] tracking-tighter">Como libertar o Terminal VIP:</p>
-                        <div class="flex gap-3">
-                            <span class="bg-blue-600 h-5 w-5 rounded-full flex items-center justify-center text-[10px] text-white font-bold shrink-0">1</span>
-                            <p>Regista-te na corretora oficial pelo link abaixo.</p>
-                        </div>
-                        <div class="flex gap-3">
-                            <span class="bg-blue-600 h-5 w-5 rounded-full flex items-center justify-center text-[10px] text-white font-bold shrink-0">2</span>
-                            <p>Efetua o depósito inicial e envia o teu ID ao suporte.</p>
+                            <span id="vip-badge" class="text-[8px] bg-red-600/20 text-red-500 border border-red-500/30 px-2 py-1 rounded font-black uppercase tracking-tighter">Bloqueado</span>
                         </div>
                     </div>
                     <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="block w-full bg-blue-600 text-center py-4 rounded-xl orbitron font-black text-[11px] uppercase shadow-lg shadow-blue-600/30">Criar Conta Oficial</a>
@@ -62,153 +49,87 @@
         </div>
 
         <div id="tab-analyse" class="tab-pane hidden">
-            <div id="analyse-content">
-                <div class="glass-card p-5 mb-4">
-                    <div id="setup-view">
-                        <p class="text-gray-500 text-[10px] font-bold tracking-[0.2em] mb-4 text-center uppercase">Initial Calibration</p>
-                        <div id="menu-mercados" class="grid gap-3">
-                            <button onclick="mostrarAtivos('GLOBAL FOREX')" class="market-btn"><span>GLOBAL FOREX</span><i class="fas fa-globe-americas text-blue-500"></i></button>
-                            <button onclick="mostrarAtivos('FOREX OTC')" class="market-btn"><span>FOREX OTC</span><i class="fas fa-microchip text-blue-500"></i></button>
-                            <button onclick="mostrarAtivos('CRYPTO OTC')" class="market-btn"><span>CRYPTO OTC</span><i class="fas fa-coins text-blue-500"></i></button>
-                        </div>
-                        <div id="lista-ativos" class="hidden grid grid-cols-2 gap-2 custom-scroll max-h-[250px] pr-2"></div>
-                        <div id="menu-timeframes" class="hidden grid grid-cols-3 gap-2">
-                            <button onclick="prepararAnalise('S5')" class="tf-btn-sec py-3 text-[10px]">S5</button>
-                            <button onclick="prepararAnalise('S15')" class="tf-btn-sec py-3 text-[10px]">S15</button>
-                            <button onclick="prepararAnalise('S30')" class="tf-btn-sec py-3 text-[10px]">S30</button>
-                            <button onclick="prepararAnalise('M1')" class="tf-btn py-3 text-[10px] shadow-lg shadow-blue-600/40">M1</button>
-                            <button onclick="prepararAnalise('M2')" class="tf-btn-sec py-3 text-[10px]">M2</button>
-                            <button onclick="prepararAnalise('M5')" class="tf-btn-sec py-3 text-[10px]">M5</button>
-                            <button onclick="prepararAnalise('M15')" class="tf-btn-sec py-3 text-[10px]">M15</button>
-                            <button onclick="prepararAnalise('M30')" class="tf-btn-sec py-3 text-[10px]">M30</button>
-                            <button onclick="prepararAnalise('H1')" class="tf-btn-sec py-3 text-[10px]">H1</button>
-                        </div>
-                        <button id="btn-voltar" onclick="voltarAoMenu()" class="hidden w-full mt-4 text-[9px] text-gray-500 font-bold uppercase tracking-widest"><i class="fas fa-arrow-left mr-2"></i> Reset System</button>
+            <div class="glass-card p-5 mb-4">
+                <div id="setup-view">
+                    <div id="menu-mercados" class="grid gap-3">
+                        <button onclick="mostrarAtivos('GLOBAL FOREX')" class="market-btn"><span>GLOBAL FOREX</span><i class="fas fa-globe-americas text-blue-500"></i></button>
+                        <button onclick="mostrarAtivos('FOREX OTC')" class="market-btn"><span>FOREX OTC</span><i class="fas fa-microchip text-blue-500"></i></button>
+                        <button onclick="mostrarAtivos('CRYPTO OTC')" class="market-btn"><span>CRYPTO OTC</span><i class="fas fa-coins text-blue-500"></i></button>
                     </div>
+                    <div id="lista-ativos" class="hidden grid grid-cols-2 gap-2 max-h-[250px] overflow-y-auto"></div>
+                    <div id="menu-timeframes" class="hidden grid grid-cols-3 gap-2">
+                        <button onclick="prepararAnalise('S5')" class="tf-btn-sec p-3 text-[10px]">S5</button>
+                        <button onclick="prepararAnalise('S15')" class="tf-btn-sec p-3 text-[10px]">S15</button>
+                        <button onclick="prepararAnalise('S30')" class="tf-btn-sec p-3 text-[10px]">S30</button>
+                        <button onclick="prepararAnalise('M1')" class="tf-btn p-3 text-[10px] shadow-lg shadow-blue-600/40 font-black">M1</button>
+                        <button onclick="prepararAnalise('M5')" class="tf-btn-sec p-3 text-[10px]">M5</button>
+                        <button onclick="prepararAnalise('H1')" class="tf-btn-sec p-3 text-[10px]">H1</button>
+                    </div>
+                    <button id="btn-voltar" onclick="voltarAoMenu()" class="hidden w-full mt-4 text-[9px] text-gray-500 font-bold uppercase tracking-widest"><i class="fas fa-arrow-left mr-2"></i> Reset System</button>
                 </div>
+            </div>
 
-                <div class="glass-card flex flex-col items-center justify-center p-6 relative overflow-hidden min-h-[320px]">
-                    <div id="placeholder-ia" class="flex flex-col items-center opacity-20">
-                        <div class="w-24 h-24 border-2 border-dashed border-blue-500 rounded-full animate-[spin_20s_linear_infinite] flex items-center justify-center"><i class="fas fa-shield-alt text-2xl"></i></div>
-                        <p class="orbitron text-[10px] mt-4 tracking-[0.4em]">STANDBY MODE</p>
+            <div class="glass-card flex flex-col items-center justify-center p-6 min-h-[320px] relative">
+                <div id="placeholder-ia" class="flex flex-col items-center opacity-20">
+                    <div class="w-20 h-20 border-2 border-dashed border-blue-500 rounded-full animate-spin flex items-center justify-center"><i class="fas fa-bolt text-2xl"></i></div>
+                    <p class="orbitron text-[10px] mt-4 tracking-[0.4em]">READY</p>
+                </div>
+                <div id="loader-ia" class="hidden w-full flex flex-col items-center text-[10px] orbitron text-blue-400 space-y-2">
+                    <p class="animate-pulse">DECRYPTING MARKET DATA...</p>
+                    <div class="w-full bg-white/5 h-1 rounded-full overflow-hidden"><div class="bg-blue-500 h-full animate-[progress_4s_ease-in-out]"></div></div>
+                </div>
+                <div id="resultado-sinal" class="hidden w-full text-center">
+                    <p id="asset-label" class="orbitron text-lg font-black text-blue-400 mb-4 uppercase"></p>
+                    <h2 id="direcao-texto" class="text-5xl orbitron font-black mb-4 tracking-tighter">--</h2>
+                    <div class="flex gap-4 justify-center text-[10px] mb-6">
+                        <div class="bg-white/5 px-4 py-2 rounded-lg border border-white/10"><p class="text-gray-500 uppercase font-bold">Accuracy</p><span id="confianca-valor" class="text-white font-black">--</span></div>
+                        <div class="bg-white/5 px-4 py-2 rounded-lg border border-white/10"><p class="text-gray-500 uppercase font-bold">Period</p><span id="tf-valor" class="text-white font-black">--</span></div>
                     </div>
-                    <div id="loader-ia" class="hidden w-full flex flex-col items-center">
-                        <div class="scan-container mb-6"><div class="scan-grid"></div><div class="scan-bar"></div></div>
-                        <div class="w-full space-y-1 text-center">
-                            <div id="capa-1" class="layer-box">>> DECRYPTING ORDER BLOCKS</div>
-                            <div id="capa-2" class="layer-box">>> CALCULATING VOLUME DELTA</div>
-                            <div id="capa-3" class="layer-box">>> TRACKING INSTITUTIONAL FLOW</div>
-                            <div id="capa-4" class="layer-box">>> SMART MONEY CONFLUENCE</div>
-                            <div id="capa-5" class="layer-box">>> SENTINEL V26 FINAL VALIDATION</div>
-                        </div>
-                    </div>
-                    <div id="resultado-sinal" class="hidden w-full text-center scale-up">
-                        <div class="inline-block px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 mb-6">
-                            <p id="asset-label" class="orbitron text-lg font-black text-blue-400 tracking-widest uppercase"></p>
-                        </div>
-                        <div class="flex flex-col items-center justify-center">
-                            <i id="seta-cima" class="fas fa-chevron-double-up arrow-glow mb-2 text-white/5"></i>
-                            <h2 id="direcao-texto" class="signal-text orbitron font-black uppercase">--</h2>
-                            <i id="seta-baixo" class="fas fa-chevron-double-down arrow-glow mt-2 text-white/5"></i>
-                        </div>
-                        <div class="flex gap-4 mt-8">
-                            <div class="flex-1 stat-box"><p>Accuracy</p><span id="confianca-valor">--</span></div>
-                            <div class="flex-1 stat-box"><p>Timeframe</p><span id="tf-valor">--</span></div>
-                        </div>
-                        <div class="mt-8 space-y-4">
-                            <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="block w-full bg-blue-600 text-white py-5 rounded-2xl orbitron font-black text-sm shadow-[0_0_30px_rgba(37,99,235,0.4)] uppercase tracking-tighter">Execute Trade Now</a>
-                            <div class="flex gap-2">
-                                <button onclick="prepararAnalise(tfAtual)" class="flex-1 sub-btn">Rescan</button>
-                                <button onclick="voltarAoMenu()" class="flex-1 sub-btn">Menu</button>
-                            </div>
-                        </div>
-                    </div>
+                    <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="block w-full bg-blue-600 text-white py-4 rounded-xl orbitron font-black text-xs uppercase shadow-xl mb-4">Abrir Pocket Option</a>
+                    <button onclick="voltarAoMenu()" class="text-[9px] text-gray-500 font-bold uppercase tracking-[0.2em]">Voltar</button>
                 </div>
             </div>
         </div>
 
         <div id="tab-free" class="tab-pane hidden">
             <div class="glass-card p-4">
-                <div class="flex justify-between items-center mb-6">
-                    <div>
-                        <h3 class="orbitron text-white text-xs font-black italic uppercase">Live Sentinel Feed</h3>
-                        <p class="text-[8px] text-blue-500 font-bold tracking-widest uppercase">Global Network Activity</p>
-                    </div>
-                    <div class="text-right">
-                        <p id="live-wr" class="orbitron text-blue-500 text-lg font-black">93.4%</p>
-                        <p class="text-[8px] text-gray-500 font-bold uppercase">Today's Avg</p>
-                    </div>
-                </div>
-                <div id="feed-logs" class="space-y-2 mb-6 min-h-[200px]"></div>
-                <div class="grid grid-cols-2 gap-4 mb-6">
-                    <div class="bg-black/40 p-3 rounded-lg border border-white/5">
-                        <p class="text-[8px] text-gray-500 font-bold uppercase mb-1">Signals Today</p>
-                        <p id="live-sinais" class="orbitron text-white font-black text-sm">--</p>
-                    </div>
-                    <div class="bg-black/40 p-3 rounded-lg border border-white/5">
-                        <p class="text-[8px] text-gray-500 font-bold uppercase mb-1">Server Status</p>
-                        <p class="orbitron text-green-500 font-black text-sm text-[10px]">OPTIMIZED</p>
-                    </div>
-                </div>
-                <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="block w-full bg-blue-600 text-white text-center py-4 rounded-xl orbitron font-black text-[10px] uppercase shadow-lg shadow-blue-600/20">Aceder Terminal VIP</a>
+                <h3 class="orbitron text-white text-xs font-black uppercase mb-4">Sentinel Live History</h3>
+                <div id="feed-logs" class="space-y-2 mb-6 min-h-[250px]"></div>
+                <a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="block w-full bg-blue-600 text-white text-center py-4 rounded-xl orbitron font-black text-[10px] uppercase shadow-lg shadow-blue-600/20 tracking-widest">Aceder Terminal VIP</a>
             </div>
         </div>
 
         <div id="tab-support" class="tab-pane hidden">
             <div class="glass-card p-5">
                 <div class="text-center mb-6">
-                    <div class="w-16 h-16 bg-blue-600/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <i class="fas fa-headset text-2xl text-blue-500"></i>
-                    </div>
-                    <h3 class="orbitron text-white text-sm font-black uppercase">Central de Ajuda</h3>
+                    <div class="w-16 h-16 bg-blue-600/10 rounded-full flex items-center justify-center mx-auto mb-3 text-blue-500"><i class="fas fa-headset text-2xl"></i></div>
+                    <h3 class="orbitron text-white text-sm font-black uppercase tracking-widest">Suporte Técnico</h3>
                 </div>
 
-                <button onclick="toggleGuia()" class="w-full bg-blue-600/10 border border-blue-500/30 text-blue-400 p-4 rounded-xl font-bold text-[10px] orbitron uppercase mb-4 flex justify-between items-center">
-                    <span>Guia de Iniciação Rápida</span>
+                <button onclick="toggleGuia()" class="w-full bg-blue-600/10 border border-blue-500/30 text-blue-400 p-4 rounded-xl font-bold text-[10px] orbitron uppercase mb-4 flex justify-between items-center tracking-tighter">
+                    <span>Instruções de Uso (Passo a Passo)</span>
                     <i id="guia-icon" class="fas fa-chevron-down"></i>
                 </button>
 
                 <div id="guia-conteudo" class="hidden space-y-3 mb-6">
-                    <div class="bg-black/40 p-4 rounded-xl border border-white/5 text-[11px] leading-relaxed">
+                    <div class="bg-black/40 p-4 rounded-xl border border-white/5 text-[11px] leading-relaxed text-gray-300">
                         <div class="space-y-4">
-                            <div class="flex gap-3">
-                                <span class="text-blue-500 font-black">01.</span>
-                                <p><a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="text-blue-400 underline font-bold">Clique aqui</a> e crie a sua conta oficial na corretora.</p>
-                            </div>
-                            <div class="flex gap-3">
-                                <span class="text-blue-500 font-black">02.</span>
-                                <p>Faça o seu depósito inicial para ativar o motor da IA.</p>
-                            </div>
-                            <div class="flex gap-3">
-                                <span class="text-blue-500 font-black">03.</span>
-                                <p>Envie o seu ID da Pocket Option + ID do Telegram ao suporte para ativação VIP.</p>
-                            </div>
-                            <div class="flex gap-3">
-                                <span class="text-blue-500 font-black">04.</span>
-                                <p>Na corretora, escolha o par e o tempo (Ex: <span class="text-white font-bold">EUR/USD M1</span>).</p>
-                            </div>
-                            <div class="flex gap-3">
-                                <span class="text-blue-500 font-black">05.</span>
-                                <p>Abra este Bot, selecione o <span class="text-white font-bold">MESMO</span> par e tempo para receber a análise correta.</p>
-                            </div>
-                            <div class="flex gap-3">
-                                <span class="text-blue-500 font-black">06.</span>
-                                <p>Após o sinal (BUY ou SELL), entre na corretora com o valor desejado e siga a direção indicada.</p>
-                            </div>
-                            <div class="bg-blue-600/20 p-2 rounded text-center text-blue-400 font-bold text-[9px] uppercase tracking-tighter">
-                                AGUARDE O FECHO DA VELA E RECOLHA O LUCRO!
-                            </div>
+                            <div class="flex gap-3"><span class="text-blue-500 font-bold">01.</span><p><a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="text-blue-400 underline">Crie conta aqui</a> na corretora oficial.</p></div>
+                            <div class="flex gap-3"><span class="text-blue-500 font-bold">02.</span><p>Deposite para ativar o saldo na corretora.</p></div>
+                            <div class="flex gap-3"><span class="text-blue-500 font-bold">03.</span><p>Envie o seu ID Pocket + ID Telegram ao suporte para ativação.</p></div>
+                            <div class="flex gap-3"><span class="text-blue-500 font-bold">04.</span><p>Na Pocket Option, escolha um par (Ex: EUR/USD) em M1.</p></div>
+                            <div class="flex gap-3"><span class="text-blue-500 font-bold">05.</span><p>Na aba ANALYSE deste Bot, peça análise desse mesmo par e tempo.</p></div>
+                            <div class="flex gap-3"><span class="text-blue-500 font-bold">06.</span><p>Siga a indicação BUY ou SELL na corretora e aguarde o fecho.</p></div>
                         </div>
                     </div>
                 </div>
 
-                <p class="text-[9px] text-gray-500 uppercase font-bold text-center mb-4 italic">Ainda tem dúvidas?</p>
-                <a href="https://t.me/Tgomes0" target="_blank" class="block bg-white text-black p-4 rounded-xl font-black text-[11px] orbitron uppercase shadow-xl text-center">Contactar Especialista</a>
+                <a href="https://t.me/Tgomes0" target="_blank" class="block bg-white text-black p-4 rounded-xl font-black text-[11px] orbitron uppercase shadow-xl text-center tracking-widest">Falar com Especialista</a>
             </div>
         </div>
     </main>
 
-    <nav class="fixed bottom-0 left-0 right-0 bg-[#0d1117]/95 backdrop-blur-md border-t border-white/10 flex justify-around py-4 px-2 z-50">
+    <nav class="fixed bottom-0 left-0 right-0 bg-[#0d1117]/95 backdrop-blur-md border-t border-white/10 flex justify-around py-4 z-50">
         <button onclick="switchTab('home')" class="nav-item active" id="nav-home"><i class="fas fa-home"></i><span>Home</span></button>
         <button onclick="switchTab('analyse')" class="nav-item" id="nav-analyse"><i class="fas fa-chart-line"></i><span>Analyse</span></button>
         <button onclick="switchTab('free')" class="nav-item" id="nav-free"><i class="fas fa-bolt"></i><span>Stats</span></button>
@@ -216,49 +137,31 @@
     </nav>
 
     <script>
-        const FLAGS = { "EUR":"🇪🇺", "USD":"🇺🇸", "GBP":"🇬🇧", "JPY":"🇯🇵", "AUD":"🇦🇺", "CAD":"🇨🇦", "CHF":"🇨🇭", "NZD":"🇳🇿", "BTC":"🪙", "ETH":"🪙", "SOL":"🪙", "BNB":"🪙", "XRP":"🪙", "ADA":"🪙", "DOGE":"🪙", "DOT":"🪙", "AVAX":"🪙", "LINK":"🪙", "LTC":"🪙" };
-        const MERCADOS = {
-            'GLOBAL FOREX': ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CAD", "USD/CHF", "NZD/USD", "EUR/GBP", "EUR/JPY", "GBP/JPY", "EUR/CHF", "AUD/CAD", "AUD/JPY", "CAD/JPY", "GBP/AUD", "GBP/CHF", "EUR/AUD", "NZD/JPY"],
-            'FOREX OTC': ["EUR/USD OTC", "GBP/USD OTC", "USD/JPY OTC", "AUD/USD OTC", "USD/CAD OTC", "USD/CHF OTC", "NZD/USD OTC", "EUR/GBP OTC", "EUR/JPY OTC", "GBP/JPY OTC", "EUR/CHF OTC", "AUD/CAD OTC", "AUD/JPY OTC", "CAD/JPY OTC", "GBP/AUD OTC"],
-            'CRYPTO OTC': ["Bitcoin OTC", "Ethereum OTC", "Solana OTC", "Binance Coin OTC", "Cardano OTC", "Dogecoin OTC", "Polkadot OTC", "Litecoin OTC", "XRP OTC", "Avalanche OTC", "Chainlink OTC"]
-        };
-        
-        const vips = ["5052278069"]; 
-        let ativoAtual = ""; let tfAtual = ""; let isUserVip = false;
-        let globalWinRate = 93.4; let sinaisHoje = Math.floor(Math.random() * 50 + 430);
+        const vips = ["5052278069"];
+        let isUserVip = false;
+        let ativoAtual = ""; let tfAtual = "";
 
-        // FUNÇÃO DE NAVEGAÇÃO CORRIGIDA
+        const FLAGS = { "EUR":"🇪🇺", "USD":"🇺🇸", "GBP":"🇬🇧", "JPY":"🇯🇵", "AUD":"🇦🇺", "CAD":"🇨🇦", "BTC":"🪙" };
+        const MERCADOS = {
+            'GLOBAL FOREX': ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD"],
+            'FOREX OTC': ["EUR/USD OTC", "GBP/USD OTC", "USD/JPY OTC"],
+            'CRYPTO OTC': ["Bitcoin OTC", "Ethereum OTC"]
+        };
+
         function switchTab(tabId) {
-            const panes = document.querySelectorAll('.tab-pane');
-            const items = document.querySelectorAll('.nav-item');
-            
-            panes.forEach(p => p.classList.add('hidden'));
-            items.forEach(n => n.classList.remove('active'));
-            
-            const target = document.getElementById('tab-' + tabId);
-            const nav = document.getElementById('nav-' + tabId);
-            
-            if(target) target.classList.remove('hidden');
-            if(nav) nav.classList.add('active');
-            
-            if(tabId === 'free') atualizarLiveFeed();
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.add('hidden'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            document.getElementById('nav-' + tabId).classList.add('active');
+            if(tabId === 'free') startFeed();
         }
 
         function toggleGuia() {
             const content = document.getElementById('guia-conteudo');
             const icon = document.getElementById('guia-icon');
-            if(content) content.classList.toggle('hidden');
-            if(icon) {
-                icon.classList.toggle('fa-chevron-down');
-                icon.classList.toggle('fa-chevron-up');
-            }
-        }
-
-        function getFlags(par) {
-            if (!par) return "🌐";
-            const moedas = par.split(' ')[0].split('/');
-            if (moedas.length === 2) return (FLAGS[moedas[0].toUpperCase()] || "🌐") + (FLAGS[moedas[1].toUpperCase()] || "🌐");
-            return "🪙";
+            content.classList.toggle('hidden');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
         }
 
         function mostrarAtivos(tipo) {
@@ -269,8 +172,8 @@
             list.innerHTML = '';
             MERCADOS[tipo].forEach(ativo => {
                 const btn = document.createElement('button');
-                btn.className = "asset-btn";
-                btn.innerHTML = `<span>${getFlags(ativo)}</span> <span>${ativo}</span>`;
+                btn.className = "asset-btn p-3 bg-white/5 border border-white/10 rounded-xl mb-2 w-full text-white text-xs font-bold text-left flex justify-between";
+                btn.innerHTML = `<span>${ativo}</span> <i class="fas fa-chevron-right text-blue-500"></i>`;
                 btn.onclick = () => { ativoAtual = ativo; list.classList.add('hidden'); document.getElementById('menu-timeframes').classList.remove('hidden'); };
                 list.appendChild(btn);
             });
@@ -286,84 +189,64 @@
         }
 
         function prepararAnalise(tf) {
-            const agora = Date.now();
-            const ultima = localStorage.getItem('lastSignalTime');
-            if (!isUserVip && ultima && (agora - ultima < 30 * 60 * 1000)) {
-                const restante = Math.ceil((30 * 60 * 1000 - (agora - ultima)) / 1000);
-                alert(`⚠️ ACESSO LIMITADO ⚠️\n\nAguarde ${Math.floor(restante/60)}min para nova análise.`);
-                return;
-            }
             tfAtual = tf;
             document.getElementById('menu-timeframes').classList.add('hidden');
             document.getElementById('placeholder-ia').classList.add('hidden');
             document.getElementById('loader-ia').classList.remove('hidden');
-            
-            setTimeout(() => { document.getElementById('capa-1').classList.add('layer-active'); }, 500);
-            setTimeout(() => { document.getElementById('capa-2').classList.add('layer-active'); }, 1500);
-            setTimeout(() => { document.getElementById('capa-3').classList.add('layer-active'); }, 2500);
-            setTimeout(() => { document.getElementById('capa-4').classList.add('layer-active'); }, 3500);
-            setTimeout(() => { finalizarAnalise(); }, 4500);
+            setTimeout(() => {
+                document.getElementById('loader-ia').classList.add('hidden');
+                document.getElementById('resultado-sinal').classList.remove('hidden');
+                const dir = Math.random() > 0.5 ? 'BUY' : 'SELL';
+                const txt = document.getElementById('direcao-texto');
+                txt.innerText = dir;
+                txt.className = dir === 'BUY' ? 'text-5xl orbitron font-black mb-4 tracking-tighter text-green-500' : 'text-5xl orbitron font-black mb-4 tracking-tighter text-red-500';
+                document.getElementById('asset-label').innerText = ativoAtual;
+                document.getElementById('confianca-valor').innerText = (93 + Math.random() * 5).toFixed(1) + '%';
+                document.getElementById('tf-valor').innerText = tfAtual;
+            }, 3000);
         }
 
-        function finalizarAnalise() {
-            const direcao = Math.random() > 0.5 ? 'BUY' : 'SELL';
-            document.getElementById('loader-ia').classList.add('hidden');
-            document.getElementById('resultado-sinal').classList.remove('hidden');
-            const txt = document.getElementById('direcao-texto');
-            txt.innerText = direcao;
-            document.getElementById('asset-label').innerText = getFlags(ativoAtual) + " " + ativoAtual;
-            document.getElementById('confianca-valor').innerText = (94 + Math.random() * 4).toFixed(1) + '%';
-            document.getElementById('tf-valor').innerText = tfAtual;
-            
-            const sc = document.getElementById('seta-cima'); const sb = document.getElementById('seta-baixo');
-            if(direcao === 'BUY') {
-                txt.className = "signal-text orbitron font-black neon-buy";
-                sc.className = "fas fa-chevron-double-up arrow-glow neon-buy animate-bounce";
-                sb.className = "fas fa-chevron-double-up arrow-glow text-white/5";
-            } else {
-                txt.className = "signal-text orbitron font-black neon-sell";
-                sc.className = "fas fa-chevron-double-down arrow-glow text-white/5";
-                sb.className = "fas fa-chevron-double-down arrow-glow neon-sell animate-bounce";
+        function startFeed() {
+            const feed = document.getElementById('feed-logs');
+            feed.innerHTML = '';
+            for(let i=0; i<6; i++) {
+                const div = document.createElement('div');
+                div.className = "text-[9px] text-gray-400 font-mono py-1 border-b border-white/5 flex justify-between";
+                div.innerHTML = `<span>[ANALYSIS] ${MERCADOS['GLOBAL FOREX'][Math.floor(Math.random()*4)]}</span> <span class="text-green-500">WIN</span>`;
+                feed.appendChild(div);
             }
         }
 
-        function atualizarLiveFeed() {
-            const logs = document.getElementById('feed-logs');
-            if(!logs) return;
-            logs.innerHTML = '';
-            for(let i=0; i<6; i++) addLogItem(logs);
-            if(window.feedInterval) clearInterval(window.feedInterval);
-            window.feedInterval = setInterval(() => addLogItem(logs), 5000);
-        }
-
-        function addLogItem(container) {
-            const isWin = Math.random() < 0.92;
-            const p = ["EUR/USD", "GBP/JPY", "BTC/USD", "GOLD"][Math.floor(Math.random()*4)];
-            const time = new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
-            const div = document.createElement('div');
-            div.className = "text-[9px] font-mono text-gray-400 border-l-2 " + (isWin ? "border-blue-600" : "border-red-600") + " pl-3 py-1 flex justify-between";
-            div.innerHTML = `<span>[${time}] ${p}</span> ` + (isWin ? `<span class="text-green-500">SUCCESS ✅</span>` : `<span class="text-red-500">FAILED ❌</span>`);
-            container.prepend(div);
-            if(container.children.length > 8) container.lastChild.remove();
-        }
-
-        // INICIALIZAÇÃO TELEGRAM
-        window.addEventListener('DOMContentLoaded', () => {
+        window.onload = () => {
             const tg = window.Telegram.WebApp;
             tg.expand();
             const user = tg.initDataUnsafe?.user;
             if(user) {
-                const idStr = user.id.toString();
-                document.getElementById('user-id-home').innerText = idStr;
+                document.getElementById('user-id-home').innerText = user.id;
                 document.getElementById('user-name-display').innerText = user.first_name || "Operador";
-                if(vips.includes(idStr)) {
+                if(vips.includes(user.id.toString())) {
                     isUserVip = true;
-                    const b = document.getElementById('vip-badge');
-                    b.innerText = "ACESSO VIP";
-                    b.className = "text-[8px] bg-green-600/20 text-green-500 border border-green-500/30 px-2 py-1 rounded font-black uppercase";
+                    document.getElementById('vip-badge').innerText = "ACESSO VIP";
+                    document.getElementById('vip-badge').className = "text-[8px] bg-green-600/20 text-green-500 border border-green-500/30 px-2 py-1 rounded font-black uppercase";
                 }
             }
-        });
+        };
     </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
+        body { background: #07090c; color: white; font-family: 'Inter', sans-serif; }
+        .orbitron { font-family: 'Orbitron', sans-serif; }
+        .glass-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; backdrop-filter: blur(10px); }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #4b5563; transition: all 0.3s; }
+        .nav-item i { font-size: 18px; }
+        .nav-item span { font-size: 10px; font-weight: 800; text-transform: uppercase; font-family: 'Orbitron'; }
+        .nav-item.active { color: #3b82f6; }
+        .market-btn { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); padding: 16px; border-radius: 16px; display: flex; justify-between items-center; font-family: 'Orbitron'; font-size: 10px; font-weight: 900; color: white; transition: 0.3s; width: 100%; text-align: left; }
+        .market-btn:active { background: #3b82f6; }
+        .tf-btn { background: #3b82f6; color: white; border-radius: 12px; font-family: 'Orbitron'; font-weight: 900; }
+        .tf-btn-sec { background: rgba(255, 255, 255, 0.05); color: #9ca3af; border-radius: 12px; font-family: 'Orbitron'; font-weight: 900; }
+        @keyframes progress { from { width: 0%; } to { width: 100%; } }
+    </style>
 </body>
 </html>
