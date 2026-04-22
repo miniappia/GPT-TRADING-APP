@@ -156,12 +156,34 @@
         </div>
 
         <div id="tab-support" class="tab-pane hidden">
-            <div class="glass-card p-8 text-center">
-                <div class="w-20 h-20 bg-blue-600/10 rounded-full flex items-center justify-center mx-auto mb-6"><i class="fas fa-headset text-3xl text-blue-500"></i></div>
-                <h3 class="orbitron text-white mb-2 font-black uppercase">Suporte</h3>
-                <a href="https://t.me/Tgomes0" target="_blank" class="block bg-white text-black p-4 rounded-2xl font-black text-[11px] orbitron uppercase shadow-xl">Contactar Especialista</a>
+    <div class="glass-card p-5">
+        <div class="text-center mb-6">
+            <div class="w-16 h-16 bg-blue-600/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-headset text-2xl text-blue-500"></i>
+            </div>
+            <h3 class="orbitron text-white text-sm font-black uppercase">Suporte</h3>
+        </div>
+
+        <button onclick="toggleGuia()" class="w-full bg-blue-600/10 border border-blue-500/30 text-blue-400 p-4 rounded-xl font-bold text-[10px] orbitron uppercase mb-4 flex justify-between items-center">
+            <span>Instruções de Uso</span>
+            <i id="guia-icon" class="fas fa-chevron-down"></i>
+        </button>
+
+        <div id="guia-conteudo" class="hidden space-y-3 mb-6">
+            <div class="bg-black/40 p-4 rounded-xl border border-white/5 text-[11px] leading-relaxed text-gray-300 text-left">
+                <div class="space-y-4">
+                    <div class="flex gap-3"><span class="text-blue-500 font-black">01.</span><p><a href="https://u3.shortink.io/smart/AgAXDU8MKYdH9a" target="_blank" class="text-blue-400 underline font-bold">Clica aqui</a> e cria a tua conta oficial.</p></div>
+                    <div class="flex gap-3"><span class="text-blue-500 font-black">02.</span><p>Faz o depósito para ativar a IA.</p></div>
+                    <div class="flex gap-3"><span class="text-blue-500 font-black">03.</span><p>Envia o teu ID ao suporte.</p></div>
+                    <div class="flex gap-3"><span class="text-blue-500 font-black">04.</span><p>Escolhe o par e o tempo na corretora.</p></div>
+                    <div class="flex gap-3"><span class="text-blue-500 font-black">05.</span><p>Seleciona o mesmo par no Bot e aguarda.</p></div>
+                </div>
             </div>
         </div>
+
+        <a href="https://t.me/Tgomes0" target="_blank" class="block bg-white text-black p-4 rounded-2xl font-black text-[11px] orbitron uppercase shadow-xl text-center">Contactar Suporte</a>
+    </div>
+</div>
     </main>
 
     <nav class="fixed bottom-0 left-0 right-0 bg-[#0d1117]/95 backdrop-blur-md border-t border-white/10 flex justify-around py-4 px-2 z-50">
@@ -190,6 +212,12 @@
             document.getElementById('nav-' + tabId).classList.add('active');
             if(tabId === 'free') atualizarLiveFeed();
         }
+function toggleGuia() {
+    const content = document.getElementById('guia-conteudo');
+    const icon = document.getElementById('guia-icon');
+    content.classList.toggle('hidden');
+    icon.classList.toggle('fa-chevron-down');
+    icon.classList.toggle('fa-chevron-up');
 
         function getFlags(par) {
             if (!par) return "🌐";
